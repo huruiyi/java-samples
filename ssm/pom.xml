@@ -13,7 +13,7 @@
 		<jdbc.driver.version>8.0.28</jdbc.driver.version>
 		<mybatis.version>3.5.10</mybatis.version>
 		<mybatis-spring.version>2.0.7</mybatis-spring.version>
-		<spring.version>5.3.22</spring.version>
+		<spring.version>5.3.27</spring.version>
 		<maven.test.skip>true</maven.test.skip>
 
 		<java.version>1.8</java.version>
