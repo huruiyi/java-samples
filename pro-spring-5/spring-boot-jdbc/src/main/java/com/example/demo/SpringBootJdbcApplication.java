@@ -6,13 +6,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.io.IOException;
+
 @SpringBootApplication
 public class SpringBootJdbcApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(SpringBootJdbcApplication.class);
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         ConfigurableApplicationContext ctx = SpringApplication.run(SpringBootJdbcApplication.class, args);
         assert (ctx != null);
@@ -28,6 +30,7 @@ public class SpringBootJdbcApplication {
         logger.info("first name:" + firstName);
         System.out.println("*************************************************************");
 
+        System.in.read();
         ctx.close();
     }
 

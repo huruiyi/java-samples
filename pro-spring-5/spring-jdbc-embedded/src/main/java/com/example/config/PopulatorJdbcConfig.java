@@ -20,9 +20,6 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import javax.sql.DataSource;
 import java.sql.Driver;
 
-/**
- * Created by iuliana.cosmina on 4/15/17.
- */
 @Configuration
 @PropertySource("classpath:db/jdbc.properties")
 public class PopulatorJdbcConfig {
@@ -43,7 +40,6 @@ public class PopulatorJdbcConfig {
     }
 
     @Bean
-    @SuppressWarnings("unchecked")
     public DataSource dataSource() {
         try {
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource();

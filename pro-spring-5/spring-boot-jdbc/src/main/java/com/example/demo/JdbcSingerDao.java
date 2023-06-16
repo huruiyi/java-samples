@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,6 +28,8 @@ public class JdbcSingerDao implements SingerDao, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-
+        if (jdbcTemplate == null) {
+            throw new BeanCreationException("Null JdbcTemplate on SingerDao");
+        }
     }
 }
