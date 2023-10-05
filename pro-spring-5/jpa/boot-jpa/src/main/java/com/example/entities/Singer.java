@@ -11,21 +11,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "singer")
 @NamedQueries({
-        @NamedQuery(name=Singer.FIND_ALL, query="select s from Singer s"),
-        @NamedQuery(name=Singer.FIND_SINGER_BY_ID,
-                query="select distinct s from Singer s " +
-                        "left join fetch s.albums a " +
-                        "left join fetch s.instruments i " +
-                        "where s.id = :id"),
-        @NamedQuery(name=Singer.FIND_ALL_WITH_ALBUM,
-                query="select distinct s from Singer s " +
-                        "left join fetch s.albums a " +
-                        "left join fetch s.instruments i")
+        @NamedQuery(name = Singer.FIND_ALL, query = "select s from Singer s"),
+        @NamedQuery(name = Singer.FIND_SINGER_BY_ID, query = "select distinct s from Singer s  left join fetch s.albums a left join fetch s.instruments i where s.id = :id"),
+        @NamedQuery(name = Singer.FIND_ALL_WITH_ALBUM, query = "select distinct s from Singer s  left join fetch s.albums a  left join fetch s.instruments i")
 })
-@SqlResultSetMapping(
-     name="singerResult",
-     entities=@EntityResult(entityClass=Singer.class)
-)
+@SqlResultSetMapping(name = "singerResult", entities = @EntityResult(entityClass = Singer.class))
 public class Singer implements Serializable {
 
     public static final String FIND_ALL = "Singer.findAll";
@@ -51,13 +41,11 @@ public class Singer implements Serializable {
     @Column(name = "BIRTH_DATE")
     private Date birthDate;
 
-    @OneToMany(mappedBy = "singer", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Album> albums = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "singer_instrument",
-            joinColumns = @JoinColumn(name = "SINGER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "INSTRUMENT_ID"))
+    @JoinTable(name = "singer_instrument", joinColumns = @JoinColumn(name = "SINGER_ID"), inverseJoinColumns = @JoinColumn(name = "INSTRUMENT_ID"))
     private Set<Instrument> instruments = new HashSet<>();
 
     public Long getId() {
@@ -106,7 +94,7 @@ public class Singer implements Serializable {
     }
 
     public void setAlbums(Set<Album> albums) {
-     this.albums = albums;
+        this.albums = albums;
     }
 
     public boolean addAlbum(Album album) {
@@ -132,7 +120,6 @@ public class Singer implements Serializable {
 
     @Override
     public String toString() {
-        return "Singer - Id: " + id + ", First name: " + firstName
-            + ", Last name: " + lastName + ", Birthday: " + birthDate;
+        return "Singer - Id: " + id + ", First name: " + firstName + ", Last name: " + lastName + ", Birthday: " + birthDate;
     }
 }

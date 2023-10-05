@@ -3,6 +3,6 @@
 <html>
 <body>
 	<h1>这里是一个springmvc的例子</h1>
-	<a href="/springmvc/helloworld">springmvc/helloworld</a>
+	<a href="${pageContext.request.contextPath}/mvc/hello">springmvc/helloworld</a>
 </body>
 </html>
