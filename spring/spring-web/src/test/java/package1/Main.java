@@ -2,9 +2,6 @@ package package1;
 
 import java.math.BigDecimal;
 
-/**
- * Created by marten on 15-08-14.
- */
 public class Main {
 
     public static final void main(String[] args) throws Exception {
