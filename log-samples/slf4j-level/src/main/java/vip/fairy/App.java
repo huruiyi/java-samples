@@ -31,11 +31,11 @@ public class App {
             logger.warn("Number:{}", number);
         }
         for (int token = 1; token <= 10; token++) {
-            logger.debug("loop number" + token);
+            logger.debug("loop number{}",  token);
             logger.trace("Running the division application");
             try {
                 int quotient = token / number;
-                logger.trace("Quotient is" + quotient);
+                logger.trace("Quotient is {}" , quotient);
             } catch (Exception e) {
                 logger.error(fatal, "Exception in runLoop", e);
                 break;

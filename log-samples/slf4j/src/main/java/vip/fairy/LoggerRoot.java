@@ -15,9 +15,7 @@ public class LoggerRoot {
 
     public static void main(String... args) {
         MDC.put("app", "JCG");
-        IntStream.rangeClosed(1, 10).forEach(counter -> {
-            logger.info("Counter:" + counter);
-        });
+        IntStream.rangeClosed(1, 10).forEach(counter -> logger.info("Counter:{}", counter));
 
         long count = 10000; //100000000
         Instant start = Instant.now();
@@ -36,23 +34,19 @@ public class LoggerRoot {
 
 
     public static void generalLog(long count) {
-        LongStream.rangeClosed(1, count).forEach(counter -> {
-            logger.info("Counter:" + counter);
-        });
+        LongStream.rangeClosed(1, count).forEach(counter -> logger.info("Counter:{}", counter));
     }
 
     public static void conditionalLog(long count) {
         LongStream.rangeClosed(1, count).forEach(counter -> {
             if (logger.isInfoEnabled()) {
-                logger.info("Counter:" + counter);
+                logger.info("Counter:{}", counter);
             }
         });
     }
 
     public static void parameterizedLog(long count) {
-        LongStream.rangeClosed(1, count).forEach(counter -> {
-            logger.info("Counter:{}", counter);
-        });
+        LongStream.rangeClosed(1, count).forEach(counter -> logger.info("Counter:{}", counter));
     }
 }
 

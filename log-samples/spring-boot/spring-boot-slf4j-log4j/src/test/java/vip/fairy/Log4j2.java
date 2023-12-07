@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
-public class Log4j2Test {
+public class Log4j2 {
 
-    private final Logger logger = LogManager.getLogger(Log4j2Test.class);
+    private final Logger logger = LogManager.getLogger(Log4j2.class);
 
     @Test
     void test1() {
