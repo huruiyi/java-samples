@@ -84,8 +84,10 @@ public class PathUtils {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
         getFileContent(inputStream);
 
-        String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-        System.out.println(content);
+        if (inputStream != null) {
+            String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            System.out.println(content);
+        }
     }
 
     /**
