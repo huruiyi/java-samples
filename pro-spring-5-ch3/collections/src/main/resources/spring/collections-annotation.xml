@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/util
+          http://www.springframework.org/schema/util/spring-util.xsd">
+
+  <context:component-scan
+    base-package="com.example.collections.annotated"/>
+
+  <util:list id="list" list-class="java.util.ArrayList">
+    <ref bean="lyricHolder"/>
+    <value>You've been working and I've been waiting</value>
+  </util:list>
+
+  <util:map id="map" map-class="java.util.HashMap">
+    <entry key="someValue" value="It's a Friday, we finally made it"/>
+    <entry key="someBean" value-ref="lyricHolder"/>
+  </util:map>
+
+  <util:properties id="props">
+    <prop key="firstName">John</prop>
+    <prop key="secondName">Mayer</prop>
+  </util:properties>
+
+  <util:set id="set" set-class="java.util.HashSet">
+    <ref bean="lyricHolder"/>
+    <value>I can't believe I get to see your face</value>
+  </util:set>
+</beans>

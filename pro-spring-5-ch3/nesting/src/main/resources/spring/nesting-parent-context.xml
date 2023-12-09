@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:c="http://www.springframework.org/schema/c"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean class="java.lang.String" id="childTitle" c:_0="Daughters"/>
+  <bean class="java.lang.String" id="parentTitle" c:_0="Gravity"/>
+
+</beans>

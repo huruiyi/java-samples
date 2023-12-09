@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean class="com.example.bean_autowiring.xml.Foo" id="fooOne"/>
+  <bean class="com.example.bean_autowiring.xml.Bar" id="barOne"/>
+
+  <bean autowire="byName" class="com.example.bean_autowiring.test.Target" id="targetByName" lazy-init="true"/>
+
+  <bean autowire="byType" class="com.example.bean_autowiring.test.Target" id="targetByType" lazy-init="true"/>
+
+  <bean autowire="constructor" class="com.example.bean_autowiring.test.Target" id="targetConstructor" lazy-init="true"/>
+</beans>
