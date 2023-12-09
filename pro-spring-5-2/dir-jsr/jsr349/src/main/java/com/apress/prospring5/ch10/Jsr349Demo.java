@@ -21,7 +21,7 @@ public class Jsr349Demo {
 		SingerValidationService singerBeanValidationService = ctx.getBean( SingerValidationService.class);
 
 		Singer singer = new Singer();
-		singer.setFirstName("J");
+		singer.setFirstName("He");
 		singer.setLastName("Mayer");
 		singer.setGenre(null);
 		singer.setGender(null);

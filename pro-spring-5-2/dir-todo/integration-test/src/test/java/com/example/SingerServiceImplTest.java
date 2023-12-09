@@ -44,7 +44,7 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
 
     @DataSets(setUpDataSet= "/data/SingerServiceImplTest.xls")
     @Test
-    public void testFindByFirstNameAndLastNameOne() throws Exception {
+    public void testFindByFirstNameAndLastNameOne() {
         Singer result = singerService.findByFirstNameAndLastName("John", "Mayer");
         assertNotNull(result);
     }
