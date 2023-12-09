@@ -9,17 +9,16 @@ import org.springframework.core.convert.ConversionService;
 
 public class ConvFormatServDemo {
 
-	private static Logger logger = LoggerFactory.getLogger(ConvFormatServDemo.class);
+    private static Logger logger = LoggerFactory.getLogger(ConvFormatServDemo.class);
 
-	public static void main(String... args) {
-		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+    public static void main(String... args) {
+        GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 
-		Singer john = ctx.getBean("john", Singer.class);
-		logger.info("Singer info: " + john);
-		ConversionService conversionService = ctx.getBean("conversionService", ConversionService.class);
-		logger.info("Birthdate of singer is : " +
-				conversionService.convert(john.getBirthDate(), String.class));
+        Singer john = ctx.getBean("john", Singer.class);
+        logger.info("Singer info: {}" , john);
+        ConversionService conversionService = ctx.getBean("conversionService", ConversionService.class);
+        logger.info("Birthdate of singer is :{} " , conversionService.convert(john.getBirthDate(), String.class));
 
-		ctx.close();
-	}
+        ctx.close();
+    }
 }

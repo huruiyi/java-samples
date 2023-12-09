@@ -22,24 +22,24 @@ public class MultipleConvServDemo {
 
         Singer john = ctx.getBean("john", Singer.class);
 
-        logger.info("Singer info: " + john);
+        logger.info("Singer info: {}" , john);
 
         ConversionService conversionService = ctx.getBean(ConversionService.class);
 
         AnotherSinger anotherSinger = conversionService.convert(john, AnotherSinger.class);
-        logger.info("Another singer info: " + anotherSinger);
+        logger.info("Another singer info:{} " , anotherSinger);
 
         String[] stringArray = conversionService.convert("a,b,c", String[].class);
 
-        logger.info("String array: " + stringArray[0] + stringArray[1] + stringArray[2]);
+        logger.info("String array:{} " , String.join("",stringArray));
 
-        List<String> listString = new ArrayList<String>();
+        List<String> listString = new ArrayList<>();
         listString.add("a");
         listString.add("b");
         listString.add("c");
 
         Set<String> setString = conversionService.convert(listString, HashSet.class);
 
-        setString.forEach(s -> logger.info("Set: " + s));
+        setString.forEach(s -> logger.info("Set:{} " , s));
     }
 }

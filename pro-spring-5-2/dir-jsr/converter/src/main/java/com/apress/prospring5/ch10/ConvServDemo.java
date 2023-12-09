@@ -13,7 +13,7 @@ public class ConvServDemo {
         GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 
         Singer john = ctx.getBean("john", Singer.class);
-        logger.info("Singer info: " + john);
+        logger.info("Singer info: {}", john);
 
         ctx.close();
     }

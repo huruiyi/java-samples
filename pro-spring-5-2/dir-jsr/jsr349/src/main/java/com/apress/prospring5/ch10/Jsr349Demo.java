@@ -38,9 +38,9 @@ public class Jsr349Demo {
 	}
 
 	private static void listViolations(Set<ConstraintViolation<Singer>> violations) {
-		logger.info("No. of violations: " + violations.size());
+		logger.info("No. of violations:{} " , violations.size());
 		for (ConstraintViolation<Singer> violation : violations) {
-			logger.info("Validation error for property: " +
+			logger.info("Validation error for property: {}" ,
 					violation.getPropertyPath()
 					+ " with value: " + violation.getInvalidValue()
 					+ " with error message: " + violation.getMessage());

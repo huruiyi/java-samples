@@ -24,7 +24,7 @@
         </field>
     </class>
 
-    <field-handler name="dateHandler" class="vip.fairy.DateTimeFieldHandler">
+    <field-handler name="dateHandler" class="vip.fairy.handlers.DateTimeFieldHandler">
         <param name="date-format" value="yyyy-MM-dd"/>
     </field-handler>
 </mapping>

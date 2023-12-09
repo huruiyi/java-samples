@@ -33,7 +33,7 @@ public class AppConfig {
 	@Bean
 	public ConversionServiceFactoryBean conversionService() {
 		ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
-		Set<Converter> convs = new HashSet<Converter>();
+		Set<Converter> convs = new HashSet<>();
 		convs.add(converter());
 		convs.add(singerConverter());
 		conversionServiceFactoryBean.setConverters(convs);

@@ -79,3 +79,4 @@ target
 *.iml
 /spring-boot/logs
 .DS_Store
+transaction-logs

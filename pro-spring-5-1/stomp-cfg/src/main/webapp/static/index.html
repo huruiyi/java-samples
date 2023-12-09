@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Stock Ticker</title>
+    <script type="text/javascript" src="webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script type="text/javascript" src="webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+    <script type="text/javascript" src="webjars/jquery/3.7.1/jquery.slim.js"></script>
+    <script>
+        var stomp = Stomp.over(new SockJS("/ws"));
+
+        function displayStockPrice(frame) {
+            var prices = JSON.parse(frame.body);
+
+            $('#price').empty();
+
+            for (var i in prices) {
+                var price = prices[i];
+
+                $('#price').append(
+                    $('<tr>').append(
+                        $('<td>').html(price.code),
+                        $('<td>').html(price.price.toFixed(2)),
+                        $('<td>').html(price.dateFormatted)
+                    )
+                );
+            }
+        }
+
+        var connectCallback = function () {
+            stomp.subscribe('/topic/price', displayStockPrice);
+        };
+
+        var errorCallback = function (error) {
+            alert(error.headers.message);
+        };
+
+        stomp.connect("guest", "guest", connectCallback, errorCallback);
+
+        $(document).ready(function () {
+            $('.addStockButton').click(function (e) {
+                e.preventDefault();
+
+                var jsonstr = JSON.stringify({
+                    'code': $('.addStock .code').val(),
+                    'price': Number($('.addStock .price').val())
+                });
+
+                stomp.send("/app/addStock", {}, jsonstr);
+
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+<h1><b>Stock Ticker</b></h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Code</th>
+        <th>Price</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody id="price"></tbody>
+</table>
+<p class="addStock">
+    Code: <input class="code"/><br/>
+    Price: <input class="price"/><br/>
+    <button class="addStockButton">Add Stock</button>
+</p>
+</body>
+</html>

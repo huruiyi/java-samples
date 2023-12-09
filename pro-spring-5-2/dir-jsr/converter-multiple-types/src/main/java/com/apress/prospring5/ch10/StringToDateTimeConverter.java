@@ -1,12 +1,11 @@
 package com.apress.prospring5.ch10;
 
-import javax.annotation.PostConstruct;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+
+import javax.annotation.PostConstruct;
 
 public class StringToDateTimeConverter implements Converter<String, DateTime> {
     private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";

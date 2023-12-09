@@ -1,13 +1,6 @@
 package com.example.config;
 
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import org.apache.activemq.artemis.api.core.TransportConfiguration;
-import org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory;
-import org.apache.activemq.artemis.core.remoting.impl.netty.TransportConstants;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.beans.factory.BeanFactory;
@@ -18,9 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.destination.BeanFactoryDestinationResolver;
+
+import javax.jms.ConnectionFactory;
 
 @Configuration
 @EnableJms
