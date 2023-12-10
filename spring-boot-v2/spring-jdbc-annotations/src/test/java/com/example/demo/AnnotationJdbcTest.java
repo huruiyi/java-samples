@@ -5,7 +5,6 @@ import com.example.demo.config.AppConfig;
 import com.example.demo.dao.SingerDao;
 import com.example.demo.entities.Album;
 import com.example.demo.entities.Singer;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
@@ -18,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-@Ignore
 public class AnnotationJdbcTest {
 
 	private GenericApplicationContext ctx;
@@ -102,7 +100,7 @@ public class AnnotationJdbcTest {
 
 	@Test
 	public void testFindFirstNameById(){
-		String firstName = singerDao.findFirstNameById(17L);
+		String firstName = singerDao.findFirstNameById(1L);
 		assertEquals("Eric", firstName);
 		System.out.println("Retrieved value: " + firstName);
 	}

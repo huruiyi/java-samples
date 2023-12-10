@@ -2,7 +2,6 @@ package com.example.demo;
 
 
 import com.example.demo.config.DbConfig;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +18,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
-/**
- * Created by iuliana.cosmina on 4/14/17.
- */
-@Ignore  // requires a mysql database
-public class DbConfigTest {
+class DbConfigTest {
 
     private static final Logger logger = LoggerFactory.getLogger(DbConfigTest.class);
 

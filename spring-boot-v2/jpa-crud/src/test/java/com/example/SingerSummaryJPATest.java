@@ -4,9 +4,9 @@ import com.example.config.JpaConfig;
 import com.example.service.SingerSummaryService;
 import com.example.service.SingerSummaryUntypeImpl;
 import com.example.view.SingerSummary;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,12 +14,9 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-/**
- * Created by iuliana.cosmina on 4/29/17.
- */
 public class SingerSummaryJPATest {
 
 	private static final Logger logger = LoggerFactory.getLogger(SingerSummaryJPATest.class);
@@ -27,7 +24,7 @@ public class SingerSummaryJPATest {
 	private SingerSummaryService singerSummaryService;
 	private SingerSummaryUntypeImpl singerSummaryUntype;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		ctx = new AnnotationConfigApplicationContext(JpaConfig.class);
 		singerSummaryService = ctx.getBean(SingerSummaryService.class);
@@ -55,7 +52,7 @@ public class SingerSummaryJPATest {
 		}
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		ctx.close();
 	}

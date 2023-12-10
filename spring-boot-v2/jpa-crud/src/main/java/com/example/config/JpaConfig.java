@@ -18,12 +18,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by iuliana.cosmina on 4/29/17.
- */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.apress.prospring5.ch8.service"})
+@ComponentScan(basePackages = {"com.example.service"})
 public class JpaConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(JpaConfig.class);
@@ -66,7 +63,7 @@ public class JpaConfig {
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setPackagesToScan("com.apress.prospring5.ch8.entities");
+		factoryBean.setPackagesToScan("com.example.entities");
 		factoryBean.setDataSource(dataSource());
 		factoryBean.setJpaProperties(hibernateProperties());
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());

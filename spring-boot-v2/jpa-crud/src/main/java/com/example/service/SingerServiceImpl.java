@@ -15,10 +15,8 @@ import java.util.List;
 @Service("jpaSingerService")
 @Repository
 @Transactional
-@SuppressWarnings("unchecked")
 public class SingerServiceImpl implements SingerService {
-    final static String ALL_SINGER_NATIVE_QUERY =
-        "select id, first_name, last_name, birth_date, version from singer";
+    final static String ALL_SINGER_NATIVE_QUERY = "select id, first_name, last_name, birth_date, version from singer";
 
     private static final Logger logger = LoggerFactory.getLogger(SingerServiceImpl.class);
 
@@ -26,20 +24,20 @@ public class SingerServiceImpl implements SingerService {
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public List<Singer> findAll() {
         return em.createNamedQuery(Singer.FIND_ALL, Singer.class).getResultList();
     }
-    
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     @Override
     public List<Singer> findAllWithAlbum() {
         List<Singer> singers = em.createNamedQuery(Singer.FIND_ALL_WITH_ALBUM, Singer.class).getResultList();
         return singers;
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public Singer findById(Long id) {
         TypedQuery<Singer> query = em.createNamedQuery(Singer.FIND_SINGER_BY_ID, Singer.class);
@@ -67,12 +65,12 @@ public class SingerServiceImpl implements SingerService {
         Singer mergedContact = em.merge(singer);
         em.remove(mergedContact);
 
-        logger.info("Singer with id: " + singer.getId()  + " deleted successfully");
+        logger.info("Singer with id: " + singer.getId() + " deleted successfully");
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public List<Singer> findAllByNativeQuery() {
         return em.createNativeQuery(ALL_SINGER_NATIVE_QUERY, "singerResult").getResultList();
-    }    
+    }
 }

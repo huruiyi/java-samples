@@ -22,7 +22,7 @@ public class SingerHandler {
   public HandlerFunction<ServerResponse> list = serverRequest -> ServerResponse.ok().contentType(APPLICATION_JSON)
       .body(reactiveSingerRepo.findAll(), Singer.class);
 
-  public Mono<ServerResponse> list(ServerRequest request) {
+  public Mono<ServerResponse> list() {
     Flux<Singer> singers = reactiveSingerRepo.findAll();
     return ServerResponse.ok().contentType(APPLICATION_JSON).body(singers, Singer.class);
   }
