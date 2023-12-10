@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/css/general.css}" rel="stylesheet" media="screen"/>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+
+    <title>
+        ProSpring5 Singer Boot Application
+    </title>
+
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <form th:action="@{/login}" method="post" class="form form-login">
+        <div class="form-group">
+            <label for="username">User Name</label>
+            <input class="form-control form-inline" type="text" name="username" id="username"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password" id="password"/>
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In"/>
+    </form>
+    <div style="color:red" th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div style="color: red" th:if="${param.logout}">
+        You have been logged out.
+    </div>
+</div>
+<div class="footer" th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

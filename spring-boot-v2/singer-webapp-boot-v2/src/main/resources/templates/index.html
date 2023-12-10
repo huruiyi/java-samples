@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link th:href="@{/css/general.css}" rel="stylesheet" media="screen"/>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+
+    <title>
+        ProSpring5 Singer Boot Application
+    </title>
+
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <div class="text-left">
+        <h1>ProSpring5 Singer Management Boot & Thymeleaf Application</h1>
+        <div class="lead">
+            Welcome to ProSpring, 5th edition. Maybe not everything that is covered in the book is of interest to you,
+            but time spending reading this book and analysing the examples will surely be time well spent.
+        </div>
+    </div>
+</div>
+<div class="footer" th:insert="~{fragments/footer :: footer}">&copy; 2023 Fairy.Vip</div>
+</body>
+</html>
