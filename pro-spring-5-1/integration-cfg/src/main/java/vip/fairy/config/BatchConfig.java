@@ -7,10 +7,6 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.core.launch.support.SimpleJobLauncher;
-import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
-import org.springframework.batch.integration.launch.JobLaunchingGateway;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -25,17 +21,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.task.SyncTaskExecutor;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.Transformer;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
-import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.Pollers;
-import org.springframework.integration.file.dsl.Files;
-import org.springframework.integration.file.filters.SimplePatternFileListFilter;
-import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.messaging.MessageChannel;
 import vip.fairy.MessageToJobLauncher;
 import vip.fairy.Singer;
@@ -43,7 +32,6 @@ import vip.fairy.SingerItemProcessor;
 import vip.fairy.StepExecutionStatsListener;
 
 import javax.sql.DataSource;
-import java.io.File;
 
 @Configuration
 @EnableIntegration
@@ -102,27 +90,25 @@ public class BatchConfig {
 
     @Bean
     protected Step step1() {
-        return steps.get("step1").listener(executionStatsListener)
-                .<Singer, Singer>chunk(10)
-                .reader(itemReader(null))
-                .processor(itemProcessor)
-                .writer(itemWriter())
-                .build();
+        return steps.get("step1").listener(executionStatsListener).<Singer, Singer>chunk(10).reader(itemReader(null)).processor(itemProcessor).writer(itemWriter()).build();
     }
 
     @Bean
     @StepScope
     public FlatFileItemReader itemReader(@Value("file:#{jobParameters['file.name']}") String filePath) {
-        FlatFileItemReader itemReader = new FlatFileItemReader();
-        itemReader.setResource(resourceLoader.getResource(filePath));
-        DefaultLineMapper lineMapper = new DefaultLineMapper();
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
         tokenizer.setNames("firstName", "lastName", "song");
         tokenizer.setDelimiter(",");
-        lineMapper.setLineTokenizer(tokenizer);
+
         BeanWrapperFieldSetMapper<Singer> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
         fieldSetMapper.setTargetType(Singer.class);
+
+        DefaultLineMapper lineMapper = new DefaultLineMapper();
+        lineMapper.setLineTokenizer(tokenizer);
         lineMapper.setFieldSetMapper(fieldSetMapper);
+
+        FlatFileItemReader itemReader = new FlatFileItemReader();
+        itemReader.setResource(resourceLoader.getResource(filePath));
         itemReader.setLineMapper(lineMapper);
         return itemReader;
     }
@@ -135,7 +121,6 @@ public class BatchConfig {
         itemWriter.setDataSource(dataSource);
         return itemWriter;
     }
-
 
 
 }
