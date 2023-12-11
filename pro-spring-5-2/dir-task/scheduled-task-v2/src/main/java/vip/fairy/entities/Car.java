@@ -7,27 +7,27 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
 import org.hibernate.annotations.Type;
 
-
 @Entity
-@Table(name="car")
+@Table(name = "car")
 public class Car {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID")
     private Long id;
 
-    @Column(name="LICENSE_PLATE")
+    @Column(name = "LICENSE_PLATE")
     private String licensePlate;
 
-    @Column(name="MANUFACTURER")
+    @Column(name = "MANUFACTURER")
     private String manufacturer;
 
-    @Column(name="MANUFACTURE_DATE")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "MANUFACTURE_DATE")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime manufactureDate;
-    @Column(name="AGE")
+    @Column(name = "AGE")
     private int age;
 
     @Version
@@ -89,7 +89,6 @@ public class Car {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return String.format("{License: %s, Manufacturer: %s, Manufacture Date: %s, Age: %d}",
-                licensePlate, manufacturer, sdf.format(manufactureDate.toDate()), age);
+        return String.format("{License: %s, Manufacturer: %s, Manufacture Date: %s, Age: %d}", licensePlate, manufacturer, sdf.format(manufactureDate.toDate()), age);
     }
 }

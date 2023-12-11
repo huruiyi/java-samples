@@ -27,9 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by iuliana.cosmina on 6/17/17.
- */
+
 @Configuration
 public class RestClientConfig {
 
@@ -56,43 +54,21 @@ public class RestClientConfig {
         return new HttpComponentsClientHttpRequestFactory(client);
     }
 
-     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        //Charset.forName("UTF-8")
-
-    }
-
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(factory());
         List<HttpMessageConverter<?>> converters = new ArrayList<>();
-          converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
+        converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
                 .indentOutput(true).dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
                 .modulesToInstall(new ParameterNamesModule());
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
         converters.add(new MappingJackson2XmlHttpMessageConverter(builder.createXmlMapper(true).build()));
 
-        converters.add(singerMessageConverter());
         restTemplate.setMessageConverters(converters);
         return restTemplate;
     }
 
-    @Bean
-    MarshallingHttpMessageConverter singerMessageConverter() {
-        MarshallingHttpMessageConverter mc = new MarshallingHttpMessageConverter();
-        //mc.setMarshaller(castorMarshaller());
-        //mc.setUnmarshaller(castorMarshaller());
-        List<MediaType> mediaTypes = new ArrayList<>();
-        MediaType mt = new MediaType("application", "json");
-        mediaTypes.add(mt);
-        mc.setSupportedMediaTypes(mediaTypes);
-        return mc;
-    }
 
-//	@Bean CastorMarshaller castorMarshaller() {
-//		CastorMarshaller castorMarshaller = new CastorMarshaller();
-//		castorMarshaller.setMappingLocation(ctx.getResource("classpath:spring/oxm-mapping.xml"));
-//		return castorMarshaller;
-//	}
 }

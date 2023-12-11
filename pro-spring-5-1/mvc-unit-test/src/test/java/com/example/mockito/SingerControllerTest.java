@@ -30,7 +30,7 @@ public class SingerControllerTest {
   }
 
   @Test
-  public void testList() throws Exception {
+  public void testList() {
     SingerService singerService = mock(SingerService.class);
     when(singerService.findAll()).thenReturn(singers);
 

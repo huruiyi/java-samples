@@ -17,7 +17,6 @@ public class Demo {
     private static final Logger logger = LoggerFactory.getLogger(Demo.class);
 
     public static void main(String... args) {
-
         //GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("classpath:spring/app-context-annotation.xml");
         GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AuditConfig.class);
 

@@ -17,7 +17,8 @@ import javax.annotation.PostConstruct;
 @Service
 public class DBInitializer {
 
-    private Logger logger = LoggerFactory.getLogger(DBInitializer.class);
+    private final Logger logger = LoggerFactory.getLogger(DBInitializer.class);
+
     @Autowired
     CarRepository carRepository;
 

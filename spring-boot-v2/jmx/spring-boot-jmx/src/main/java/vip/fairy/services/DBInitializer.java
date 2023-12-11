@@ -11,9 +11,6 @@ import vip.fairy.repos.SingerRepository;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * Created by iuliana.cosmina on 4/23/17.
- */
 @Service
 public class DBInitializer {
 

@@ -51,13 +51,13 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
 
     @DataSets(setUpDataSet= "/data/SingerServiceImplTest.xls")
     @Test
-    public void testFindByFirstNameAndLastNameTwo() throws Exception {
+    public void testFindByFirstNameAndLastNameTwo() {
         Singer result = singerService.findByFirstNameAndLastName("BB", "King");
         assertNull(result);
     }
 
     @Test
-    public void testAddSinger() throws Exception {
+    public void testAddSinger() {
         deleteFromTables("SINGER");
 
         Singer singer = new Singer();
@@ -72,7 +72,7 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
     }
 
     @Test(expected=AssertionError.class)
-    public void testAddSingerWithJSR349Error() throws Exception {
+    public void testAddSingerWithJSR349Error() {
         deleteFromTables("SINGER");
 
         Singer singer = new Singer();

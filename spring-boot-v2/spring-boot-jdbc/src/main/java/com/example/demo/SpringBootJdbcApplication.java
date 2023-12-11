@@ -10,10 +10,7 @@ import java.io.IOException;
 
 @SpringBootApplication
 public class SpringBootJdbcApplication {
-
     private static final Logger logger = LoggerFactory.getLogger(SpringBootJdbcApplication.class);
-
-
     public static void main(String[] args) throws IOException {
 
         ConfigurableApplicationContext ctx = SpringApplication.run(SpringBootJdbcApplication.class, args);

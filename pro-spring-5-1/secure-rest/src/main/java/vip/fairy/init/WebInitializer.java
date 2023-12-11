@@ -2,10 +2,6 @@ package vip.fairy.init;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import vip.fairy.config.DataServiceConfig;
-
-/**
- * Created by iuliana.cosmina on 10/16/16.
- */
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
@@ -23,18 +23,18 @@
     </jdbc:embedded-database>
 
     <bean id="transactionManager"
-        class="org.springframework.orm.jpa.JpaTransactionManager">
+          class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
-        <property name="packagesToScan" value="com.apress.prospring5.ch8.entities"/>
+        <property name="packagesToScan" value="com.example.entities"/>
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">
@@ -55,7 +55,7 @@
                     ACTION_TYPE
                 </prop>
                 <prop key="org.hibernate.envers.audit_strategy">
-                   org.hibernate.envers.strategy.ValidityAuditStrategy
+                    org.hibernate.envers.strategy.ValidityAuditStrategy
                 </prop>
                 <prop key="org.hibernate.envers.audit_strategy_validity_end_rev_field_name">
                     AUDIT_REVISION_END
@@ -72,12 +72,12 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="com.apress.prospring5.ch8" >
-        <context:exclude-filter type="annotation" expression="org.springframework.context.annotation.Configuration" />
-        <context:exclude-filter type="assignable" expression="config.com.example.DBInitializer" />
+    <context:component-scan base-package="com.example">
+        <context:exclude-filter type="annotation" expression="org.springframework.context.annotation.Configuration"/>
+        <context:exclude-filter type="assignable" expression="com.example.config.DBInitializer"/>
     </context:component-scan>
 
-    <jpa:repositories base-package="com.apress.prospring5.ch8.repos"
+    <jpa:repositories base-package="com.example.repos"
                       entity-manager-factory-ref="emf"
                       transaction-manager-ref="transactionManager"/>
 

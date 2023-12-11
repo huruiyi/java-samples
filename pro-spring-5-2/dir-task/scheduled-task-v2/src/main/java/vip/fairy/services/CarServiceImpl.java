@@ -20,7 +20,6 @@ import java.util.List;
 @Transactional
 public class CarServiceImpl implements CarService {
     public boolean done;
-
     final Logger logger = LoggerFactory.getLogger(CarServiceImpl.class);
 
     @Autowired
