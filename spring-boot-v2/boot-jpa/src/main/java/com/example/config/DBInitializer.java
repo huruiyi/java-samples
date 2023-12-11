@@ -1,7 +1,7 @@
 package com.example.config;
 
-import com.example.InstrumentRepository;
-import com.example.SingerRepository;
+import com.example.repos.InstrumentRepository;
+import com.example.repos.SingerRepository;
 import com.example.entities.Album;
 import com.example.entities.Instrument;
 import com.example.entities.Singer;
