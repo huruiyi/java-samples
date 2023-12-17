@@ -28,7 +28,7 @@ public class Demo1 {
     }
 
     static void uploadDemo1() throws IOException {
-
+//Permission denied: user=hurui, access=WRITE, inode="/user/huruiyi":huruiyi:supergroup:drwxr-xr-x
         FileSystem fs = getFileSystem();
         String localFilePath = "D:/Soft/Apache/hornetq/hornetq-2.4.0.Final-bin.zip";
         // hdfs dfs -chmod 777 /user/huruiyi
