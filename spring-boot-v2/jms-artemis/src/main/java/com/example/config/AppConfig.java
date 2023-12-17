@@ -43,9 +43,9 @@ public class AppConfig {
   @Bean
   public ConnectionFactory connectionFactory() throws Exception {
     ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
-    connectionFactory.setBrokerURL("tcp://localhost:61617");
-    connectionFactory.setUser("admin");
-    connectionFactory.setPassword("admin");
+    connectionFactory.setBrokerURL("tcp://localhost:61616");
+    connectionFactory.setUser("huruiyi");
+    connectionFactory.setPassword("huruiyi");
     return connectionFactory;
   }
 

@@ -25,8 +25,7 @@
     <batch:job id="singerJob">
         <batch:step id="step1">
             <batch:tasklet>
-                <batch:chunk reader="itemReader" processor="itemProcessor" writer="itemWriter"
-                             commit-interval="10"/>
+                <batch:chunk reader="itemReader" processor="itemProcessor" writer="itemWriter" commit-interval="10"/>
                 <batch:listeners>
                     <batch:listener ref="stepExecutionStatsListener"/>
                 </batch:listeners>

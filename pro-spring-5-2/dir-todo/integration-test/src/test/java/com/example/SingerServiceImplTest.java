@@ -1,17 +1,10 @@
 package com.example;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import com.example.config.DataConfig;
 import com.example.config.ServiceConfig;
 import com.example.config.ServiceTestConfig;
 import com.example.entities.Singer;
 import com.example.services.SingerService;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +13,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {ServiceTestConfig.class, ServiceConfig.class, DataConfig.class})
@@ -33,7 +32,7 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
     @PersistenceContext
     private EntityManager em;
 
-    @DataSets(setUpDataSet= "/data/SingerServiceImplTest.xls")
+    @DataSets(setUpDataSet = "/data/SingerServiceImplTest.xls")
     @Test
     public void testFindAll() {
         List<Singer> result = singerService.findAll();
@@ -42,14 +41,14 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
         assertEquals(1, result.size());
     }
 
-    @DataSets(setUpDataSet= "/data/SingerServiceImplTest.xls")
+    @DataSets(setUpDataSet = "/data/SingerServiceImplTest.xls")
     @Test
     public void testFindByFirstNameAndLastNameOne() {
         Singer result = singerService.findByFirstNameAndLastName("John", "Mayer");
         assertNotNull(result);
     }
 
-    @DataSets(setUpDataSet= "/data/SingerServiceImplTest.xls")
+    @DataSets(setUpDataSet = "/data/SingerServiceImplTest.xls")
     @Test
     public void testFindByFirstNameAndLastNameTwo() {
         Singer result = singerService.findByFirstNameAndLastName("BB", "King");
@@ -71,7 +70,7 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
         assertEquals(1, singers.size());
     }
 
-    @Test(expected=AssertionError.class)
+    @Test(expected = AssertionError.class)
     public void testAddSingerWithJSR349Error() {
         deleteFromTables("SINGER");
 
@@ -83,4 +82,6 @@ public class SingerServiceImplTest extends AbstractTransactionalJUnit4SpringCont
         List<Singer> singers = singerService.findAll();
         assertEquals(0, singers.size());
     }
+
+
 }
