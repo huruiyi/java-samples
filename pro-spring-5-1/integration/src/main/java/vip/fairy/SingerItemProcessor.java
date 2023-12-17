@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component("itemProcessor")
 public class SingerItemProcessor implements ItemProcessor<Singer, Singer> {
 
-  private static Logger logger = LoggerFactory.getLogger(SingerItemProcessor.class);
+  private static final Logger logger = LoggerFactory.getLogger(SingerItemProcessor.class);
 
   @Override
   public Singer process(Singer singer) {
