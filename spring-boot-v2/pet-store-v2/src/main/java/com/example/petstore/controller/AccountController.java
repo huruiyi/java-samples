@@ -3,10 +3,12 @@ package com.example.petstore.controller;
 import com.example.petstore.model.PetStoreUserDTO;
 import com.example.petstore.service.IReactivePetStoreUserService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
+@RequestMapping("/petStore")
 public class AccountController {
 
   private final IReactivePetStoreUserService petStoreUserService;

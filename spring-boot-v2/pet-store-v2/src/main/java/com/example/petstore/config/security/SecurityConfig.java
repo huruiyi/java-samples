@@ -1,6 +1,7 @@
 package com.example.petstore.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -24,21 +25,24 @@ public class SecurityConfig {
   @Autowired
   private ReactiveUserDetailsService reactiveUserDetailsService;
 
+  @Value("${server.servlet.context-path}")
+  private String contextPath;
+
   @Bean
   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
     http
         .authorizeExchange()
-        .pathMatchers(HttpMethod.POST, "/login").permitAll()
-        .pathMatchers(HttpMethod.POST, "/logout").permitAll()
-        .pathMatchers(HttpMethod.POST, "/register").permitAll()
+        .pathMatchers(HttpMethod.POST, contextPath + "/login").permitAll()
+        .pathMatchers(HttpMethod.POST, contextPath + "/logout").permitAll()
+        .pathMatchers(HttpMethod.POST, contextPath + "/register").permitAll()
         .anyExchange().authenticated()
         .and()
         .httpBasic().disable()
         .csrf().disable()
         .formLogin()
         .authenticationManager(authenticationManager())
-        .requiresAuthenticationMatcher(ServerWebExchangeMatchers.pathMatchers(HttpMethod.POST, "/login"))
-        .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("/pets"))
+        .requiresAuthenticationMatcher(ServerWebExchangeMatchers.pathMatchers(HttpMethod.POST, contextPath + "/login"))
+        .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler(contextPath + "/pets"))
         .authenticationFailureHandler(new ServerAuthenticationEntryPointFailureHandler(new HttpBasicServerAuthenticationEntryPoint()))
         .authenticationEntryPoint(new HttpBasicServerAuthenticationEntryPoint())
         .and()
