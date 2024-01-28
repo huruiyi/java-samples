@@ -10,20 +10,20 @@ import vip.fairy.util.DateFormatter;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/index").setViewName("index");
-		registry.addViewController("/").setViewName("index");
-		registry.addViewController("/login").setViewName("login");
-	}
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/index").setViewName("index");
+    registry.addViewController("/").setViewName("index");
+    registry.addViewController("/login").setViewName("login");
+  }
 
-	@Override
-	public void addFormatters(FormatterRegistry formatterRegistry) {
-		formatterRegistry.addFormatter(dateFormatter());
-	}
+  @Override
+  public void addFormatters(FormatterRegistry formatterRegistry) {
+    formatterRegistry.addFormatter(dateFormatter());
+  }
 
-	@Bean
-	public DateFormatter dateFormatter() {
-		return new DateFormatter();
-	}
+  @Bean
+  public DateFormatter dateFormatter() {
+    return new DateFormatter();
+  }
 }

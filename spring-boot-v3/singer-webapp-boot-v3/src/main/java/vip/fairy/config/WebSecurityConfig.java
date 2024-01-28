@@ -13,34 +13,32 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/css/**", "/webjars/**");
-    }
-    @Bean
-    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(requestMatcherRegistry -> {
-                    requestMatcherRegistry.requestMatchers("/", "/home").permitAll();
-                    requestMatcherRegistry.requestMatchers("/singers/**").authenticated();
-                    requestMatcherRegistry.anyRequest().authenticated();
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.ignoring().requestMatchers("/css/**", "/webjars/**");
+  }
 
-                })
-                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").permitAll())
-                .logout(LogoutConfigurer::permitAll)
+  @Bean
+  protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests(requestMatcherRegistry -> {
+          requestMatcherRegistry.requestMatchers("/", "/home").permitAll();
+          requestMatcherRegistry.requestMatchers("/singers/**").authenticated();
+          requestMatcherRegistry.anyRequest().authenticated();
 
-        ;
+        })
+        .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").permitAll())
+        .logout(LogoutConfigurer::permitAll);
 
-        return http.build();
-    }
+    return http.build();
+  }
 
-
-    @Bean
-    UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager users = new InMemoryUserDetailsManager();
-        users.createUser(User.withUsername("user").password("{noop}user").roles("USER").build());
-        users.createUser(User.withUsername("江南一点雨").password("{noop}123").roles("admin").build());
-        return users;
-    }
+  @Bean
+  UserDetailsService userDetailsService() {
+    InMemoryUserDetailsManager users = new InMemoryUserDetailsManager();
+    users.createUser(User.withUsername("user").password("{noop}user").roles("USER").build());
+    users.createUser(User.withUsername("江南一点雨").password("{noop}123").roles("admin").build());
+    return users;
+  }
 
 }
