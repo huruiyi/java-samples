@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_singer_list" var="labelSingerList"/>
+    <spring:message code="label_singer_first_name" var="labelSingerFirstName"/>
+    <spring:message code="label_singer_last_name" var="labelSingerLastName"/>
+    <spring:message code="label_singer_birth_date" var="labelSingerBirthDate"/>
+    <spring:url value="/singers" var="showSingerUrl"/>
+
+    <script type="text/javascript">
+      $(function () {
+        $("#list").jqGrid({
+          url: '${showSingerUrl}/listgrid',
+          datatype: 'json',
+          mtype: 'GET',
+          colNames: ['${labelSingerFirstName}', '${labelSingerLastName}',
+            '${labelSingerBirthDate}'],
+          colModel: [
+            {name: 'firstName', index: 'firstName', width: 300, align: 'center'},
+            {name: 'lastName', index: 'lastName', width: 300, align: 'center'},
+            {name: 'birthDateString', index: 'birthDate', width: 300, align: 'center'}
+          ],
+          jsonReader: {
+            root: "singerData",
+            page: "currentPage",
+            total: "totalPages",
+            records: "totalRecords",
+            repeatitems: false,
+            id: "id"
+          },
+          pager: '#pager',
+          rowNum: 10,
+          rowList: [10, 20, 30],
+          sortname: 'firstName',
+          sortorder: 'asc',
+          viewrecords: true,
+          gridview: true,
+          height: 300,
+          width: 900,
+          caption: '${labelSingerList}',
+          onSelectRow: function (id) {
+            document.location.href = "${showSingerUrl}/" + id;
+          }
+        });
+      });
+    </script>
+
+    <div style="background-color: wheat;">
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+
+        <h2>${labelSingerList}</h2>
+
+        <div style="background-color: #D7D7D7">
+            <table id="list">
+                <tr>
+                    <td/>
+                </tr>
+            </table>
+        </div>
+        <div id="pager"></div>
+    </div>
+
+</div>

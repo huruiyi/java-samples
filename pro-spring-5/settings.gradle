@@ -1,0 +1,12 @@
+rootProject.name = 'pro-spring-5'
+
+include 'chapter16:singer-webapp-xml'
+include 'chapter16:singer-webapp-jcfg'
+
+rootProject.children.each { project ->
+	project.buildFileName = "${project.name}.gradle"
+	assert project.projectDir.isDirectory()
+	assert project.buildFile.exists()
+	assert project.buildFile.isFile()
+}
+
