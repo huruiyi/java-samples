@@ -9,7 +9,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
-@ComponentScan(basePackages = { "com.apress.springrecipes.cloud" })
 @Configuration
 public class DbConfig {
 

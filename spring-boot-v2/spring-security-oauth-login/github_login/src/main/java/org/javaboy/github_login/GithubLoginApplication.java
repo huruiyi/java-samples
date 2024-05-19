@@ -12,8 +12,5 @@ public class GithubLoginApplication {
         SpringApplication.run(GithubLoginApplication.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+
 }
