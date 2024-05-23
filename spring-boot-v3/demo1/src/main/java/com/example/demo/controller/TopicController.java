@@ -41,22 +41,22 @@ public class TopicController {
   }
 
   @PostMapping(value = "/topics")
-  public ResponseEntity createTopic(@RequestBody Topic topic) {
+  public ResponseEntity<Topic> createTopic(@RequestBody Topic topic) {
     Topic newTopic = topicRepository.save(topic);
-    return new ResponseEntity(newTopic, HttpStatus.OK);
+    return new ResponseEntity<Topic>(newTopic, HttpStatus.OK);
   }
 
   @PatchMapping("/topic/{id}")
   public ResponseEntity patchTopic(@PathVariable Long id, @RequestBody Topic topic) {
     Topic updatedTopic = topicRepository.updateWith(topic, id);
     if (null == updatedTopic) {
-      return new ResponseEntity("No topic found for ID " + id, HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>("No topic found for ID " + id, HttpStatus.NOT_FOUND);
     }
-    return new ResponseEntity(updatedTopic, HttpStatus.OK);
+    return new ResponseEntity<>(updatedTopic, HttpStatus.OK);
   }
 
   @PutMapping("/topic/{id}")
-  public ResponseEntity updateTopic(@PathVariable Long id, @RequestBody Topic topic) {
+  public ResponseEntity<Topic> updateTopic(@PathVariable Long id, @RequestBody Topic topic) {
     Optional<Topic> topicToUpdate = topicRepository.findById(id);
     Topic updatedTopic;
     if (topicToUpdate.isPresent()) {
@@ -65,11 +65,11 @@ public class TopicController {
     } else {
       return new ResponseEntity("No topic found for ID " + id, HttpStatus.NOT_FOUND);
     }
-    return new ResponseEntity(updatedTopic, HttpStatus.OK);
+    return new ResponseEntity<>(updatedTopic, HttpStatus.OK);
   }
 
   @DeleteMapping("/topic/{id}")
-  public ResponseEntity deleteTopic(@PathVariable Long id) {
+  public ResponseEntity<Topic> deleteTopic(@PathVariable Long id) {
     Optional<Topic> topic = topicRepository.findById(id);
     if (topic.isPresent()) {
       topicRepository.delete(topic.get());
