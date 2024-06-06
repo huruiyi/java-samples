@@ -7,13 +7,14 @@ import org.springframework.validation.Validator;
 
 @Component("singerValidator")
 public class SingerValidator implements Validator {
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return Singer.class.equals(clazz);
-    }
 
-    @Override
-    public void validate(Object obj, Errors e) {
-        ValidationUtils.rejectIfEmpty(e, "firstName", "firstName.empty");
-    }
+  @Override
+  public boolean supports(Class<?> clazz) {
+    return Singer.class.equals(clazz);
+  }
+
+  @Override
+  public void validate(Object obj, Errors e) {
+    ValidationUtils.rejectIfEmpty(e, "firstName", "firstName.empty");
+  }
 }
