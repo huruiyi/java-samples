@@ -1,4 +1,4 @@
-package vip.fairy.c02;
+package vip.fairy.c02_work_queues;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

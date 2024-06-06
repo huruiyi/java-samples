@@ -1,4 +1,4 @@
-package vip.fairy.c03;
+package vip.fairy.c03_publish_subscribe;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
@@ -19,10 +19,10 @@ public class EmitLog {
       channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
 
       for (int i = 1; i <= 30; i++) {
-        TimeUnit.SECONDS.sleep(1);
         String message = String.valueOf(i).concat("-").concat("info: Hello World!");
         channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes(StandardCharsets.UTF_8));
         System.out.println(" [x] Sent '" + message + "'");
+        TimeUnit.SECONDS.sleep(1);
       }
 
     }

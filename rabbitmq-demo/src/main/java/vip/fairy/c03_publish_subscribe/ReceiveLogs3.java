@@ -1,32 +1,35 @@
-package vip.fairy.c01;
+package vip.fairy.c03_publish_subscribe;
 
+import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeoutException;
 
-public class Receive {
+public class ReceiveLogs3 {
 
-  private final static String QUEUE_NAME = "hello";
+  private static final String EXCHANGE_NAME = "logs";
 
-  public static void main(String[] args) throws IOException, TimeoutException {
+  public static void main(String[] argv) throws Exception {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost("localhost");
     Connection connection = factory.newConnection();
     Channel channel = connection.createChannel();
 
-    channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+    channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
+    String queueName = channel.queueDeclare().getQueue();
+    System.out.println(queueName);
+    channel.queueBind(queueName, EXCHANGE_NAME, "");
+
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
       String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
       System.out.println(" [x] Received '" + message + "'");
     };
-    channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
-      System.out.println(consumerTag);
+    channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
     });
   }
+
 }

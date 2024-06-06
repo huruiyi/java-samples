@@ -1,10 +1,11 @@
-package vip.fairy.routing;
+package vip.fairy.c04_routing;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 public class EmitLogDirect {
 
@@ -17,17 +18,22 @@ public class EmitLogDirect {
         Channel channel = connection.createChannel()) {
       channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
 
-      String severity = getSeverity(argv);
+      String logLevel = getSeverity(argv);
       String message = getMessage(argv);
 
-      channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes(StandardCharsets.UTF_8));
-      System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
+      for (int i = 1; i < 20; i++) {
+        String msg = String.valueOf(i).concat("-").concat(message);
+        channel.basicPublish(EXCHANGE_NAME, logLevel, null, msg.getBytes(StandardCharsets.UTF_8));
+        System.out.println(" [x] Sent '" + logLevel + "':'" + msg + "'");
+        TimeUnit.SECONDS.sleep(1);
+      }
     }
   }
 
   private static String getSeverity(String[] strings) {
     if (strings.length < 1) {
-      return "info";
+      //[info] [warning] [error]
+      return "warning";
     }
     return strings[0];
   }

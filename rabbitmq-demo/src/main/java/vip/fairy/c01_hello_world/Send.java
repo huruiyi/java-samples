@@ -1,4 +1,4 @@
-package vip.fairy.c01;
+package vip.fairy.c01_hello_world;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

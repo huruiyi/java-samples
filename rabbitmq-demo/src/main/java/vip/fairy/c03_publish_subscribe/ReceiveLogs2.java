@@ -1,4 +1,4 @@
-package vip.fairy.c03;
+package vip.fairy.c03_publish_subscribe;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import java.nio.charset.StandardCharsets;
 
-public class ReceiveLogs3 {
+public class ReceiveLogs2 {
 
   private static final String EXCHANGE_NAME = "logs";
 

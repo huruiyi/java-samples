@@ -1,4 +1,4 @@
-package vip.fairy.routing;
+package vip.fairy.c03_publish_subscribe;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
@@ -7,10 +7,9 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import java.nio.charset.StandardCharsets;
 
-public class ReceiveLogsDirect {
+public class ReceiveLogs1 {
 
-
-  private static final String EXCHANGE_NAME = "direct_logs";
+  private static final String EXCHANGE_NAME = "logs";
 
   public static void main(String[] argv) throws Exception {
     ConnectionFactory factory = new ConnectionFactory();
@@ -18,25 +17,19 @@ public class ReceiveLogsDirect {
     Connection connection = factory.newConnection();
     Channel channel = connection.createChannel();
 
-    channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+    channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
     String queueName = channel.queueDeclare().getQueue();
+    System.out.println(queueName);
+    channel.queueBind(queueName, EXCHANGE_NAME, "");
 
-    if (argv.length < 1) {
-      System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
-      System.exit(1);
-    }
-
-    for (String severity : argv) {
-      channel.queueBind(queueName, EXCHANGE_NAME, severity);
-    }
     System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
       String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-      System.out.println(" [x] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+      System.out.println(" [x] Received '" + message + "'");
     };
     channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
     });
   }
-}
 
+}
