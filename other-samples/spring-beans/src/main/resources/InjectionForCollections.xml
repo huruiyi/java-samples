@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+  <bean class="com.apress.prospring4.ch2._ConstructionInjection.Collections.Employee" id="employeeBean">
+    <property name="employeeName" value="Ravi Kant Soni"></property>
+  </bean>
+
+
+  <bean class="com.apress.prospring4.ch2._ConstructionInjection.Collections.EmployeeService"
+    id="employeeServiceBean">
+
+    <constructor-arg type="java.util.List">
+      <list>
+        <ref bean="employeeBean"/>
+        <value>123456</value>
+      </list>
+    </constructor-arg>
+    <constructor-arg type="java.util.Set">
+      <set>
+        <ref bean="employeeBean"/>
+        <value>789654</value>
+      </set>
+    </constructor-arg>
+    <constructor-arg type="java.util.Map">
+      <map>
+        <entry key="Key 1" value="852369"/>
+        <entry key="Key 2" value-ref="employeeBean"/>
+      </map>
+    </constructor-arg>
+  </bean>
+</beans>

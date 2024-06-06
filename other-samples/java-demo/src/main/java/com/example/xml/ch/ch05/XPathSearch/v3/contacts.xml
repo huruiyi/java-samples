@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<contacts xmlns="http://www.javajeff.ca/">
+  <contact>
+    <birth>1953-01-02</birth>
+    <city>Chicago</city>
+    <city>Denver</city>
+    <name>John Doe</name>
+  </contact>
+  <contact>
+    <birth>1965-07-12</birth>
+    <city>New York</city>
+    <name>Jane Doe</name>
+  </contact>
+  <contact>
+    <birth>1976-11-22</birth>
+    <city>Denver</city>
+    <city>Miami</city>
+    <name>Sandra Smith</name>
+  </contact>
+  <contact>
+    <birth>1958-03-14</birth>
+    <city>Chicago</city>
+    <name>Bob Jones</name>
+  </contact>
+</contacts>

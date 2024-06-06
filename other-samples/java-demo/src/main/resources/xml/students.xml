@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<students>
+    <student no="001">
+        <name>张三</name>
+        <age>18</age>
+        <score>96</score>
+        <parents>
+            <father>阿强</father>
+            <mother>阿珍</mother>
+        </parents>
+    </student>
+    <student no="002">
+        <name>李四</name>
+        <age>19</age>
+        <score>99</score>
+        <parents>
+            <father>阿贵</father>
+            <mother>阿莲</mother>
+        </parents>
+    </student>
+</students>

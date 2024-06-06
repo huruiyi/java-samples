@@ -1,0 +1,28 @@
+<!DOCTYPE
+  hibernate-configuration
+  PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory >
+    <!-- 连接数据库的基本参数 -->
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&amp;characterEncoding=utf-8</property>
+    <property name="hibernate.connection.username">root</property>
+    <!-- 配置Hibernate的方言 -->
+    <property name="hibernate.connection.password">root</property>
+
+    <!-- 可选配置================ -->
+    <!-- 打印SQL -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <!-- 格式化SQL -->
+    <property name="hibernate.show_sql">true</property>
+    <!-- 自动创建表 -->
+    <property name="hibernate.format_sql">true</property>
+
+    <!-- 配置C3P0连接池 -->
+    <property name="hibernate.hbm2ddl.auto">update</property>
+
+    <mapping resource="Customer.hbm.xml"/>
+
+  </session-factory>
+</hibernate-configuration>

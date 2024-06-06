@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+  <!--
+    <bean id="employeeBean"
+      class="src.org.packt.Spring.chapter2.setterinjection.empty.Employee">
+      <property name="employeeName" value=""></property>
+    </bean>
+   -->
+
+  <bean class="com.apress.prospring4.ch2._SetterBasedDependencyInjection.EmptyValue.Employee"
+    id="employeeBean">
+    <property name="employeeName">
+      <null/>
+    </property>
+  </bean>
+</beans>

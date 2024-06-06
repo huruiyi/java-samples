@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!--
+      <bean id="employeeServiceBean"
+          class="src.org.packt.Spring.chapter2.constructioninjection.multiplejavatype.EmployeeService">
+          <constructor-arg value="Ravi Kant Soni"/>
+          <constructor-arg value="1065"/>
+          <constructor-arg value="28"/>
+      </bean>
+  -->
+
+  <bean class="com.apress.prospring4.ch2._ConstructionInjection.ResolvingAmbiguity.EmployeeService"
+    id="employeeServiceBean">
+    <constructor-arg index="0" value="Ravi Kant Soni"/>
+    <constructor-arg index="2" value="1065"/>
+    <constructor-arg index="1" value="28"/>
+  </bean>
+
+
+</beans>

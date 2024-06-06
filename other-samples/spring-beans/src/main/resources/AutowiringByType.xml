@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+  <bean autowire="byType"
+    class="com.apress.prospring4.ch2._Autowiring.ByType.EmployeeService" id="employeeServiceBean">
+  </bean>
+
+  <bean class="com.apress.prospring4.ch2._Autowiring.ByType.Employee"
+    id="employeeBean">
+    <property name="employeeId" value="1065"></property>
+  </bean>
+</beans>

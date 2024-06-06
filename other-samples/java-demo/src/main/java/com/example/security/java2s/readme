@@ -1,0 +1,10 @@
+http://www.java2s.com/Code/Java/Security/KeyStore.htm
+Java/Security/KeyStore
+1.	Exporting a Certificate to a File		
+2.	Listing the Aliases in a Key Store: A key store is a collection of keys and certificates.		
+3.	Listing the Aliases in a Key Store using keytool:		
+4.	Retrieving a Key Pair from a Key Store		
+5.	Create a keystore with a self-signed certificate, using the keytool command		
+6.	Import a key/certificate pair from a pkcs12 file into a regular JKS format keystore		
+7.	This class imports a key and a certificate into a keystore		
+8.  This program signs a certificate, using the private key of another certificate in a keystore.

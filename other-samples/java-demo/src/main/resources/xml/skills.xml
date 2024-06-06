@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skills>
+    <!--第一个技能-->
+    <skill name="独孤九剑">
+        <info>为独孤求败所创，变化万千，凌厉无比。其传人主要有风清扬、令狐冲。</info>
+    </skill>
+    <skill name="葵花宝典">
+        <info>宦官所创，博大精深，而且凶险至极。练宝典功夫时，首先要自宫净身。</info>
+    </skill>
+    <skill name="北冥神功">
+        <info>逍遥派的顶级内功之一，能吸人内力转化为自己所有，威力无穷。</info>
+    </skill>
+</skills>

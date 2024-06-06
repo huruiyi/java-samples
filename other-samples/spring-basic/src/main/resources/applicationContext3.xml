@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- Spring的Bean的实例化的方式============= -->
+  <!-- 无参数构造方法 -->
+  <bean class="com.example.demo3.Bean1" id="bean1"></bean>
+
+  <!-- 静态工厂实例化 -->
+  <bean class="com.example.demo3.Bean2Factory" factory-method="createBean2" id="bean2"/>
+
+  <!-- 实例工厂实例化 -->
+  <bean class="com.example.demo3.Bean3Factory" id="bean3Factory"></bean>
+  <bean factory-bean="bean3Factory" factory-method="createBean3" id="bean3"></bean>
+
+</beans>

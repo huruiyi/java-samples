@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:c="http://www.springframework.org/schema/c"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean class="com.apress.prospring5.ch3.xml.ConfigurableMessageProvider"
+    id="provider"
+    c:message="I hope that someone gets my message in a bottle"/>
+
+  <bean class="com.apress.prospring5.ch3.xml.ConstructorConfusion"
+    id="constructorConfusion">
+    <constructor-arg type="int">
+      <value>90</value>
+    </constructor-arg>
+  </bean>
+</beans>

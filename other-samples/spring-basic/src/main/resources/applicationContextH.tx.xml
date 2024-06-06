@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <!-- Service配置 -->
+  <aop:config>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut1"/>
+    <aop:pointcut expression="execution(* com.example.tx.demoH.AccountServiceImpl.*(..))" id="pointcut1"/>
+  </aop:config>
+
+  <!-- Dao配置 -->
+  <bean class="com.example.tx.demoH.AccountDaoImpl" id="accountDao">
+    <!-- 直接指定数据源,SPRING自动创建JdbcTemplate, 无需自己配置 jdbcTemplate_c3p0 -->
+    <property name="dataSource" ref="c3poDataSource"/>
+  </bean>
+
+  <!-- <bean id="accountDao2" class="com.example.spring.tx.demoH.AccountDaoImpl2"> 指定jdbcTemplate <property name="jdbcTemplate" ref="jdbcTemplate_c3p0"></property> </bean> -->
+
+  <!-- 引入外部属性文件 -->
+  <!-- 第一种:通过一个bean标签引入(很少使用) -->
+  <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> <property name="location" value="classpath:jdbc.properties"></property> </bean> -->
+
+  <!-- 第二种:通过context标签引入的 -->
+  <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="c3poDataSource">
+    <property name="driverClass" value="${jdbc.driverClass}"/>
+    <property name="jdbcUrl" value="${jdbc.url}"/>
+    <property name="user" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.password}"/>
+  </bean>
+
+  <!-- 配置C3P0连接池 -->
+  <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate_c3p0">
+    <property name="dataSource" ref="c3poDataSource"/>
+  </bean>
+
+  <!-- 配置Spring的C3P0的模板 -->
+  <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+    <property name="dataSource" ref="c3poDataSource"></property>
+  </bean>
+
+  <!-- 配置事务管理器 -->
+  <bean class="com.example.tx.demoH.AccountServiceImpl" id="accountService">
+    <property name="accountDao" ref="accountDao"/>
+  </bean>
+
+  <!-- 配置事务的增强 -->
+  <context:property-placeholder location="classpath:jdbc.properties"/>
+
+  <!-- AOP的配置 -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="transfer" propagation="REQUIRED"/>
+      <tx:method isolation="DEFAULT" name="save*" propagation="REQUIRED"/>
+      <tx:method isolation="DEFAULT" name="update*" propagation="REQUIRED"/>
+      <tx:method isolation="DEFAULT" name="delete*" propagation="REQUIRED"/>
+      <tx:method name="find*" read-only="true"/>
+    </tx:attributes>
+  </tx:advice>
+</beans>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <!-- Service配置 -->
+  <bean class="com.example.tx.demoI.AccountServiceImpl" id="accountService">
+    <property name="accountDao" ref="accountDao"/>
+  </bean>
+
+  <!-- Dao配置 -->
+  <bean class="com.example.tx.demoI.AccountDaoImpl" id="accountDao">
+    <!-- 直接指定数据源,SPRING自动创建JdbcTemplate, 无需自己配置 jdbcTemplate_c3p0 -->
+    <property name="dataSource" ref="c3poDataSource"/>
+  </bean>
+
+  <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="c3poDataSource">
+    <property name="driverClass" value="${jdbc.driverClass}"/>
+    <property name="jdbcUrl" value="${jdbc.url}"/>
+    <property name="user" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.password}"/>
+  </bean>
+
+  <!-- 配置C3P0连接池 -->
+  <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate_c3p0">
+    <property name="dataSource" ref="c3poDataSource"/>
+  </bean>
+
+  <!-- 配置Spring的C3P0的模板 -->
+  <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+    <property name="dataSource" ref="c3poDataSource"></property>
+  </bean>
+
+  <!-- 配置事务管理器 -->
+  <context:property-placeholder location="classpath:jdbc.properties"/>
+
+  <!-- 开启注解事务 -->
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

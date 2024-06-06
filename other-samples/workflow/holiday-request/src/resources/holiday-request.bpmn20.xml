@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:flowable="http://flowable.org/bpmn"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  expressionLanguage="http://www.w3.org/1999/XPath"
+  targetNamespace="http://www.flowable.org/processdef"
+  typeLanguage="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+  <process id="holidayRequest" isExecutable="true" name="Holiday Request">
+
+    <endEvent id="approveEnd"/>
+    <endEvent id="rejectEnd"/>
+
+    <exclusiveGateway id="decision"/>
+    <sequenceFlow sourceRef="startEvent" targetRef="approveTask"/>
+
+    <sequenceFlow sourceRef="approveTask" targetRef="decision"/>
+    <sequenceFlow sourceRef="decision" targetRef="externalSystemCall">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+          ${approved}
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow sourceRef="decision" targetRef="sendRejectionMail">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[
+          ${!approved}
+        ]]>
+      </conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask"/>
+    <sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd"/>
+
+    <sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
+    <serviceTask id="externalSystemCall" name="Enter holidays in external system"
+      flowable:class="org.flowable.holidayrequest.callback.CallExternalSystemDelegate"/>
+
+    <serviceTask id="sendRejectionMail" name="Send out rejection email"
+      flowable:class="org.flowable.SendRejectionMail"/>
+    <startEvent id="startEvent"/>
+
+    <userTask id="approveTask" name="Approve or reject request" flowable:candidateGroups="managers"/>
+
+    <userTask id="holidayApprovedTask" name="Holiday approved" flowable:assignee="${employee}"/>
+
+  </process>
+
+</definitions>

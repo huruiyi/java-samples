@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/beans"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <!-- 定义 bean -->
+  <bean class="com.apress.prospring4.ch2.customScope.service.MessageServiceImpl" id="messageServiceImpl"
+    scope="threadScope">
+    <constructor-arg name="username" value="Way Lau"/>
+    <constructor-arg name="age" value="30"/>
+  </bean>
+
+  <bean class="com.apress.prospring4.ch2.customScope.MessagePrinter" id="messagePrinter">
+    <constructor-arg name="service" ref="messageServiceImpl"/>
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+    <property name="scopes">
+      <map>
+        <entry key="threadScope">
+          <bean class="com.apress.prospring4.ch2.customScope.ThreadScope"/>
+        </entry>
+      </map>
+    </property>
+  </bean>
+</beans>
