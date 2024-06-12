@@ -9,18 +9,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class CustomAuthorizationCodeServicesImpl implements AuthorizationCodeServices {
-    protected final ConcurrentHashMap<String, OAuth2Authentication> authorizationCodeStore = new ConcurrentHashMap();
 
-    private RandomValueStringGenerator generator = new RandomValueStringGenerator(10);
-    @Override
-    public String createAuthorizationCode(OAuth2Authentication oAuth2Authentication) {
-        String code = this.generator.generate();
-        authorizationCodeStore.put(code, oAuth2Authentication);
-        return code;
-    }
-    @Override
-    public OAuth2Authentication consumeAuthorizationCode(String code)  {
-        return authorizationCodeStore.remove(code);
-    }
+  protected final ConcurrentHashMap<String, OAuth2Authentication> authorizationCodeStore = new ConcurrentHashMap();
+
+  private RandomValueStringGenerator generator = new RandomValueStringGenerator(10);
+
+  @Override
+  public String createAuthorizationCode(OAuth2Authentication oAuth2Authentication) {
+    String code = this.generator.generate();
+    authorizationCodeStore.put(code, oAuth2Authentication);
+    return code;
+  }
+
+  @Override
+  public OAuth2Authentication consumeAuthorizationCode(String code) {
+    return authorizationCodeStore.remove(code);
+  }
 
 }

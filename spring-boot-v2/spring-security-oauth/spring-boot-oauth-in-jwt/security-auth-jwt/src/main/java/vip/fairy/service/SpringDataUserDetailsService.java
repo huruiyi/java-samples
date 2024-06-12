@@ -15,22 +15,22 @@ import java.util.List;
 @Service
 public class SpringDataUserDetailsService implements UserDetailsService {
 
-    private final UserDao userDao;
+  private final UserDao userDao;
 
-    public SpringDataUserDetailsService(UserDao userDao) {
-        this.userDao = userDao;
-    }
+  public SpringDataUserDetailsService(UserDao userDao) {
+    this.userDao = userDao;
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = userDao.getUserByUsername(username);
-        if (userDto == null) {
-            return null;
-        }
-        List<String> permissions = userDao.findPermissionsByUserId(userDto.getId());
-        String[] permissionArray = new String[permissions.size()];
-        permissions.toArray(permissionArray);
-        String principal = JSON.toJSONString(userDto);
-        return User.withUsername(principal).password(userDto.getPassword()).authorities(permissionArray).build();
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    UserDto userDto = userDao.getUserByUsername(username);
+    if (userDto == null) {
+      return null;
     }
+    List<String> permissions = userDao.findPermissionsByUserId(userDto.getId());
+    String[] permissionArray = new String[permissions.size()];
+    permissions.toArray(permissionArray);
+    String principal = JSON.toJSONString(userDto);
+    return User.withUsername(principal).password(userDto.getPassword()).authorities(permissionArray).build();
+  }
 }

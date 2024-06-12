@@ -13,33 +13,33 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    public static void main(String[] args) {
-        String password = "huruiyi";
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = bCryptPasswordEncoder.encode(password);
-        System.out.println(encodedPassword);
-        boolean matched = bCryptPasswordEncoder.matches(password, encodedPassword);
-        System.out.println(matched);
-    }
+  public static void main(String[] args) {
+    String password = "huruiyi";
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    String encodedPassword = bCryptPasswordEncoder.encode(password);
+    System.out.println(encodedPassword);
+    boolean matched = bCryptPasswordEncoder.matches(password, encodedPassword);
+    System.out.println(matched);
+  }
 
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Bean
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/r/r1").hasAnyAuthority("p1")
-                .antMatchers("/login*").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin();
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/r/r1").hasAnyAuthority("p1")
+        .antMatchers("/login*").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .formLogin();
+  }
 }
