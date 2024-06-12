@@ -1,18 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.example</groupId>
-    <artifactId>spring-boot-samples</artifactId>
-    <version>0.0.1</version>
-    <relativePath>../../pom.xml</relativePath>
-  </parent>
-
-  <artifactId>pro-spring-5-ch14</artifactId>
-  <packaging>jar</packaging>
 
   <name>pro-spring-5-ch14</name>
-  <url>http://maven.apache.org</url>
+  <groupId>com.example</groupId>
+  <artifactId>pro-spring-5-ch14</artifactId>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
