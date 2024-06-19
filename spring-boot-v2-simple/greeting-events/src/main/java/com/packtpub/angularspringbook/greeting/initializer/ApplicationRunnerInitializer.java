@@ -1,4 +1,4 @@
-package com.packtpub.angularspringbook.greeting;
+package com.packtpub.angularspringbook.greeting.initializer;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

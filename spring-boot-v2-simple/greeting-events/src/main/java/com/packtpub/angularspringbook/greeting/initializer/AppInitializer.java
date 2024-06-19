@@ -1,4 +1,4 @@
-package com.packtpub.angularspringbook.greeting;
+package com.packtpub.angularspringbook.greeting.initializer;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

@@ -1,4 +1,4 @@
-package com.packtpub.angularspringbook.greeting;
+package com.packtpub.angularspringbook.greeting.model;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;

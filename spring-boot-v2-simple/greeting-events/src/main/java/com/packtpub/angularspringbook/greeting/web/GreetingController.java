@@ -1,5 +1,6 @@
-package com.packtpub.angularspringbook.greeting;
+package com.packtpub.angularspringbook.greeting.web;
 
+import com.packtpub.angularspringbook.greeting.model.Person;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

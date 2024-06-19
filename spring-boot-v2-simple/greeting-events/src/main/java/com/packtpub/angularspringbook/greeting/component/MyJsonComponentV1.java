@@ -13,15 +13,15 @@ import java.io.IOException;
 import org.springframework.boot.jackson.JsonComponent;
 
 @JsonComponent
-public class MyJsonComponent {
+public class MyJsonComponentV1 {
 
   public static class Serializer extends JsonSerializer<Person> {
 
     @Override
-    public void serialize(Person value, JsonGenerator jgen, SerializerProvider serializers) throws IOException {
-      jgen.writeStartObject();
-      jgen.writeStringField("1:name", value.getName());
-      jgen.writeEndObject();
+    public void serialize(Person value, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
+      jsonGenerator.writeStartObject();
+      jsonGenerator.writeStringField("1:name", value.getName());
+      jsonGenerator.writeEndObject();
     }
 
   }
@@ -29,7 +29,7 @@ public class MyJsonComponent {
   public static class Deserializer extends JsonDeserializer<Person> {
 
     @Override
-    public Person deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException {
+    public Person deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException {
       ObjectCodec codec = jsonParser.getCodec();
       JsonNode tree = codec.readTree(jsonParser);
       String name = tree.get("name").textValue();
