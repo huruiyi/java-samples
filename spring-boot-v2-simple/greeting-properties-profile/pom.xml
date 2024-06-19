@@ -5,17 +5,16 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.13.RELEASE</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <version>2.7.18</version>
+    <relativePath/>
   </parent>
   <groupId>com.packtpub.angularspringbook</groupId>
   <artifactId>greeting-properties-profile</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>greeting-properties-profile</name>
-  <description>Configure application by properties.</description>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
   </properties>
 
   <dependencies>

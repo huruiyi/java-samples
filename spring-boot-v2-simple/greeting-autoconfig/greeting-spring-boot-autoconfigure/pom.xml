@@ -6,14 +6,13 @@
   <artifactId>greeting-spring-boot-autoconfigure</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>greeting-spring-boot-autoconfigure</name>
-  <description>Spring Boot AutoConfiguration for Greeting Library</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <java.version>17</java.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -39,7 +38,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.2.13.RELEASE</version>
+        <version>2.7.18</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
