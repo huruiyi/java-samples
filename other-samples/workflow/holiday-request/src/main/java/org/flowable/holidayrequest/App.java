@@ -26,7 +26,6 @@ public class App {
   static final RuntimeService runtimeService;
 
   static {
-
     cfg = new StandaloneProcessEngineConfiguration()
         .setJdbcUrl("jdbc:mysql://127.0.0.1:3306/flowable?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC")
         .setJdbcUsername("root")
@@ -93,7 +92,7 @@ public class App {
     taskService.complete(task.getId(), variables);
   }
 
-  public static void getHistory() {
+  public static void historyServicePrint() {
     //ACT_RE_PROCDEF
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holidayRequest");
     HistoryService historyService = processEngine.getHistoryService();
