@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "spring.security.oauth2.client.gitee")
 public class GiteeClient {
-
-    public String clientId;
-    public String clientSecret;
-    public String redirectUri;
+  public String clientId;
+  public String clientSecret;
+  public String redirectUri;
 }
