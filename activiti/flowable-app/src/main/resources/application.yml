@@ -1,0 +1,16 @@
+server:
+  port: 8083
+
+
+spring:
+  datasource:
+    url: jdbc:mysql:///flowable?nullCatalogMeansCurrent=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: fairy0619Xyz!
+
+flowable:
+  async-executor-activate: true
+  database-schema-update: true
+  process-definition-location-prefix: classpath*:/processes/
+  process-definition-location-suffixes: "**.bpmn20.xml,**.bpmn"
