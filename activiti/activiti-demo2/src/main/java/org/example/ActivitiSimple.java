@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.List;
 import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -13,15 +14,36 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.jupiter.api.Test;
 
-public class Main {
+public class ActivitiSimple {
 
-  public static void main(String[] args) {
-//    ProcessEngineConfiguration pec = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml");
-//    ProcessEngine pe = pec.buildProcessEngine();
-    test1();
+  @Test
+  void test0(){
+    //取得ProcessEngineConfiguration对象
+    ProcessEngineConfiguration engineConfiguration = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
+    //设置数据库连接属性
+    engineConfiguration.setJdbcDriver("com.mysql.cj.jdbc.Driver");
+    engineConfiguration.setJdbcUrl("jdbc:mysql://localhost:3306/activiti2?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true");
+    engineConfiguration.setJdbcUsername("root");
+    engineConfiguration.setJdbcPassword("root");
+    //  设置创建表的策略 （当没有表时，自动创建表）
+    //  DB_SCHEMA_UPDATE_FALSE = "false";//不会自动创建表，没有表，则抛异常
+    //  DB_SCHEMA_UPDATE_CREATE_DROP = "create-drop";//先删除，再创建表
+    //  DB_SCHEMA_UPDATE_TRUE = "true";//假如没有表，则自动创建
+    engineConfiguration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+    //通过ProcessEngineConfiguration对象创建 ProcessEngine 对象
+    ProcessEngine processEngine = engineConfiguration.buildProcessEngine();
+    System.out.println(processEngine);
   }
 
-  static void test1() {
+  @Test
+  void test1() {
+    ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml");
+    ProcessEngine processEngine = configuration.buildProcessEngine();
+    System.out.println(processEngine);
+  }
+
+  @Test
+  void test2() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
     RuntimeService runtimeService = processEngine.getRuntimeService();
@@ -35,17 +57,20 @@ public class Main {
         .key("holiday")
         .deploy();
 
+    ProcessDefinition processDefinition = processEngine.getRepositoryService().createProcessDefinitionQuery().deploymentId(deployment.getId())
+        .singleResult();
+
     System.out.println(deployment.getName());
     System.out.println(deployment.getId());
     System.out.println(deployment.getKey());
 
     //act_re_procdef
-    runtimeService.startProcessInstanceById("请假:10:22504");
+    runtimeService.startProcessInstanceById(processDefinition.getId());
     System.out.println(taskService.createTaskQuery().count());
 
     Task firstTask = taskService.createTaskQuery().taskAssignee("xxa").singleResult();
     taskService.complete(firstTask.getId());
-
+    System.out.println(taskService.createTaskQuery().count());
   }
 
 
