@@ -12,7 +12,7 @@ public class HelloLog4J {
   }
 
   static void test1() {
-    String path = Objects.requireNonNull(HelloLog4J.class.getClassLoader().getResource("log4j-3.properties")).getPath();
+    String path = Objects.requireNonNull(HelloLog4J.class.getClassLoader().getResource("log4j.properties")).getPath();
     PropertyConfigurator.configure(path);
     Logger logger = Logger.getLogger(HelloLog4J.class);
     logger.trace("Log4J trace");
