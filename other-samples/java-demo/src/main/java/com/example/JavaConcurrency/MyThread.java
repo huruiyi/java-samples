@@ -5,7 +5,7 @@ package com.example.JavaConcurrency;
  **/
 class MyThread extends Thread {
 
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     Thread myThread = new MyThread();
     myThread.start();
     System.out.println("In main(); thread name: " + Thread.currentThread().getName());

@@ -47,12 +47,9 @@ public class Jasypt {
 
 
   public static void main(String[] args) {
-
     //<artifactId>jasypt-spring-boot-starter</artifactId>
     //<artifactId>jasypt-maven-plugin</artifactId>
-    // 加密
     String encPwd = encyptPwd("jasypt", "123456");
-    // 解密
     String decPwd = decyptPwd("jasypt", encPwd);
     System.out.println(encPwd);
     System.out.println(decPwd);

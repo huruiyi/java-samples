@@ -5,18 +5,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 作者：胡睿毅 文件名：AtomicVariable 日期：2019/5/26 14:54
  **/
-
 class CounterAtomic {
 
-  public static Integer integer = new Integer(0);
+  public static Integer integer = 0;
   public static AtomicInteger atomicInteger = new AtomicInteger(0);
 }
 
 public class AtomicVariable {
 
   public static void main(String[] args) throws InterruptedException {
-    Thread incremeterThread[] = new Incrementer[1000];
-    Thread decrementerThread[] = new Decrementer[1000];
+    Thread[] incremeterThread = new Incrementer[1000];
+    Thread[] decrementerThread = new Decrementer[1000];
 
     for (int i = 0; i < 1000; i++) {
       incremeterThread[i] = new Incrementer();
