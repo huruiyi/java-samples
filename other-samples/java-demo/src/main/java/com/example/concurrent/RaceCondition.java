@@ -1,4 +1,4 @@
-package com.example.JavaConcurrency;
+package com.example.concurrent;
 
 // This class exposes a publicly accessible counter
 // to help demonstrate race condition problem

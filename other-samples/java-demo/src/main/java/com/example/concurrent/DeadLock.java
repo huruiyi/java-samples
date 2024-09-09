@@ -1,4 +1,4 @@
-package com.example.JavaConcurrency;
+package com.example.concurrent;
 
 /**
  * 作者：胡睿毅 文件名：DeadLock 日期：2019/5/26 14:51

@@ -1,33 +1,32 @@
 package com.example.concurrent;
 
-public class AtomicIntegerTest {
+import java.util.concurrent.atomic.AtomicInteger;
 
-  private static final int THREAD_COUNT = 20;
-  public static int count = 0;
+class AtomicIntegerTest {
 
-  public static void increase() {
-    count++;
+  static AtomicInteger ai = new AtomicInteger(10);
+
+  public static void check() {
+    assert (ai.intValue() % 2) == 0;
   }
 
-  //https://blog.csdn.net/fanrenxiang/article/details/80623884
-  public static void main(String[] args) {
-    Thread[] threads = new Thread[THREAD_COUNT];
-    for (int i = 0; i < THREAD_COUNT; i++) {
-      threads[i] = new Thread(new Runnable() {
-        @Override
-        public void run() {
-          for (int i = 0; i < 1000; i++) {
-            increase();
-          }
-        }
-      });
-      threads[i].start();
-    }
+  public static void increment() {
+    ai.incrementAndGet();
+  }
 
-    while (Thread.activeCount() > 1) {
-      System.out.println(Thread.activeCount());
-      Thread.yield();
-    }
-    System.out.println(count);
+  public static void decrement() {
+    ai.getAndDecrement();
+  }
+
+  public static void compare() {
+    ai.compareAndSet(10, 11);
+  }
+
+  public static void main(String[] args) {
+    increment();
+    decrement();
+    compare();
+    check();
+    System.out.println(ai);
   }
 }

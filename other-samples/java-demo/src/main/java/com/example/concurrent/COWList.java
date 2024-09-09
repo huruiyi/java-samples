@@ -1,16 +1,16 @@
-package com.example.JavaConcurrency;
+package com.example.concurrent;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 作者：胡睿毅 文件名：ModifyingList 日期：2019/5/26 14:56
+ * 作者：胡睿毅 文件名：COWList 日期：2019/5/26 14:57
  **/
-public class ModifyingList {
+public class COWList {
 
   public static void main(String[] args) {
-    List<String> aList = new ArrayList<>();
+    List<String> aList = new CopyOnWriteArrayList<>();
     aList.add("one");
     aList.add("two");
     aList.add("three");

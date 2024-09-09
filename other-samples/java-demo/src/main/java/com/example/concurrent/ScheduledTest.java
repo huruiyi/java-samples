@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ScheduledThreadPoolExecutorDemo {
+public class ScheduledTest {
 
     public static void main(String[] args) {
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(2, new ThreadPoolExecutor.CallerRunsPolicy());

@@ -16,9 +16,9 @@ import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.jwt.crypto.sign.MacSigner;
 
-class JwtdemoTests {
+class JwtTest {
 
-  private static final String SECRETKEY = "432543254365764432637695438328967568498513054390859236";
+  private static final String SECRET_KEY = "432543254365764432637695438328967568498513054390859236";
 
   @Test
   void test0() {
@@ -27,7 +27,7 @@ class JwtdemoTests {
     claims.put("username", "mike");
     claims.put("mobile", "15943569516");
     claims.put("expires_in", 60 * 1000); //设置过期时间，可用于过期校验
-    MacSigner rsaSigner = new MacSigner(SECRETKEY);
+    MacSigner rsaSigner = new MacSigner(SECRET_KEY);
     Jwt encode = JwtHelper.encode(JSON.toJSONString(claims), rsaSigner);
     String token = encode.getEncoded();
     System.out.println(token);
@@ -48,7 +48,7 @@ class JwtdemoTests {
         // .addClaims(map)
         .claim("roles", "admin")
         .claim("logo", "xxx.jpg")
-        .signWith(SignatureAlgorithm.HS256, SECRETKEY);
+        .signWith(SignatureAlgorithm.HS256, SECRET_KEY);
     //获取token
     String token = jwtBuilder.compact();
     System.out.println(token);
@@ -71,7 +71,7 @@ class JwtdemoTests {
     String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2NjYiLCJzdWIiOiJGb3giLCJpYXQiOjE3MTgxMTQ0NjYsImV4cCI6MTcxODExNDUyNiwicm9sZXMiOiJhZG1pbiIsImxvZ28iOiJ4eHguanBnIn0.SbUBJyx9WlJTvciU58fQTsx61d52dmmDKpp0xRTc-Jg";
     //解析token获取载荷中的声明对象
     Claims claims = Jwts.parser()
-        .setSigningKey(SECRETKEY)
+        .setSigningKey(SECRET_KEY)
         .parseClaimsJws(token)
         .getBody();
 
