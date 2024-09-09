@@ -27,18 +27,17 @@ public class TestActiviti {
 
     System.out.println("部署的id：" + deploy.getId());
     System.out.println("部署的名称：" + deploy.getName());
-
   }
 
   //执行流程
   @Test
   public void startProcess() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-    String processDefiKey = "leaveBill";
+    String processKey = "leaveBill";
     //取运行时服务
     RuntimeService runtimeService = processEngine.getRuntimeService();
     //取得流程实例
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey(processDefiKey);//通过流程定义的key 来执行流程
+    ProcessInstance pi = runtimeService.startProcessInstanceByKey(processKey);//通过流程定义的key 来执行流程
     System.out.println("流程实例id:" + pi.getId());//流程实例id
     System.out.println("流程定义id:" + pi.getProcessDefinitionId());//输出流程定义的id
   }
@@ -55,8 +54,7 @@ public class TestActiviti {
     //创建一个任务查询对象
     TaskQuery taskQuery = taskService.createTaskQuery();
     //办理人的任务列表
-    List<Task> list = taskQuery.taskAssignee(assignee)//指定办理人
-        .list();
+    List<Task> list = taskQuery.taskAssignee(assignee).list();
 
     //遍历任务列表
     if (list != null && !list.isEmpty()) {
