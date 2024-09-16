@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
@@ -12,6 +13,7 @@ import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class TestActiviti {
 
   @Test
@@ -25,8 +27,8 @@ public class TestActiviti {
         .category("办公类别")
         .deploy();
 
-    System.out.println("部署的id：" + deploy.getId());
-    System.out.println("部署的名称：" + deploy.getName());
+    log.info("部署的id:{}", deploy.getId());
+    log.info("部署的名称：{}", deploy.getName());
   }
 
   //执行流程
@@ -38,16 +40,15 @@ public class TestActiviti {
     RuntimeService runtimeService = processEngine.getRuntimeService();
     //取得流程实例
     ProcessInstance pi = runtimeService.startProcessInstanceByKey(processKey);//通过流程定义的key 来执行流程
-    System.out.println("流程实例id:" + pi.getId());//流程实例id
-    System.out.println("流程定义id:" + pi.getProcessDefinitionId());//输出流程定义的id
+    log.info("流程实例id:{}", pi.getId());
+    log.info("流程定义id:{}", pi.getProcessDefinitionId());
   }
 
   //查询任务
   @Test
   public void queryTask() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-
-    //任务的办理人
+    //任务的办理人：张三-》李四-》王五
     String assignee = "王五";
     //取得任务服务
     TaskService taskService = processEngine.getTaskService();
@@ -59,9 +60,9 @@ public class TestActiviti {
     //遍历任务列表
     if (list != null && !list.isEmpty()) {
       for (Task task : list) {
-        System.out.println("任务的办理人：" + task.getAssignee());
-        System.out.println("任务的id：" + task.getId());
-        System.out.println("任务的名称：" + task.getName());
+        log.info("任务的办理人：{}", task.getAssignee());
+        log.info("任务的id：{}", task.getId());
+        log.info("任务的名称：{}", task.getName());
       }
     }
 
@@ -72,10 +73,10 @@ public class TestActiviti {
   public void compileTask() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
-    String taskId = "7502";
+    String taskId = "10002";
     //taskId：任务id
     processEngine.getTaskService().complete(taskId);
-    System.out.println("当前任务执行完毕");
+    log.info("当前任务执行完毕");
   }
 
 }

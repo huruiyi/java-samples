@@ -59,24 +59,21 @@ public class ProcessDefinitionManager {
         .processDefinitionKey(processDefiKey)//流程定义key 由bpmn 的 process 的  id属性决定
 //		.processDefinitionName(name)//流程定义名称  由bpmn 的 process 的  name属性决定
 //		.processDefinitionVersion(version)//流程定义的版本
-        .latestVersion()//最新版本
-
-        //排序
-        .orderByProcessDefinitionVersion().desc()//按版本的降序排序
-
-        //结果
-//		.count()//统计结果
-//		.listPage(arg0, arg1)//分页查询
+//    .latestVersion()//最新版本
+        .orderByProcessDefinitionVersion().desc()
+//		.count()
+//		.listPage(arg0, arg1)
         .list();
 
     //遍历结果
-    if (list != null && list.size() > 0) {
+    if (list != null && !list.isEmpty()) {
       for (ProcessDefinition temp : list) {
-        System.out.print("流程定义的id: " + temp.getId());
-        System.out.print("流程定义的key: " + temp.getKey());
-        System.out.print("流程定义的版本: " + temp.getVersion());
-        System.out.print("流程定义部署的id: " + temp.getDeploymentId());
+        System.out.println("流程定义的id: " + temp.getId());
+        System.out.println("流程定义的key: " + temp.getKey());
+        System.out.println("流程定义的版本: " + temp.getVersion());
+        System.out.println("流程定义部署的id: " + temp.getDeploymentId());
         System.out.println("流程定义的名称: " + temp.getName());
+        System.out.println("-----------------------------------------");
       }
     }
   }
@@ -84,7 +81,7 @@ public class ProcessDefinitionManager {
   @Test
   public void viewImage() throws Exception {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-    String deploymentId = "5001";
+    String deploymentId = "7501";
     String imageName = null;
     //取得某个部署的资源的名称  deploymentId
     List<String> resourceNames = processEngine.getRepositoryService().getDeploymentResourceNames(deploymentId);

@@ -15,8 +15,8 @@ import org.junit.Test;
 
 //测试动态设置任务的处理人
 public class UserTask {
-	private ProcessEngine processEngine = ProcessEngines
-			.getDefaultProcessEngine();
+
+	private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
 	// 部署流程定义，资源来在bpmn格式
 	@Test
@@ -48,7 +48,7 @@ public class UserTask {
 	// 查询正在运行任务
 	@Test
 	public void queryTask() {
-		String assignee="王某某";//指定任务处理人
+		String assignee = "王某某";//指定任务处理人
 		// 取得任务服务
 		TaskService taskService = processEngine.getTaskService();
 		// 创建一个任务查询对象
@@ -58,14 +58,14 @@ public class UserTask {
 				.taskAssignee(assignee)
 				.list();
 		// 遍历任务列表
-		if (list != null && list.size() > 0) {
+		if (list != null && !list.isEmpty()) {
 			for (Task task : list) {
 				System.out.println("任务的办理人：" + task.getAssignee());
 				System.out.println("任务的id：" + task.getId());
 				System.out.println("任务的名称：" + task.getName());
+				System.out.println("-----------------------------------------");
 			}
 		}
-
 	}
 
 	// 完成任务

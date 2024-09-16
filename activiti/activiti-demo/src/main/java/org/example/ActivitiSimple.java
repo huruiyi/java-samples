@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngines;
@@ -14,15 +15,17 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class ActivitiSimple {
 
   @Test
-  void test0(){
+  void test0() {
     //取得ProcessEngineConfiguration对象
     ProcessEngineConfiguration engineConfiguration = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
     //设置数据库连接属性
     engineConfiguration.setJdbcDriver("com.mysql.cj.jdbc.Driver");
-    engineConfiguration.setJdbcUrl("jdbc:mysql://localhost:3306/activiti6?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true");
+    engineConfiguration.setJdbcUrl(
+        "jdbc:mysql://localhost:3306/activiti6?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true");
     engineConfiguration.setJdbcUsername("root");
     engineConfiguration.setJdbcPassword("fairy0619Xyz!");
     //  设置创建表的策略 （当没有表时，自动创建表）
@@ -60,9 +63,9 @@ public class ActivitiSimple {
     ProcessDefinition processDefinition = processEngine.getRepositoryService().createProcessDefinitionQuery().deploymentId(deployment.getId())
         .singleResult();
 
-    System.out.println(deployment.getName());
-    System.out.println(deployment.getId());
-    System.out.println(deployment.getKey());
+    log.info(deployment.getName());
+    log.info(deployment.getId());
+    log.info(deployment.getKey());
 
     //act_re_procdef
     runtimeService.startProcessInstanceById(processDefinition.getId());
@@ -94,10 +97,10 @@ public class ActivitiSimple {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("请假");
 
     //4.输出实例的相关信息
-    System.out.println("流程部署ID：" + processInstance.getDeploymentId());
-    System.out.println("流程定义ID：" + processInstance.getProcessDefinitionId());
-    System.out.println("流程实例ID：" + processInstance.getId());
-    System.out.println("活动ID：" + processInstance.getActivityId());
+    log.info("流程部署ID：" + processInstance.getDeploymentId());
+    log.info("流程定义ID：" + processInstance.getProcessDefinitionId());
+    log.info("流程实例ID：" + processInstance.getId());
+    log.info("活动ID：" + processInstance.getActivityId());
 
   }
 
@@ -119,12 +122,12 @@ public class ActivitiSimple {
 
     for (ProcessDefinition processDefinition : list) {
 
-      System.out.println("------------------------");
-      System.out.println(" 流 程 部 署 id ： " + processDefinition.getDeploymentId());
-      System.out.println("流程定义id： " + processDefinition.getId());
-      System.out.println("流程定义名称： " + processDefinition.getName());
-      System.out.println("流程定义key： " + processDefinition.getKey());
-      System.out.println("流程定义版本： " + processDefinition.getVersion());
+      log.info("------------------------");
+      log.info(" 流 程 部 署 id ： {}", processDefinition.getDeploymentId());
+      log.info("流程定义id： {}", processDefinition.getId());
+      log.info("流程定义名称： {}", processDefinition.getName());
+      log.info("流程定义key： {}", processDefinition.getKey());
+      log.info("流程定义版本： {}", processDefinition.getVersion());
     }
   }
 
