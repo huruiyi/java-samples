@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:activiti="http://activiti.org/bpmn"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+  targetNamespace="http://www.activiti.org/test">
+  <process id="leaveBill" name="leaveProcess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"/>
+    <userTask id="usertask1" name="请假申请" activiti:assignee="张三">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler">
+          <![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask2" name="审批[主管]" activiti:assignee="李四">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler">
+          <![CDATA[false]]>
+        </modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask3" name="审批[经理]" activiti:assignee="王五">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler">
+          <![CDATA[false]]>
+        </modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent1" name="End"/>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"/>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"/>
+    <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="usertask3"/>
+    <sequenceFlow id="flow4" sourceRef="usertask3" targetRef="endevent1"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_leaveBill">
+    <bpmndi:BPMNPlane bpmnElement="leaveBill" id="BPMNPlane_leaveBill">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="30.0" width="30.000000000000014" x="59.999993741512796" y="222.49990966918205"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="149.99999217689077" y="209.99997809529475"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="299.99998435378154" y="209.9999212734566"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="449.99997653067237" y="209.99996714294298"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="28.0" width="28.0" x="584.9999389797497" y="223.49989801275402"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="89.99999374151065" y="237.49991771931306"/>
+        <omgdi:waypoint x="149.99999217689077" y="237.49994991983624"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="254.99999217689077" y="237.49995820765037"/>
+        <omgdi:waypoint x="299.99998435378154" y="237.499941161101"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="404.99998435378154" y="237.49993732777767"/>
+        <omgdi:waypoint x="449.99997653067237" y="237.4999510886219"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="554.9999765306724" y="237.49992953324005"/>
+        <omgdi:waypoint x="584.9999389797533" y="237.49990804200812"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

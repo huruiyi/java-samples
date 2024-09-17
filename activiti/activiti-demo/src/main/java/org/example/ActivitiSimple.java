@@ -55,7 +55,7 @@ public class ActivitiSimple {
 
     //act_re_deployment
     Deployment deployment = repositoryService.createDeployment()
-        .addClasspathResource("请假.bpmn20.xml")
+        .addClasspathResource("processes/请假.bpmn20.xml")
         .name("请假申请单流程")
         .key("holiday")
         .deploy();
@@ -85,7 +85,7 @@ public class ActivitiSimple {
     RepositoryService repositoryService = processEngine.getRepositoryService();
 
     repositoryService.createDeployment()
-        .addClasspathResource("请假.bpmn20.xml")
+        .addClasspathResource("processes/请假.bpmn20.xml")
         .name("请假申请单流程")
         .key("holiday")
         .deploy();
@@ -97,11 +97,10 @@ public class ActivitiSimple {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("请假");
 
     //4.输出实例的相关信息
-    log.info("流程部署ID：" + processInstance.getDeploymentId());
-    log.info("流程定义ID：" + processInstance.getProcessDefinitionId());
-    log.info("流程实例ID：" + processInstance.getId());
-    log.info("活动ID：" + processInstance.getActivityId());
-
+    log.info("流程部署ID：{}", processInstance.getDeploymentId());
+    log.info("流程定义ID：{}", processInstance.getProcessDefinitionId());
+    log.info("流程实例ID：{}", processInstance.getId());
+    log.info("活动ID：{}", processInstance.getActivityId());
   }
 
   @Test

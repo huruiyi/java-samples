@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/testm1649569200066">
+  <process id="LeaveApplyProcess" name="请假申请流程" isExecutable="true">
+    <startEvent id="_2" name="开始事件"/>
+    <userTask id="_3" name="请假申请" activiti:assignee="liuxiaopeng">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="_4" name="上级审批" activiti:assignee="hebo">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <endEvent id="_5" name="结束事件"/>
+    <sequenceFlow id="_6" sourceRef="_2" targetRef="_3"/>
+    <sequenceFlow id="_8" sourceRef="_4" targetRef="_5"/>
+    <sequenceFlow id="_7" sourceRef="_3" targetRef="_4"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_LeaveApplyProcess">
+    <bpmndi:BPMNPlane bpmnElement="LeaveApplyProcess" id="BPMNPlane_LeaveApplyProcess">
+      <bpmndi:BPMNShape bpmnElement="_2" id="BPMNShape__2">
+        <omgdc:Bounds height="30.0" width="30.0" x="89.99999530613445" y="284.9999851360925"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" id="BPMNShape__3">
+        <omgdc:Bounds height="55.0" width="84.99999999999997" x="179.99999061226893" y="272.49997092411155"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" id="BPMNShape__4">
+        <omgdc:Bounds height="55.0" width="85.0" x="329.99998278915973" y="272.49997092411155"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" id="BPMNShape__5">
+        <omgdc:Bounds height="28.0" width="28.0" x="464.9999272450881" y="285.9999702200317"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_6" id="BPMNEdge__6">
+        <omgdi:waypoint x="119.99999" y="300.00003"/>
+        <omgdi:waypoint x="179.99999061226893" y="299.9999760646155"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7">
+        <omgdi:waypoint x="264.9999906122689" y="299.99997092411155"/>
+        <omgdi:waypoint x="329.99998278915973" y="299.99997092411155"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8">
+        <omgdi:waypoint x="414.99998278915973" y="299.99997064314056"/>
+        <omgdi:waypoint x="464.9999272450881" y="299.9999703125868"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

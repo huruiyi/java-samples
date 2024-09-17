@@ -27,7 +27,7 @@ public class RunFirstDemo {
     RuntimeService runtimeService = engine.getRuntimeService();
     TaskService taskService = engine.getTaskService();
 
-    repositoryService.createDeployment().addClasspathResource("processes/LeaveApplyProcess.bpmn").deploy();
+    repositoryService.createDeployment().addClasspathResource("processes/first.bpmn20.xml").deploy();
     runtimeService.startProcessInstanceByKey("LeaveApplyProcess");
     log.info("启动流程...");
     log.info("流程个数：{}", taskService.createTaskQuery().count());

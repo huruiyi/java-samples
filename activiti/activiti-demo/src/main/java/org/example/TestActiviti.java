@@ -21,8 +21,7 @@ public class TestActiviti {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
     RepositoryService repositoryService = processEngine.getRepositoryService();
     Deployment deploy = repositoryService.createDeployment()
-        .addClasspathResource("diagrams/LeaveBill.bpmn")
-        .addClasspathResource("diagrams/LeaveBill.png")
+        .addClasspathResource("processes/LeaveProcess.bpmn20.xml")
         .name("请求单流程")
         .category("办公类别")
         .deploy();
@@ -65,17 +64,13 @@ public class TestActiviti {
         log.info("任务的名称：{}", task.getName());
       }
     }
-
   }
 
   //完成任务
   @Test
   public void compileTask() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-
-    String taskId = "10002";
-    //taskId：任务id
-    processEngine.getTaskService().complete(taskId);
+    processEngine.getTaskService().complete("25002");
     log.info("当前任务执行完毕");
   }
 

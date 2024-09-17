@@ -41,7 +41,7 @@ public class FlowableTest {
         //act_re_procdef.deployment_id_
         ProcessDefinition processDefinition = processEngine.getRepositoryService()
             .createProcessDefinitionQuery()
-            .deploymentId("252fa4d3-6b5b-11ef-97df-9c7befa998dd")
+            .deploymentId("6373952a-7505-11ef-af35-005056c00001")
             .singleResult();
         System.out.println("流程定义信息-Id：" + processDefinition.getId());
         System.out.println("流程定义信息-Name：" + processDefinition.getName());

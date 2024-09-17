@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
-  <process id="test" name="test" isExecutable="true">
+  <process id="test-ask-leave" name="test" isExecutable="true">
     <startEvent id="sid-099abf67-0fd1-43a9-b5e5-ebaca24808a1"/>
-    <userTask id="sid-1cd0af3b-4d59-4d4c-b151-e19e1771009d" name="李四审核" flowable:assignee="lisi"/>
+    <userTask id="sid-1cd0af3b-4d59-4d4c-b151-e19e1771009d" name="李四审核"/>
     <sequenceFlow id="sid-db9e3c45-4ff2-46c3-b0ec-1ff9ab7bb60d" sourceRef="sid-099abf67-0fd1-43a9-b5e5-ebaca24808a1" targetRef="sid-1cd0af3b-4d59-4d4c-b151-e19e1771009d"/>
     <endEvent id="sid-90f860cd-f205-4075-9da2-f89e8895dc5a"/>
     <sequenceFlow id="sid-540f4ecf-883b-41ee-bf17-c2fd707f050e" sourceRef="sid-1cd0af3b-4d59-4d4c-b151-e19e1771009d" targetRef="sid-90f860cd-f205-4075-9da2-f89e8895dc5a"/>
