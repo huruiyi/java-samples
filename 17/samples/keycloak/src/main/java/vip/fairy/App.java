@@ -4,6 +4,7 @@ package vip.fairy;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.authorization.client.AuthzClient;
@@ -22,12 +23,10 @@ public class App {
   private static final String password = "admin-pass!";
   private static final String authServerUrl = "http://localhost:8080";
 
-  public static void main(String[] args) {
-    createUser();
-  }
 
   // 登录认证
-  public static void authUser() {
+  @Test
+  public void authUser() {
     AccessTokenResponse response;
     // 根据keycloak.json中定义的配置创建一个新实例
     AuthzClient authzClient = AuthzClient.create();
@@ -41,24 +40,27 @@ public class App {
   }
 
   // 创建realm
-  public static void createRealm() {
+  @Test
+  public void createRealm() {
     String newRealm = "mes";
-     RealmRepresentation realm = new RealmRepresentation();
+    RealmRepresentation realm = new RealmRepresentation();
     realm.setRealm(newRealm);
     realm.setEnabled(true);
     Keycloak().realms().create(realm);
   }
 
   // 创建client
-  public static void createClient() {
-     ClientRepresentation client = new ClientRepresentation();
+  @Test
+  public void createClient() {
+    ClientRepresentation client = new ClientRepresentation();
     client.setClientId("new-client");
     Response response = Keycloak().realm(realmName).clients().create(client);
     System.out.println(response.getStatus());
   }
 
   // 创建user
-  public static void createUser() {
+  @Test
+  public void createUser() {
     UserRepresentation user = new UserRepresentation();
     user.setUsername("user-3");
     CredentialRepresentation credential = new CredentialRepresentation();
