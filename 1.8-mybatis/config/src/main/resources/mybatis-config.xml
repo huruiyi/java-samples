@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!--
+      mybatis 可以使用properties来引入外部properties配置文件的内容
+      resource: 引入类路径下的资源
+      url: 引入网络路径或者磁盘下的资源
+  -->
+  <properties resource="dbconfig.properties"></properties>
+
+  <settings>
+    <!--开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射-->
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+
+  <typeAliases>
+    <!--<typeAlias type="com.example.mybatis.entity.User" alias="User"></typeAlias>-->
+    <!--指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean-->
+    <!--
+        package: 为某个包下的所有类批量起别名
+        name: 指定包名, 默认别名为类名小写
+    -->
+    <package name="com.example.mybatis.entity"></package>
+  </typeAliases>
+
+  <!--
+      可以配置多个environment, 通过id区分不同环境
+      通过environments中的default属性来指定某个环境
+  -->
+  <environments default="development">
+    <!-- 配置 MyBatis 运行环境 -->
+    <environment id="development">
+      <!-- 配置 JDBC 事务管理 -->
+      <transactionManager type="JDBC"/>
+      <!-- POOLED 配置 JDBC 数据源连接池 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <!-- 注册UserMapper.xml -->
+  <mappers>
+    <!--注册方式1. 使用相对于类路径的SQL映射文件-->
+    <!--<mapper resource="mapper/UserMapper.xml"/>-->
+
+    <!--&lt;!&ndash;注册方式2. 使用完全限定资源定位符（URL）&ndash;&gt;-->
+    <!--<mapper url="file:///var/mapper/UserMapper.xml"/>-->
+
+    <!--注册方式3. 使用映射器接口实现类的完全限定类名-->
+    <!--这种情况需要将SQL映射文件与接口类放在同一个文件夹下面并且文件名相同-->
+    <!--
+    这里需要注意的是, 默认情况下, maven不会将src/main/java下的xml文件进行打包的,
+    需要在pom中进行设置
+    -->
+
+    <mapper class="com.example.mybatis.mapper.UserMapper"/>
+
+    <!--&lt;!&ndash;注册方式4. 注册某个包路径下的所有接口&ndash;&gt;-->
+    <!--&lt;!&ndash;这种情况需要将SQL映射文件与接口类放在同一个文件夹下面并且文件名相同&ndash;&gt;-->
+    <!--<package name="com.example.mybatis.mapper"/>-->
+  </mappers>
+</configuration>
