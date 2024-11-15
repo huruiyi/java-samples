@@ -14,7 +14,7 @@ resultType: 为返回值数据类型
             parameterType="String"
             resultType="com.example.mybatis.entity.User">
         select
-        id, user_name, user_email userEmail, user_city userCity, age
+        id, user_name , user_email userEmail, user_city userCity, age
         from t_user
         where user_name = #{username}
     </select>

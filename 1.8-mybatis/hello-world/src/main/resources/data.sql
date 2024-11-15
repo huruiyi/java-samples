@@ -1,3 +1,10 @@
+create table t_country
+(
+    id           bigint      null,
+    country_code varchar(20) null,
+    country_name varchar(50) null
+);
+
 create table t_user
 (
     id          bigint auto_increment
@@ -17,6 +24,10 @@ create index user_username_index
     on t_user (user_name);
 
 
-INSERT INTO mybatis.t_user (user_name, user_email, user_city, age, sex, mobile, email, note, position_id) VALUES ('user1', 'user1@qq.com', '深圳', 18, null, null, null, null, null);
-INSERT INTO mybatis.t_user (user_name, user_email, user_city, age, sex, mobile, email, note, position_id) VALUES ('user2', 'user2@qq.com', '桂林', 16, null, null, null, null, null);
-INSERT INTO mybatis.t_user (user_name, user_email, user_city, age, sex, mobile, email, note, position_id) VALUES ('fairy', 'fairy@qq.com', '深圳', 18, null, null, null, null, null);
+INSERT INTO mybatis.t_user (id, user_name, user_email, user_city, age, sex, mobile, email, note, position_id) VALUES (2, 'fairy', 'lzc@qq.com', '深圳', 18, null, null, null, null, null);
+INSERT INTO mybatis.t_user (id, user_name, user_email, user_city, age, sex, mobile, email, note, position_id) VALUES (4, 'lizhencheng', 'lizhencheng@qq.com', '桂林', 16, null, null, null, null, null);
+INSERT INTO mybatis.t_user (id, user_name, user_email, user_city, age, sex, mobile, email, note, position_id) VALUES (6, 'lzc', 'lzc@qq.com', '深圳', 18, null, null, null, null, null);
+
+
+INSERT INTO mybatis.t_country (id, country_code, country_name) VALUES (11, 'CHN', 'China');
+INSERT INTO mybatis.t_country (id, country_code, country_name) VALUES (22, 'USA', 'United States');

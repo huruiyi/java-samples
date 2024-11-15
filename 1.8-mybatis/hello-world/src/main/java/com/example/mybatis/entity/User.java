@@ -6,7 +6,7 @@ package com.example.mybatis.entity;
  */
 public class User {
     private Integer id;
-    private String username;
+    private String userName;
     private String userEmail;
     private String userCity;
     private Integer age;
@@ -16,12 +16,15 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getUsername() {
-        return username;
+
+    public String getUserName() {
+        return userName;
     }
-    public void setUsername(String username) {
-        this.username = username;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
+
     public String getUserEmail() {
         return userEmail;
     }
@@ -44,11 +47,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userCity='" + userCity + '\'' +
-                ", age=" + age +
-                '}';
+            "id=" + id +
+            ", userName='" + userName + '\'' +
+            ", userEmail='" + userEmail + '\'' +
+            ", userCity='" + userCity + '\'' +
+            ", age=" + age +
+            '}';
     }
 }

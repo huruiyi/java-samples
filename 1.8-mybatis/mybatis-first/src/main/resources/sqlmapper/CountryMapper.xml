@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.example.mapper.CountryMapper">
+  <!--
+      表示此namespace使用二级缓存
+      cache标签的属性:
+          eviction="LRU" :清除策略,默认为LRU,移除最长时间不被使用的对象。
+          flushInterval="60000" :刷新间隔,以毫秒为单位的合理时间量
+          size="512" :引用数目
+          readOnly="true" :只读的缓存会给所有调用者返回缓存对象的相同实例
+  -->
+  <cache flushInterval="60000" eviction="LRU" size="512" readOnly="true"></cache>
   <select id="selectAll" resultType="Country">
-    select id, countryname, countrycode
-    from country
+    select id, country_name, country_code
+    from t_country
+  </select>
+
+  <select id="findCountry" resultType="Country">
+    SELECT * FROM t_country WHERE id in
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
   </select>
 </mapper>

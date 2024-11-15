@@ -33,7 +33,7 @@ public class App2 {
         /*-------------------------------------------------------------------*/
         // 2. 新增
         User addUser = new User();
-        addUser.setUsername("lzc");
+        addUser.setUserName("lzc");
         addUser.setUserEmail("lzc@qq.com");
         addUser.setUserCity("深圳");
         addUser.setAge(18);
@@ -47,7 +47,7 @@ public class App2 {
         // 4. 修改
         User updateUser = new User();
         updateUser.setId(4);
-        updateUser.setUsername("lizhencheng");
+        updateUser.setUserName("lizhencheng");
         updateUser.setUserEmail("lizhencheng@qq.com");
         updateUser.setUserCity("桂林");
         updateUser.setAge(16);

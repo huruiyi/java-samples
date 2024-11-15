@@ -7,7 +7,14 @@
   <properties resource="db.properties"/>
 
   <settings>
+    <!--开启二级缓存,默认是开启的为true-->
+    <setting name="cacheEnabled" value="true"/>
+    <!--配置日志组件-->
     <setting name="logImpl" value="LOG4J"/>
+    <!--开启驼峰映射-->
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+    <!--开启全局懒加载-->
+    <setting name="lazyLoadTriggerMethods" value="true"/>
   </settings>
 
   <typeAliases>
@@ -19,7 +26,7 @@
       <transactionManager type="JDBC">
         <property name="" value=""/>
       </transactionManager>
-       <dataSource type="UNPOOLED">
+      <dataSource type="UNPOOLED">
         <property name="driver" value="${jdbc_driver}"/>
         <property name="url" value="${jdbc_url}"/>
         <property name="username" value="${jdbc_username}"/>
@@ -32,7 +39,6 @@
     <mapper resource="sqlmapper/CountryMapper.xml"/>
     <mapper resource="sqlmapper/UserMapper.xml"/>
   </mappers>
-
 
 
 </configuration>

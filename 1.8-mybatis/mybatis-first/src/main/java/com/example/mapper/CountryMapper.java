@@ -7,4 +7,5 @@ import java.util.List;
 public interface CountryMapper {
 
   List<Country> selectAll();
+  List<Country> findCountry(  List<Integer> ids);
 }
