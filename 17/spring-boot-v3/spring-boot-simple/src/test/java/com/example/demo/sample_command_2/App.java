@@ -1,4 +1,4 @@
-package vip.fairy.sample_command_2;
+package com.example.demo.sample_command_2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class App {
   }
 
   @Test
-  void test( ) {
+  void test() {
     Stock abcStock = new Stock();
 
     BuyStock buyStockOrder = new BuyStock(abcStock);

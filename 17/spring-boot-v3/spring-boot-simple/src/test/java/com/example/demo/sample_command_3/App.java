@@ -1,4 +1,4 @@
-package vip.fairy.sample_command_3;
+package com.example.demo.sample_command_3;
 
 import java.util.Objects;
 import org.junit.jupiter.api.Test;

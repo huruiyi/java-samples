@@ -1,4 +1,4 @@
-package vip.fairy.sample_strategy;
+package com.example.demo.sample_strategy;
 
 public class AddFunc implements Strategy {
 
@@ -6,4 +6,5 @@ public class AddFunc implements Strategy {
   public int calculate(int x, int y) {
     return x + y;
   }
+
 }

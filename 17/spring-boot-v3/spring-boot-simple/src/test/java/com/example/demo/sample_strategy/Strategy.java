@@ -1,6 +1,7 @@
-package vip.fairy.sample_strategy;
+package com.example.demo.sample_strategy;
 
 public interface Strategy {
 
   int calculate(int x, int y);
+
 }

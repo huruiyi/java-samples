@@ -1,4 +1,4 @@
-package vip.fairy.sample_command_1;
+package com.example.demo.sample_command_1;
 
 public class App {
 

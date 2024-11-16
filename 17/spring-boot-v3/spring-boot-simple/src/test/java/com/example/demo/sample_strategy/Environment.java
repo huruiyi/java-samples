@@ -1,4 +1,4 @@
-package vip.fairy.sample_strategy;
+package com.example.demo.sample_strategy;
 
 public class Environment {
 
@@ -12,4 +12,5 @@ public class Environment {
   public int calculate(int a, int b) {
     return strategy.calculate(a, b);
   }
+
 }
