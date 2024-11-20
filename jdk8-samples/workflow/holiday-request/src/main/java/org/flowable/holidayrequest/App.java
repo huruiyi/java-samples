@@ -81,12 +81,12 @@ public class App {
     }
 
     System.out.println("Which task would you like to complete?");
-    int taskIndex = Integer.valueOf(scanner.nextLine());
+    int taskIndex = Integer.parseInt(scanner.nextLine());
     Task task = tasks.get(taskIndex - 1);
     Map<String, Object> processVariables = taskService.getVariables(task.getId());
     System.out.println(processVariables.get("employee") + " wants " + processVariables.get("nrOfHolidays") + " of holidays. Do you approve this?");
 
-    boolean approved = scanner.nextLine().toLowerCase().equals("y");
+    boolean approved = scanner.nextLine().equalsIgnoreCase("y");
     variables = new HashMap<>();
     variables.put("approved", approved);
     taskService.complete(task.getId(), variables);

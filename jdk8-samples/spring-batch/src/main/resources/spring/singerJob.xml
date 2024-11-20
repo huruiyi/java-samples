@@ -36,14 +36,14 @@
           </property>
           <property name="fieldSetMapper">
             <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-              <property name="targetType" value="com.example.batch.model.Singer"/>
+              <property name="targetType" value="vip.fairy.batch.model.Singer"/>
             </bean>
           </property>
         </bean>
       </property>
     </bean>
 
-    <bean id="itemProcessor" class="com.example.batch.SingerItemProcessor"/>
+    <bean id="itemProcessor" class="vip.fairy.batch.SingerItemProcessor"/>
 
     <bean id="itemWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
       <property name="itemSqlParameterSourceProvider">
@@ -59,7 +59,7 @@
       <jdbc:script location="classpath:support/singer.sql"/>
     </jdbc:initialize-database>
 
-    <bean id="stepExecutionStatsListener" class="com.example.batch.StepExecutionStatsListener"/>
+    <bean id="stepExecutionStatsListener" class="vip.fairy.batch.StepExecutionStatsListener"/>
 
     <batch:job id="singerJob">
       <batch:step id="step1">

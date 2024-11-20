@@ -22,7 +22,7 @@
     <!-- 配置C3P0连接池 -->
     <property name="hibernate.hbm2ddl.auto">update</property>
 
-    <mapping resource="Customer.hbm.xml"/>
+    <mapping resource="Customer1.hbm.xml"/>
 
   </session-factory>
 </hibernate-configuration>

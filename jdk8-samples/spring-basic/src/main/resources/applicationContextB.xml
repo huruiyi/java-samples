@@ -9,6 +9,11 @@
 
   <!-- 要增强的对象 -->
   <aop:config>
+    <aop:pointcut expression="execution(* vip.fairy.demoB.ProductDaoImpl.delete(..))" id="pointcut_delete"/>
+    <aop:pointcut expression="execution(* vip.fairy.demoB.ProductDaoImpl.update(..))" id="pointcut_update"/>
+    <aop:pointcut expression="execution(* vip.fairy.demoB.ProductDaoImpl.find(..))" id="pointcut_find"/>
+    <!--配置切面 -->
+    <aop:pointcut expression="execution(* vip.fairy.demoB.ProductDaoImpl.save(..))" id="pointcut_save"/>
     <!-- 表达式配置哪些类的哪些方法需要增强 -->
     <aop:aspect ref="myAspect">
       <aop:after method="after" pointcut-ref="pointcut_find"/>
@@ -20,18 +25,11 @@
       <aop:around method="arround" pointcut-ref="pointcut_update"/>
       <aop:before method="checkPri" pointcut-ref="pointcut_save"/>
     </aop:aspect>
-    <aop:pointcut expression="execution(* com.example.demoB.ProductDaoImpl.delete(..))"
-      id="pointcut_delete"/>
-    <aop:pointcut expression="execution(* com.example.demoB.ProductDaoImpl.update(..))"
-      id="pointcut_update"/>
-    <aop:pointcut expression="execution(* com.example.demoB.ProductDaoImpl.find(..))" id="pointcut_find"/>
-    <!--配置切面 -->
-    <aop:pointcut expression="execution(* com.example.demoB.ProductDaoImpl.save(..))" id="pointcut_save"/>
   </aop:config>
 
   <!-- 将切面类交给Spring管理 -->
-  <bean class="com.example.demoB.MyAspectXml" id="myAspect"></bean>
+  <bean class="vip.fairy.demoB.MyAspectXml" id="myAspect"/>
 
   <!-- 通过AOP的配置完成对目标类产生代理 -->
-  <bean class="com.example.demoB.ProductDaoImpl" id="productDao"></bean>
+  <bean class="vip.fairy.demoB.ProductDaoImpl" id="productDao"/>
 </beans>

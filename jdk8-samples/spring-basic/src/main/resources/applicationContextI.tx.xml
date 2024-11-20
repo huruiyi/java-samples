@@ -9,12 +9,12 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
   <!-- Service配置 -->
-  <bean class="com.example.tx.demoI.AccountServiceImpl" id="accountService">
+  <bean class="vip.fairy.tx.demoI.AccountServiceImpl" id="accountService">
     <property name="accountDao" ref="accountDao"/>
   </bean>
 
   <!-- Dao配置 -->
-  <bean class="com.example.tx.demoI.AccountDaoImpl" id="accountDao">
+  <bean class="vip.fairy.tx.demoI.AccountDaoImpl" id="accountDao">
     <!-- 直接指定数据源,SPRING自动创建JdbcTemplate, 无需自己配置 jdbcTemplate_c3p0 -->
     <property name="dataSource" ref="c3poDataSource"/>
   </bean>
@@ -33,7 +33,7 @@
 
   <!-- 配置Spring的C3P0的模板 -->
   <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
-    <property name="dataSource" ref="c3poDataSource"></property>
+    <property name="dataSource" ref="c3poDataSource"/>
   </bean>
 
   <!-- 配置事务管理器 -->

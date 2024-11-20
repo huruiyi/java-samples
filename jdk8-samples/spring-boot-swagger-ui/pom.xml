@@ -10,7 +10,7 @@
     <relativePath/>
   </parent>
 
-  <groupId>com.example.demo</groupId>
+  <groupId>vip.fairy</groupId>
   <artifactId>spring-boot-swagger-ui</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-boot-swagger-ui</name>

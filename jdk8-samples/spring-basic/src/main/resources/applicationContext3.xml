@@ -6,13 +6,13 @@
 
   <!-- Spring的Bean的实例化的方式============= -->
   <!-- 无参数构造方法 -->
-  <bean class="com.example.demo3.Bean1" id="bean1"></bean>
+  <bean class="vip.fairy.demo3.Bean1" id="bean1"/>
 
   <!-- 静态工厂实例化 -->
-  <bean class="com.example.demo3.Bean2Factory" factory-method="createBean2" id="bean2"/>
+  <bean class="vip.fairy.demo3.Bean2Factory" factory-method="createBean2" id="bean2"/>
 
   <!-- 实例工厂实例化 -->
-  <bean class="com.example.demo3.Bean3Factory" id="bean3Factory"></bean>
-  <bean factory-bean="bean3Factory" factory-method="createBean3" id="bean3"></bean>
+  <bean class="vip.fairy.demo3.Bean3Factory" id="bean3Factory"/>
+  <bean factory-bean="bean3Factory" factory-method="createBean3" id="bean3"/>
 
 </beans>

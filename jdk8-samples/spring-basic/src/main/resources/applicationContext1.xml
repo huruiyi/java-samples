@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <!-- Spring的入门的配置==================== -->
-  <bean class="com.example.demo1.UserDAOImpl" name="userDAO">
+  <bean class="vip.fairy.demo1.UserDAOImpl" name="userDAO">
     <property name="name" value="李东"/>
   </bean>
 </beans>

@@ -4,7 +4,7 @@
   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <!-- 建立类与表的映射 -->
-  <class name="com.example.entities.Customer6" table="cst_customer">
+  <class name="vip.fairy.entities.Customer6" table="cst_customer">
     <!-- 建立类中的属性与表中的主键对应 -->
     <id column="cust_id" name="cust_id">
       <!-- 本地策略,根据数据库自动选择,Oracle选择sequence,Myqsl和MSSql选择identity -->

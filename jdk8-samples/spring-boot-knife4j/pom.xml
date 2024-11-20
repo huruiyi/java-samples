@@ -8,7 +8,7 @@
     <version>2.3.5.RELEASE</version>
     <relativePath/>
   </parent>
-  <groupId>com.example.demo</groupId>
+  <groupId>vip.fairy</groupId>
   <artifactId>spring-boot-knife4j</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-boot-knife4j</name>

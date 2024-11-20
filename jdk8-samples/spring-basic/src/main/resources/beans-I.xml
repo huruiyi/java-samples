@@ -3,19 +3,19 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <bean class="com.example.demoI.Holiday" id="christmas">
+  <bean class="vip.fairy.demoI.Holiday" id="christmas">
     <property name="month" value="12"/>
     <property name="day" value="25"/>
     <property name="greeting" value="Merry Christmas!"/>
   </bean>
 
-  <bean class="com.example.demoI.Holiday" id="newYear">
+  <bean class="vip.fairy.demoI.Holiday" id="newYear">
     <property name="month" value="1"/>
     <property name="day" value="1"/>
     <property name="greeting" value="Happy New Year!"/>
   </bean>
 
-  <bean class="com.example.demoI.HelloWorld" id="helloWorld">
+  <bean class="vip.fairy.demoI.HelloWorld" id="helloWorld">
     <property name="message" value="How are you?"/>
     <property name="holidays">
       <list>

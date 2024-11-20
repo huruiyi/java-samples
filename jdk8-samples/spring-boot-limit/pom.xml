@@ -8,7 +8,7 @@
     <version>2.1.18.RELEASE</version>
     <relativePath/>
   </parent>
-  <groupId>com.example</groupId>
+  <groupId>vip.fairy</groupId>
   <artifactId>spring-boot-limit</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-boot-limit</name>

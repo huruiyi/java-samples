@@ -8,7 +8,7 @@
     <version>2.3.5.RELEASE</version>
     <relativePath/>
   </parent>
-  <groupId>com.example</groupId>
+  <groupId>vip.fairy</groupId>
   <artifactId>dubbo-consumer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>dubbo-consumer</name>
@@ -44,7 +44,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.example</groupId>
+      <groupId>vip.fairy</groupId>
       <artifactId>dubbo-api</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
