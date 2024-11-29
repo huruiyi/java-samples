@@ -2,7 +2,7 @@ package vip.fairy.security;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class _01Base64 {
+public class Base64Test {
 
   public static void main(String[] args) {
     String string = "abc123";
