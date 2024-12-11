@@ -1,4 +1,4 @@
-package vip.fairy.unfiled;
+package vip.fairy.security;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.junit.jupiter.api.Test;
 
 
-public class Test_Security {
+public class SecurityTest {
 
   @Test
   public void Test1() {
