@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-  xmlns:activiti="http://activiti.org/bpmn"
-  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-  xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
-  xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
-  targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.activiti.org/test">
   <process id="leaveBill" name="leaveProcess" isExecutable="true">
-    <startEvent id="startevent1" name="Start"/>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:executionListener class="org.example.listener.LeaveTaskListener" event="start"/>
+      </extensionElements>
+    </startEvent>
     <userTask id="usertask1" name="请假申请" activiti:assignee="张三">
       <extensionElements>
-        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler">
-          <![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
     <userTask id="usertask2" name="审批[主管]" activiti:assignee="李四">
       <extensionElements>
-        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler">
-          <![CDATA[false]]>
-        </modeler:initiator-can-complete>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
     <userTask id="usertask3" name="审批[经理]" activiti:assignee="王五">
       <extensionElements>
-        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler">
-          <![CDATA[false]]>
-        </modeler:initiator-can-complete>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
     <endEvent id="endevent1" name="End"/>
@@ -51,7 +45,7 @@
         <omgdc:Bounds height="28.0" width="28.0" x="584.9999389797497" y="223.49989801275402"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="89.99999374151065" y="237.49991771931306"/>
+        <omgdi:waypoint x="89.99999" y="237.4999"/>
         <omgdi:waypoint x="149.99999217689077" y="237.49994991983624"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">

@@ -107,12 +107,14 @@ public class RunFirstDemo {
   }
 
 
-  public void createProcessEngineByGetDefaultProcessEngineTest1() {
+  @Test
+  public void defaultProcessEngine() {
     ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
     System.out.println(defaultProcessEngine);
   }
 
-  public void createProcessEngineByGetDefaultProcessEngineTest2() {
+  @Test
+  public void defaultProcessEngineFromResource() {
     ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml");
     ProcessEngine processEngine = configuration.buildProcessEngine();
     System.out.println(processEngine);

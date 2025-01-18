@@ -28,6 +28,7 @@ public class TestActiviti {
 
     log.info("部署的id:{}", deploy.getId());
     log.info("部署的名称：{}", deploy.getName());
+    log.info("部署的分类：{}", deploy.getCategory());
   }
 
   //执行流程
@@ -40,15 +41,19 @@ public class TestActiviti {
     //取得流程实例
     ProcessInstance pi = runtimeService.startProcessInstanceByKey(processKey);//通过流程定义的key 来执行流程
     log.info("流程实例id:{}", pi.getId());
+    log.info("流程实例名称:{}", pi.getName());
     log.info("流程定义id:{}", pi.getProcessDefinitionId());
+    log.info("流程定义key:{}", pi.getProcessDefinitionKey());
+    log.info("流程定义name:{}", pi.getProcessDefinitionName());
+    log.info("流程定义version:{}", pi.getProcessDefinitionVersion());
   }
 
   //查询任务
   @Test
-  public void queryTask() {
+  public void queryTaskByAssignee() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
     //任务的办理人：张三-》李四-》王五
-    String assignee = "王五";
+    String assignee = "张三";
     //取得任务服务
     TaskService taskService = processEngine.getTaskService();
     //创建一个任务查询对象
@@ -62,6 +67,7 @@ public class TestActiviti {
         log.info("任务的办理人：{}", task.getAssignee());
         log.info("任务的id：{}", task.getId());
         log.info("任务的名称：{}", task.getName());
+        log.info("----------------------------------------------------------");
       }
     }
   }
@@ -70,7 +76,7 @@ public class TestActiviti {
   @Test
   public void compileTask() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-    processEngine.getTaskService().complete("25002");
+    processEngine.getTaskService().complete("237505");
     log.info("当前任务执行完毕");
   }
 
