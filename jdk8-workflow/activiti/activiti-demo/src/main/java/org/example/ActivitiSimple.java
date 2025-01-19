@@ -18,35 +18,80 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class ActivitiSimple {
 
-  @Test
-  void test0() {
-    //取得ProcessEngineConfiguration对象
-    ProcessEngineConfiguration engineConfiguration = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
-    //设置数据库连接属性
-    engineConfiguration.setJdbcDriver("com.mysql.cj.jdbc.Driver");
-    engineConfiguration.setJdbcUrl(
-        "jdbc:mysql://localhost:3306/activiti6?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true");
-    engineConfiguration.setJdbcUsername("root");
-    engineConfiguration.setJdbcPassword("fairy0619Xyz!");
-    //  设置创建表的策略 （当没有表时，自动创建表）
-    //  DB_SCHEMA_UPDATE_FALSE = "false";//不会自动创建表，没有表，则抛异常
-    //  DB_SCHEMA_UPDATE_CREATE_DROP = "create-drop";//先删除，再创建表
-    //  DB_SCHEMA_UPDATE_TRUE = "true";//假如没有表，则自动创建
-    engineConfiguration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
-    //通过ProcessEngineConfiguration对象创建 ProcessEngine 对象
-    ProcessEngine processEngine = engineConfiguration.buildProcessEngine();
-    System.out.println(processEngine);
-  }
 
   @Test
-  void test1() {
-    ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml");
+  public void test1() {
+    ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+    RepositoryService repositoryService = engine.getRepositoryService();
+    RuntimeService runtimeService = engine.getRuntimeService();
+    TaskService taskService = engine.getTaskService();
+
+    repositoryService.createDeployment().addClasspathResource("processes/test01.bpmn20.xml").deploy();
+    runtimeService.startProcessInstanceByKey("LeaveApplyProcess");
+    log.info("启动流程...");
+    log.info("流程个数：{}", taskService.createTaskQuery().count());
+
+    Task firstTask = taskService.createTaskQuery().taskAssignee("liuxiaopeng").singleResult();
+    taskService.complete(firstTask.getId());
+    log.info("用户任务{}办理完成，办理人为：{}", firstTask.getName(), firstTask.getAssignee());
+    log.info("流程个数：{}", taskService.createTaskQuery().count());
+
+    Task secondTask = taskService.createTaskQuery().taskAssignee("hebo").singleResult();
+    log.info("用户任务{}办理完成，办理人为：{}", secondTask.getName(), secondTask.getAssignee());
+    taskService.complete(secondTask.getId());
+
+    log.info("流程结束后，剩余任务个数：{}", taskService.createTaskQuery().count());
+
+    engine.close();
+  }
+
+
+  @Test
+  void test2_1() {
+    ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
     ProcessEngine processEngine = configuration.buildProcessEngine();
-    System.out.println(processEngine);
+
+    RepositoryService repositoryService = processEngine.getRepositoryService();
+    Deployment deployment = processEngine.getRepositoryService().createDeployment()
+        .addClasspathResource("processes/test02.bpmn20.xml").deploy();
+
+    ProcessDefinition processDefinition = repositoryService
+        .createProcessDefinitionQuery()
+        .deploymentId(deployment.getId())
+        .singleResult();
+    TaskService taskService = processEngine.getTaskService();
+
+    ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceById(processDefinition.getId());
+    Task task1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    taskService.complete(task1.getId());
   }
 
   @Test
-  void test2() {
+  void test2_2() {
+    ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
+    System.out.println(configuration);
+    ProcessEngine processEngine = configuration.buildProcessEngine();
+    RepositoryService repositoryService = processEngine.getRepositoryService();
+
+    Deployment deployment = repositoryService.createDeployment()
+        .addClasspathResource("processes/test02.bpmn20.xml").deploy();
+
+    ProcessDefinition processDefinition = repositoryService
+        .createProcessDefinitionQuery()
+        .deploymentId(deployment.getId())
+        .singleResult();
+    TaskService taskService = processEngine.getTaskService();
+
+    ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceByKey(processDefinition.getKey());
+    System.out.println("任务个数：" + taskService.createTaskQuery().count());
+
+    Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    taskService.complete(task.getId());
+    System.out.println("任务个数：" + taskService.createTaskQuery().count());
+  }
+
+  @Test
+  void test3_1() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
     RuntimeService runtimeService = processEngine.getRuntimeService();
@@ -76,9 +121,8 @@ public class ActivitiSimple {
     System.out.println(taskService.createTaskQuery().count());
   }
 
-
   @Test
-  void test3() {
+  void test3_2() {
     //1.得到ProcessEngine对象
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 

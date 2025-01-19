@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql:///flowable?nullCatalogMeansCurrent=true&serverTimezone=UTC&createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: fairy0619Xyz!
+    password: fairy-vip
 
 flowable:
   async-executor-activate: true

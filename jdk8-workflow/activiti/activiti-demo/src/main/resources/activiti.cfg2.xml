@@ -9,7 +9,7 @@
     <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://localhost:3306/workflow?nullCatalogMeansCurrent=true&amp;createDatabaseIfNotExist=true"/>
     <property name="username" value="root"/>
-    <property name="password" value="fairy0619Xyz!"/>
+    <property name="password" value="fairy-vip"/>
   </bean>
 
   <!--activiti流程引擎-->

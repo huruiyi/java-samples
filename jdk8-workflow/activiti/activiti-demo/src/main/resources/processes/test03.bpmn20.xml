@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="testListenerId" isExecutable="true" name="testListenerName">
+    <startEvent id="start" name="开始"/>
+    <userTask id="usStep" name="办理节点" activiti:assignee="zhangsan" activiti:candidateUsers="lisi">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string" variable="张三"/>
+        <activiti:executionListener event="start" class="org.example.listener.ExecuteListener"/>
+        <activiti:executionListener event="end" class="org.example.listener.ExecuteListener"/>
+        <activiti:executionListener event="take" class="org.example.listener.ExecuteListener"/>
+        <activiti:taskListener event="create" class="org.example.listener.MyTaskListener"/>
+        <activiti:taskListener event="assignment" class="org.example.listener.MyTaskListener"/>
+        <activiti:taskListener event="complete" class="org.example.listener.MyTaskListener"/>
+        <activiti:taskListener event="delete" class="org.example.listener.MyTaskListener"/>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[ false ]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-6BA47516-0661-4858-AC94-F075196FC8E8" sourceRef="start" targetRef="usStep"/>
+    <endEvent id="sid-2BCD59DB-320E-43FC-9BB4-0ACA61CCE7F0"/>
+    <sequenceFlow id="sid-A38F12AC-7AA8-4BEF-9AC5-A5442C2A979D" sourceRef="usStep" targetRef="sid-2BCD59DB-320E-43FC-9BB4-0ACA61CCE7F0"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_测试监听器流程">
+    <bpmndi:BPMNPlane bpmnElement="testListenerId" id="BPMNPlane_测试监听器流程">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="74.99999841054293" y="314.9999933242803"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usStep" id="BPMNShape_testListener">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="289.99997"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2BCD59DB-320E-43FC-9BB4-0ACA61CCE7F0" id="BPMNShape_sid-2BCD59DB-320E-43FC-9BB4-0ACA61CCE7F0">
+        <omgdc:Bounds height="28.0" width="28.0" x="344.99998971819906" y="315.9999839067469"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-6BA47516-0661-4858-AC94-F075196FC8E8" id="BPMNEdge_sid-6BA47516-0661-4858-AC94-F075196FC8E8">
+        <omgdi:waypoint x="104.9999984105429" y="329.9999923982796"/>
+        <omgdi:waypoint x="180.0" y="330.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A38F12AC-7AA8-4BEF-9AC5-A5442C2A979D" id="BPMNEdge_sid-A38F12AC-7AA8-4BEF-9AC5-A5442C2A979D">
+        <omgdi:waypoint x="280.0" y="329.99997"/>
+        <omgdi:waypoint x="344.99998971819906" y="329.99998399084024"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
