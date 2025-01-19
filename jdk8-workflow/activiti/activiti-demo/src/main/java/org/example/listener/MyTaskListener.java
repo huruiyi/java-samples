@@ -10,7 +10,8 @@ public class MyTaskListener implements TaskListener {
     //"创建申请".equals(delegateTask.getName())
     if (EVENTNAME_CREATE.equals(delegateTask.getEventName())) {
       delegateTask.setAssignee("张无忌");
-      delegateTask.setCategory("fuck");
+      delegateTask.setCategory("武侠剧");
+      delegateTask.setName("六大门派围攻光明顶");
     }
 
     String eventName = delegateTask.getEventName();
@@ -44,8 +45,8 @@ public class MyTaskListener implements TaskListener {
   public void assigment(DelegateTask delegateTask) {
     System.out.println("******************TaskListener start******************");
     String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-    String eventName = delegateTask.getEventName();
-    System.out.println("事件名称:" + eventName);
+    System.out.println("EventName:" + delegateTask.getEventName());
+    System.out.println("Assignee:" + delegateTask.getAssignee());
     System.out.println("taskDefinitionKey:" + taskDefinitionKey);
     System.out.println("******************TaskListener end******************");
   }

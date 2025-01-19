@@ -5,9 +5,9 @@
     <userTask id="usStep" name="办理节点" activiti:assignee="zhangsan" activiti:candidateUsers="lisi">
       <extensionElements>
         <activiti:formProperty id="name" name="姓名" type="string" variable="张三"/>
-        <activiti:executionListener event="start" class="org.example.listener.ExecuteListener"/>
-        <activiti:executionListener event="end" class="org.example.listener.ExecuteListener"/>
-        <activiti:executionListener event="take" class="org.example.listener.ExecuteListener"/>
+        <activiti:executionListener event="start" class="org.example.listener.MyExecutionListener"/>
+        <activiti:executionListener event="end" class="org.example.listener.MyExecutionListener"/>
+        <activiti:executionListener event="take" class="org.example.listener.MyExecutionListener"/>
         <activiti:taskListener event="create" class="org.example.listener.MyTaskListener"/>
         <activiti:taskListener event="assignment" class="org.example.listener.MyTaskListener"/>
         <activiti:taskListener event="complete" class="org.example.listener.MyTaskListener"/>

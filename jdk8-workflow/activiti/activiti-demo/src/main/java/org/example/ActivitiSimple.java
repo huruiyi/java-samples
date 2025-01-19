@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class ActivitiSimple {
 
-
   @Test
   public void test1() {
     ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
@@ -48,44 +47,58 @@ public class ActivitiSimple {
 
   @Test
   void test2_1() {
-    ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
+    ProcessEngineConfiguration configuration =
+        ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
     ProcessEngine processEngine = configuration.buildProcessEngine();
 
+    TaskService taskService = processEngine.getTaskService();
     RepositoryService repositoryService = processEngine.getRepositoryService();
-    Deployment deployment = processEngine.getRepositoryService().createDeployment()
-        .addClasspathResource("processes/test02.bpmn20.xml").deploy();
+    RuntimeService runtimeService = processEngine.getRuntimeService();
+
+    Deployment deployment = repositoryService
+        .createDeployment()
+        .addClasspathResource("processes/test02.bpmn20.xml")
+        .deploy();
 
     ProcessDefinition processDefinition = repositoryService
         .createProcessDefinitionQuery()
         .deploymentId(deployment.getId())
         .singleResult();
-    TaskService taskService = processEngine.getTaskService();
 
-    ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceById(processDefinition.getId());
-    Task task1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-    taskService.complete(task1.getId());
+    ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId());
+    Task task = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .singleResult();
+    taskService.complete(task.getId());
   }
 
   @Test
   void test2_2() {
-    ProcessEngineConfiguration configuration = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
-    System.out.println(configuration);
+    ProcessEngineConfiguration configuration =
+        ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
     ProcessEngine processEngine = configuration.buildProcessEngine();
-    RepositoryService repositoryService = processEngine.getRepositoryService();
 
-    Deployment deployment = repositoryService.createDeployment()
-        .addClasspathResource("processes/test02.bpmn20.xml").deploy();
+    RepositoryService repositoryService = processEngine.getRepositoryService();
+    TaskService taskService = processEngine.getTaskService();
+    RuntimeService runtimeService = processEngine.getRuntimeService();
+
+    Deployment deployment = repositoryService
+        .createDeployment()
+        .addClasspathResource("processes/test02.bpmn20.xml")
+        .deploy();
 
     ProcessDefinition processDefinition = repositoryService
         .createProcessDefinitionQuery()
         .deploymentId(deployment.getId())
         .singleResult();
-    TaskService taskService = processEngine.getTaskService();
 
-    ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceByKey(processDefinition.getKey());
+    ProcessInstance processInstance = runtimeService
+        .startProcessInstanceByKey(processDefinition.getKey());
     System.out.println("任务个数：" + taskService.createTaskQuery().count());
 
-    Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    Task task = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .singleResult();
     taskService.complete(task.getId());
     System.out.println("任务个数：" + taskService.createTaskQuery().count());
   }
@@ -99,13 +112,16 @@ public class ActivitiSimple {
     RepositoryService repositoryService = processEngine.getRepositoryService();
 
     //act_re_deployment
-    Deployment deployment = repositoryService.createDeployment()
+    Deployment deployment = repositoryService
+        .createDeployment()
         .addClasspathResource("processes/请假.bpmn20.xml")
         .name("请假申请单流程")
         .key("holiday")
         .deploy();
 
-    ProcessDefinition processDefinition = processEngine.getRepositoryService().createProcessDefinitionQuery().deploymentId(deployment.getId())
+    ProcessDefinition processDefinition = repositoryService
+        .createProcessDefinitionQuery()
+        .deploymentId(deployment.getId())
         .singleResult();
 
     log.info(deployment.getName());
@@ -123,10 +139,10 @@ public class ActivitiSimple {
 
   @Test
   void test3_2() {
-    //1.得到ProcessEngine对象
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
     RepositoryService repositoryService = processEngine.getRepositoryService();
+    RuntimeService runtimeService = processEngine.getRuntimeService();
 
     repositoryService.createDeployment()
         .addClasspathResource("processes/请假.bpmn20.xml")
@@ -134,10 +150,6 @@ public class ActivitiSimple {
         .key("holiday")
         .deploy();
 
-    //2.得到RunService对象
-    RuntimeService runtimeService = processEngine.getRuntimeService();
-
-    //3.创建流程实例  流程定义的key需要知道 holiday
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("请假");
 
     //4.输出实例的相关信息
@@ -164,8 +176,7 @@ public class ActivitiSimple {
         .orderByProcessDefinitionVersion().desc().list();
 
     for (ProcessDefinition processDefinition : list) {
-
-      log.info("------------------------");
+      log.info("----------------------------------------------------------------------");
       log.info(" 流 程 部 署 id ： {}", processDefinition.getDeploymentId());
       log.info("流程定义id： {}", processDefinition.getId());
       log.info("流程定义名称： {}", processDefinition.getName());

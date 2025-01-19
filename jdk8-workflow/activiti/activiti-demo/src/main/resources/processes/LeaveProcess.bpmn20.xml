@@ -3,7 +3,7 @@
   <process id="leaveBill" name="leaveProcess" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:executionListener class="org.example.listener.LeaveTaskListener" event="start"/>
+        <activiti:executionListener class="org.example.listener.MyExecutionListener" event="start"/>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="请假申请" activiti:assignee="张三">

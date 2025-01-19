@@ -17,7 +17,7 @@ public class TestActivitiListener {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
     RepositoryService repositoryService = processEngine.getRepositoryService();
     Deployment deploy = repositoryService.createDeployment()
-        .addClasspathResource("processes/test03.bpmn20.xml")
+        .addClasspathResource("processes/test-listener.bpmn20.xml")
         .name("监听测试")
         .category("办公类别")
         .deploy();
