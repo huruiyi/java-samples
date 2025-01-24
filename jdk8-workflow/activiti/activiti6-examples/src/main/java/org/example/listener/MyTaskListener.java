@@ -45,7 +45,7 @@ public class MyTaskListener implements TaskListener {
   public void assigment(DelegateTask delegateTask) {
     System.out.println("******************TaskListener start******************");
     String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-    System.out.println("EventName:" + delegateTask.getEventName());
+    System.out.println("EventName      :" + delegateTask.getEventName());
     System.out.println("Assignee:" + delegateTask.getAssignee());
     System.out.println("taskDefinitionKey:" + taskDefinitionKey);
     System.out.println("******************TaskListener end******************");

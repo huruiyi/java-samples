@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.zip.ZipInputStream;
-
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.repository.Deployment;
@@ -50,13 +49,12 @@ public class ProcessDefinitionManager {
   @Test
   public void queryProcessDefination() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-    String processDefiKey = "buyBill";//流程定义key
+    String definitionKey = "buyBill";//流程定义key
     //获取流程定义列表
     List<ProcessDefinition> list = processEngine.getRepositoryService().createProcessDefinitionQuery()
-        //查询 ，好比where
 //		.processDefinitionId(proDefiId) //流程定义id
-        // 流程定义id  ： buyBill:2:704   组成 ： proDefikey（流程定义key）+version(版本)+自动生成id
-        .processDefinitionKey(processDefiKey)//流程定义key 由bpmn 的 process 的  id属性决定
+        // 流程定义id  ： buyBill:2:704   组成 ： definitionKey（流程定义key）+version(版本)+自动生成id
+        .processDefinitionKey(definitionKey)//流程定义key 由bpmn 的 process 的  id属性决定
 //		.processDefinitionName(name)//流程定义名称  由bpmn 的 process 的  name属性决定
 //		.processDefinitionVersion(version)//流程定义的版本
 //    .latestVersion()//最新版本
@@ -81,7 +79,7 @@ public class ProcessDefinitionManager {
   @Test
   public void viewImage() throws Exception {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-    String deploymentId = "7501";
+    String deploymentId = "5001";
     String imageName = null;
     //取得某个部署的资源的名称  deploymentId
     List<String> resourceNames = processEngine.getRepositoryService().getDeploymentResourceNames(deploymentId);
@@ -101,7 +99,7 @@ public class ProcessDefinitionManager {
 
   //删除流程定义
   @Test
-  public void deleteProcessDefi() {
+  public void deleteDeployment() {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
     //通过部署id来删除流程定义
     String deploymentId = "1";
