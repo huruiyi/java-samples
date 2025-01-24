@@ -20,5 +20,5 @@ spring:
       pool-prepared-statements: true
       max-pool-prepared-statement-per-connection-size: 20
       use-global-data-source-stat: true
-      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500;oracle.jdbc.ReadTimeout=30000
       filters: stat,wall,log4j

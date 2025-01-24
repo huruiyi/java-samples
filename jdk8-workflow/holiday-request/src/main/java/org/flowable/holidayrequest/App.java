@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import org.flowable.common.engine.impl.AbstractEngineConfiguration;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.ProcessEngineConfiguration;
@@ -26,12 +25,19 @@ public class App {
   static final RuntimeService runtimeService;
 
   static {
+//    cfg = new StandaloneProcessEngineConfiguration()
+//        .setJdbcUrl("jdbc:mysql://127.0.0.1:3306/flowable?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC")
+//        .setJdbcUsername("root")
+//        .setJdbcPassword("root")
+//        .setJdbcDriver("com.mysql.cj.jdbc.Driver")
+//        .setDatabaseSchemaUpdate(AbstractEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+
     cfg = new StandaloneProcessEngineConfiguration()
-        .setJdbcUrl("jdbc:mysql://127.0.0.1:3306/flowable?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC")
-        .setJdbcUsername("root")
-        .setJdbcPassword("root")
-        .setJdbcDriver("com.mysql.cj.jdbc.Driver")
-        .setDatabaseSchemaUpdate(AbstractEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+        .setJdbcUrl("jdbc:h2:mem:flowable;DB_CLOSE_DELAY=-1")
+        .setJdbcUsername("sa")
+        .setJdbcPassword("")
+        .setJdbcDriver("org.h2.Driver")
+        .setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
     processEngine = cfg.buildProcessEngine();
     repositoryService = processEngine.getRepositoryService();
     runtimeService = processEngine.getRuntimeService();
