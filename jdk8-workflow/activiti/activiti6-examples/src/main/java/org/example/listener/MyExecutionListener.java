@@ -26,28 +26,22 @@ public class MyExecutionListener implements ExecutionListener {
 
   public void start(DelegateExecution execution) {
     System.out.println("============executionListener start============");
-    String eventName = execution.getEventName();
-    String currentActivitiId = execution.getCurrentActivityId();
-    System.out.println("事件名称:" + eventName);
-    System.out.println("ActivitiId:" + currentActivitiId);
+    System.out.println("事件名称:" + execution.getEventName());
+    System.out.println("ActivitiId:" + execution.getCurrentActivityId());
     System.out.println("============executionListener  end============");
   }
 
   public void end(DelegateExecution execution) {
     System.out.println("============executionListener start============");
-    String eventName = execution.getEventName();
-    String currentActivitiId = execution.getCurrentActivityId();
-    System.out.println("事件名称:" + eventName);
-    System.out.println("ActivitiId:" + currentActivitiId);
+    System.out.println("事件名称:" + execution.getEventName());
+    System.out.println("ActivitiId:" + execution.getCurrentActivityId());
     System.out.println("============executionListener  end============");
   }
 
   public void take(DelegateExecution execution) {
     System.out.println("============executionListener start============");
-    String eventName = execution.getEventName();
-    String currentActivitiId = execution.getCurrentActivityId();
-    System.out.println("事件名称:" + eventName);
-    System.out.println("ActivitiId:" + currentActivitiId);
+    System.out.println("事件名称:" + execution.getEventName());
+    System.out.println("ActivitiId:" + execution.getCurrentActivityId());
     System.out.println("============executionListener  end============");
   }
 

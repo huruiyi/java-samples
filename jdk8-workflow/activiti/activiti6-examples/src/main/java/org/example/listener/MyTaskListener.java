@@ -35,38 +35,34 @@ public class MyTaskListener implements TaskListener {
 
   public void create(DelegateTask delegateTask) {
     System.out.println("******************TaskListener start******************");
-    String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-    String eventName = delegateTask.getEventName();
-    System.out.println("事件名称:" + eventName);
-    System.out.println("taskDefinitionKey:" + taskDefinitionKey);
+    System.out.println("EventName:" + delegateTask.getEventName());
+    System.out.println("Assignee:" + delegateTask.getAssignee());
+    System.out.println("taskDefinitionKey:" + delegateTask.getTaskDefinitionKey());
     System.out.println("******************TaskListener end******************");
   }
 
   public void assigment(DelegateTask delegateTask) {
     System.out.println("******************TaskListener start******************");
-    String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-    System.out.println("EventName      :" + delegateTask.getEventName());
+    System.out.println("EventName:" + delegateTask.getEventName());
     System.out.println("Assignee:" + delegateTask.getAssignee());
-    System.out.println("taskDefinitionKey:" + taskDefinitionKey);
+    System.out.println("taskDefinitionKey:" + delegateTask.getTaskDefinitionKey());
     System.out.println("******************TaskListener end******************");
   }
 
   public void complete(DelegateTask delegateTask) {
     System.out.println("******************TaskListener start******************");
-    String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-    String eventName = delegateTask.getEventName();
-    System.out.println("事件名称:" + eventName);
-    System.out.println("taskDefinitionKey:" + taskDefinitionKey);
+    System.out.println("EventName:" + delegateTask.getEventName());
+    System.out.println("Assignee:" + delegateTask.getAssignee());
+    System.out.println("taskDefinitionKey:" + delegateTask.getTaskDefinitionKey());
     System.out.println("******************TaskListener end******************");
   }
 
 
   public void delete(DelegateTask delegateTask) {
     System.out.println("******************TaskListener start******************");
-    String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
-    String eventName = delegateTask.getEventName();
-    System.out.println("事件名称:" + eventName);
-    System.out.println("taskDefinitionKey:" + taskDefinitionKey);
+    System.out.println("EventName:" + delegateTask.getEventName());
+    System.out.println("Assignee:" + delegateTask.getAssignee());
+    System.out.println("taskDefinitionKey:" + delegateTask.getTaskDefinitionKey());
     System.out.println("******************TaskListener end******************");
   }
 }
