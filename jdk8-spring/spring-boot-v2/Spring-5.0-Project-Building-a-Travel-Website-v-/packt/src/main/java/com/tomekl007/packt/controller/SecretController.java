@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SecretController {
 
-    @Autowired
-    private TravelRepository travelRepository;
+  @Autowired
+  private TravelRepository travelRepository;
 
-    @RequestMapping("/secret")
-    public Long numberOfTravels() {
-        return travelRepository.count();
-    }
+  @RequestMapping("/secret")
+  public Long numberOfTravels() {
+    return travelRepository.count();
+  }
+
 }

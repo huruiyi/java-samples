@@ -11,26 +11,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @Configuration
 public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/reactive/**", "/mvc/**", "/travel-add", "/topic")
-                .permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/reactive/**", "/mvc/**", "/travel-add", "/topic")
-                .permitAll()
-                .and()
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/secret")
-                .denyAll();
 
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        .antMatchers(HttpMethod.GET, "/reactive/**", "/mvc/**", "/travel-add", "/topic")
+        .permitAll()
+        .and()
+        .authorizeRequests()
+        .antMatchers(HttpMethod.POST, "/reactive/**", "/mvc/**", "/travel-add", "/topic")
+        .permitAll()
+        .and()
+        .csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers(HttpMethod.GET, "/secret")
+        .denyAll();
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/templates/**", "/assets/**");
-    }
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/templates/**", "/assets/**");
+  }
 }

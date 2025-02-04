@@ -43,4 +43,5 @@ public class FlightBookingService implements BookingService {
   public void cleanup() {
     log.info("in cleanup method. Possible to release some resources");
   }
+
 }

@@ -1,7 +1,5 @@
 package vip.fairy.controller;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONWriter.Feature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 public class HelloController {
 
+  String subscriptionUrl = "https://gitee.com/api/v5/users/huruiyi/subscriptions";
+
   @Autowired
   RestTemplate restTemplate;
 
@@ -28,14 +28,14 @@ public class HelloController {
     return (DefaultOAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 
-  @GetMapping("/subscriptions")
+  @GetMapping(path = "/subscriptions", produces = "application/json")
   public String getToken2(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient client) {
     OAuth2AccessToken accessToken = client.getAccessToken();
     OAuth2RefreshToken refreshToken = client.getRefreshToken();
     System.out.println("accessToken = " + accessToken);
     System.out.println("refreshToken = " + refreshToken);
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://gitee.com/api/v5/users/huruiyi/subscriptions")
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(subscriptionUrl)
         .queryParam("access_token", accessToken.getTokenValue())
         .queryParam("sort", "last_push")
         .queryParam("direction", "desc");

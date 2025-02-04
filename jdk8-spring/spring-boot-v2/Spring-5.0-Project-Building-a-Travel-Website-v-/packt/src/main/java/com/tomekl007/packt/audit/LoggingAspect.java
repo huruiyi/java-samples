@@ -16,6 +16,6 @@ public class LoggingAspect {
 
   @Before("execution(* com.tomekl007.packt.booking.BookingService.book(..))")
   public void logBookingRequest(JoinPoint joinPoint) {
-    log.info("before booking request with arguments: " + Arrays.toString(joinPoint.getArgs()));
+    log.info("before booking request with arguments: {}", Arrays.toString(joinPoint.getArgs()));
   }
 }

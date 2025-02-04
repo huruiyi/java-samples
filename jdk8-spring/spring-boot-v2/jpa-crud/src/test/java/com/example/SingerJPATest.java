@@ -20,111 +20,114 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SingerJPATest {
-    private static final Logger logger = LoggerFactory.getLogger(SingerJPATest.class);
 
-    private GenericApplicationContext ctx;
-    private SingerService singerService;
+  private static final Logger logger = LoggerFactory.getLogger(SingerJPATest.class);
 
-    @BeforeEach
-    public void setUp() {
-        ctx = new AnnotationConfigApplicationContext(JpaConfig.class);
-        singerService = ctx.getBean(SingerService.class);
-        assertNotNull(singerService);
-    }
+  private GenericApplicationContext ctx;
+  private SingerService singerService;
 
-    @Test
-    public void testFindAll() {
-        List<Singer> singers = singerService.findAll();
-        assertEquals(3, singers.size());
-        listSingers(singers);
-    }
+  @BeforeEach
+  public void setUp() {
+    ctx = new AnnotationConfigApplicationContext(JpaConfig.class);
+    singerService = ctx.getBean(SingerService.class);
+    assertNotNull(singerService);
+  }
 
-    @Test
-    public void testFindAllWithAlbum() {
-        List<Singer> singers = singerService.findAllWithAlbum();
-        assertEquals(3, singers.size());
-        listSingersWithAlbum(singers);
-    }
+  @Test
+  public void testFindAll() {
+    List<Singer> singers = singerService.findAll();
+    assertEquals(3, singers.size());
+    listSingers(singers);
+  }
 
-    private static void listSingers(List<Singer> singers) {
-        logger.info(" ---- Listing singers:");
-        singers.forEach(s -> logger.info(s.toString()));
-    }
+  @Test
+  public void testFindAllWithAlbum() {
+    List<Singer> singers = singerService.findAllWithAlbum();
+    assertEquals(3, singers.size());
+    listSingersWithAlbum(singers);
+  }
 
-    private static void listSingersWithAlbum(List<Singer> singers) {
-        logger.info(" ---- Listing singers with instruments:");
-        singers.forEach(s -> {
-            logger.info(s.toString());
-            if (s.getAlbums() != null) {
-                s.getAlbums().forEach(a -> logger.info("\t" + a.toString()));
-            }
-            if (s.getInstruments() != null) {
-                s.getInstruments().forEach(i -> logger.info("\tInstrument: " + i.getInstrumentId()));
-            }
-        });
-    }
+  private static void listSingers(List<Singer> singers) {
+    logger.info(" ---- Listing singers:");
+    singers.forEach(s -> logger.info(s.toString()));
+  }
 
-    @Test
-    public void testInsert() {
-        Singer singer = new Singer();
-        singer.setFirstName("BB");
-        singer.setLastName("King");
-        singer.setBirthDate(new Date((new GregorianCalendar(1940, 8, 16)).getTime().getTime()));
+  private static void listSingersWithAlbum(List<Singer> singers) {
+    logger.info(" ---- Listing singers with instruments:");
+    singers.forEach(s -> {
+      logger.info(s.toString());
+      if (s.getAlbums() != null) {
+        s.getAlbums().forEach(a -> logger.info("\t" + a.toString()));
+      }
+      if (s.getInstruments() != null) {
+        s.getInstruments().forEach(i -> logger.info("\tInstrument: " + i.getInstrumentId()));
+      }
+    });
+  }
 
-        Album album = new Album();
-        album.setTitle("My Kind of Blues");
-        album.setReleaseDate(new java.sql.Date((new GregorianCalendar(1961, 7, 18)).getTime().getTime()));
-        singer.addAlbum(album);
+  @Test
+  public void testInsert() {
+    Singer singer = new Singer();
+    singer.setFirstName("BB");
+    singer.setLastName("King");
+    singer.setBirthDate(new Date((new GregorianCalendar(1940, 8, 16)).getTime().getTime()));
 
-        album = new Album();
-        album.setTitle("A Heart Full of Blues");
-        album.setReleaseDate(new java.sql.Date((new GregorianCalendar(1962, 3, 20)).getTime().getTime()));
-        singer.addAlbum(album);
+    Album album = new Album();
+    album.setTitle("My Kind of Blues");
+    album.setReleaseDate(new java.sql.Date((new GregorianCalendar(1961, 7, 18)).getTime().getTime()));
+    singer.addAlbum(album);
 
-        singerService.save(singer);
-        assertNotNull(singer.getId());
+    album = new Album();
+    album.setTitle("A Heart Full of Blues");
+    album.setReleaseDate(new java.sql.Date((new GregorianCalendar(1962, 3, 20)).getTime().getTime()));
+    singer.addAlbum(album);
 
-        List<Singer> singers = singerService.findAllWithAlbum();
-        assertEquals(4, singers.size());
-        listSingersWithAlbum(singers);
-    }
+    singerService.save(singer);
+    assertNotNull(singer.getId());
 
-    @Test
-    public void testUpdate() {
-        Singer singer = singerService.findById(1L);
-        //making sure such singer exists
-        assertNotNull(singer);
-        //making sure we got expected record
-        assertEquals("Mayer", singer.getLastName());
-        //retrieve the album
-        Album album = singer.getAlbums().stream().filter(a -> a.getTitle().equals("Battle Studies")).findFirst().get();
+    List<Singer> singers = singerService.findAllWithAlbum();
+    assertEquals(4, singers.size());
+    listSingersWithAlbum(singers);
+  }
 
-        singer.setFirstName("John Clayton");
-        singer.removeAlbum(album);
-        singerService.save(singer);
+  @Test
+  public void testUpdate() {
+    Singer singer = singerService.findById(1L);
+    //making sure such singer exists
+    assertNotNull(singer);
+    //making sure we got expected record
+    assertEquals("Mayer", singer.getLastName());
+    //retrieve the album
+    Album album = singer.getAlbums().stream().filter(a -> a.getTitle().equals("Battle Studies")).findFirst().get();
 
-        listSingersWithAlbum(singerService.findAllWithAlbum());
-    }
+    singer.setFirstName("John Clayton");
+    singer.removeAlbum(album);
+    singerService.save(singer);
+
+    listSingersWithAlbum(singerService.findAllWithAlbum());
+  }
 
 
-    @Test
-    public void testDelete() {
-        Singer singer = singerService.findById(2L);
-        //making sure such singer exists
-        assertNotNull(singer);
-        singerService.delete(singer);
-        listSingersWithAlbum(singerService.findAllWithAlbum());
-    }
-    @Test
-    public void testFindById() {
-        Singer singer = singerService.findById(1L);
-        assertNotNull(singer);
-        assertEquals("Mayer", singer.getLastName());
-        logger.info(singer.toString());
-    }
-    @AfterEach
-    public void tearDown() {
-        ctx.close();
-    }
+  @Test
+  public void testDelete() {
+    Singer singer = singerService.findById(2L);
+    //making sure such singer exists
+    assertNotNull(singer);
+    singerService.delete(singer);
+    listSingersWithAlbum(singerService.findAllWithAlbum());
+  }
+
+  @Test
+  public void testFindById() {
+    Singer singer = singerService.findById(1L);
+    assertNotNull(singer);
+    assertEquals("Mayer", singer.getLastName());
+    logger.info(singer.toString());
+  }
+
+  @AfterEach
+  public void tearDown() {
+    ctx.close();
+  }
 
 }

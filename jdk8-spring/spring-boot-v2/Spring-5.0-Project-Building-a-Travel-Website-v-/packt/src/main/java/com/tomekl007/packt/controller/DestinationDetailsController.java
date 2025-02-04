@@ -21,5 +21,4 @@ public class DestinationDetailsController {
         return travelDestinationsDetails.getInfoAboutCity(city);
     }
 
-
 }
