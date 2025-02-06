@@ -1,7 +1,7 @@
 package com.tomekl007.packt.repository;
 
 
-import com.tomekl007.packt.controllers.TravelDto;
+import com.tomekl007.packt.model.TravelDto;
 import com.tomekl007.packt.model.Travel;
 import java.util.List;
 import java.util.stream.Collectors;

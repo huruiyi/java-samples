@@ -1,7 +1,7 @@
 package com.tomekl007.packt.controller;
 
 import com.tomekl007.packt.repository.ReactiveTravelRepository;
-import com.tomekl007.packt.controllers.TravelDto;
+import com.tomekl007.packt.model.TravelDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

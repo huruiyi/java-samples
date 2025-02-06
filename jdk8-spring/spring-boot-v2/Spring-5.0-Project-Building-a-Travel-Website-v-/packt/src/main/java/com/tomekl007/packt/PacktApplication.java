@@ -14,16 +14,16 @@ import org.springframework.web.client.RestTemplate;
 @EnableHystrix
 public class PacktApplication {
 
-    @Autowired
-    BookingService bookingService;
+  @Autowired
+  BookingService bookingService;
 
-    public static void main(String[] args) {
-        SpringApplication.run(PacktApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(PacktApplication.class, args);
+  }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-    
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
+
 }

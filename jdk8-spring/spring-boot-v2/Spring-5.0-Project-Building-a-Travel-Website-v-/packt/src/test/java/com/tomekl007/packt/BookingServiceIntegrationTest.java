@@ -12,12 +12,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class BookingServiceIntegrationTest {
 
-    @Autowired
-    BookingService bookingService;
+  @Autowired
+  BookingService bookingService;
 
-    @Test
-    public void shouldBookATravel() {
-        bookingService.book(new Travel("user_me", "LONDON", "PARIS"));
-    }
+  @Test
+  public void shouldBookATravel() {
+    bookingService.book(new Travel("user_me", "LONDON", "PARIS"));
+  }
 
 }

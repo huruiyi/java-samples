@@ -1,9 +1,11 @@
 server:
-  port: 8084
+  port: 8080
 logging:
   level:
     root: info
 spring:
+  application:
+    name: OAuth2
   security:
     oauth2:
       client:
@@ -11,10 +13,10 @@ spring:
           gitee:
             provider: gitee
             client-id: 0d5c6fadf9a31279c06b363e1d8da80aaf4b7e16db7c2447e4be9789d7a52bfa
-            client-name: login_gitee
-            client-secret:
+            client-name: Gitee登录
+            client-secret: 2f58049acf1b7e17674e4b4765ecbd25d2d3e34d6af9ac0290cbc69e739262f2
             authorization-grant-type: authorization_code
-            redirect-uri: http://127.0.0.1:8084/login/oauth2/code/gitee_login
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/gitee_login
             scope:
               - user_info
         provider:
