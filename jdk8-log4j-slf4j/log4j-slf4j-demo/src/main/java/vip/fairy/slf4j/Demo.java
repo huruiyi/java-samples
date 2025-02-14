@@ -9,7 +9,7 @@ public class Demo {
   private static final Logger logger = LoggerFactory.getLogger(Demo.class);
 
   public static void main(String[] args) {
-    Configurator.initialize("TestClass", "log4j2-general.xml");
+    Configurator.initialize("TestClass", "log4j2-official.xml");
 
     logger.trace("TRACE..");
     logger.debug("DEBUG..");
