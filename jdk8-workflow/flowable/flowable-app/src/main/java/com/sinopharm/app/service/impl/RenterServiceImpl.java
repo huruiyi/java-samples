@@ -20,4 +20,5 @@ public class RenterServiceImpl implements RenterService {
     int rs = renterMapper.insert(renter);
     return rs > 0;
   }
+
 }
