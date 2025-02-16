@@ -1,4 +1,4 @@
-package vip.fairy;
+package vip.fairy.slf4j;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;
