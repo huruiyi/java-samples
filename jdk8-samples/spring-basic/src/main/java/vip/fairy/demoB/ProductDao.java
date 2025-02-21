@@ -2,11 +2,12 @@ package vip.fairy.demoB;
 
 public interface ProductDao {
 
-  public void save();
+  void save();
 
-  public String delete();
+  String delete();
 
-  public void update();
+  void update();
 
-  public void find();
+  void find();
+
 }

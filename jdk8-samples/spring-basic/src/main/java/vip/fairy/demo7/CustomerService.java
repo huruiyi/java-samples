@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 	scope="prototype" 
 	init-method="setup" 
 	destroy-method="destroy" />*/
-
 @Service("customerService")
 /* @Scope 默认单例 singleton */
 /* prototype 多例 */

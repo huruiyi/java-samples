@@ -12,4 +12,5 @@ public class CarInfo {
   public Double calculatorPrice() {
     return Math.random() * 3000;
   }
+
 }

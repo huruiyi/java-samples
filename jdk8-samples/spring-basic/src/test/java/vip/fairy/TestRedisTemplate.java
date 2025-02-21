@@ -14,18 +14,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestRedisTemplate {
 
   @Autowired
-  private RedisTemplate<String,String> redisTemplate;
+  private RedisTemplate<String, String> redisTemplate;
 
   @Test
   public void test01() {
-    ValueOperations<String,String> operations = redisTemplate.opsForValue();
+    ValueOperations<String, String> operations = redisTemplate.opsForValue();
     String key = "name";
-    operations.set("name", "zhangsan");
-    Object name = operations.get("name");
+    operations.set(key, "zhangsan");
+    Object name = operations.get(key);
     System.out.println("name:" + name);
-    operations.append("name", "is man");
-    operations.getAndSet("name", "zhangsan-1");
-    Object name1 = operations.get("name");
+    operations.append(key, "is man");
+    operations.getAndSet(key, "zhangsan-1");
+    Object name1 = operations.get(key);
     System.out.println("修改后：" + name1);
   }
 

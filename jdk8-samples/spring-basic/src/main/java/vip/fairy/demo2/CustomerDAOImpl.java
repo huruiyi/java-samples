@@ -14,4 +14,5 @@ public class CustomerDAOImpl implements CustomerDAO {
   public void destroy() {
     System.out.println("CustomerDAOImpl被销毁了...");
   }
+
 }

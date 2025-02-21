@@ -9,4 +9,5 @@ public class Bean3Factory {
     System.out.println("Bean3的实例工厂执行了...");
     return new Bean3();
   }
+
 }

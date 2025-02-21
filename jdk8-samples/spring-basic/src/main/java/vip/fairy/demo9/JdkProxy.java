@@ -18,11 +18,10 @@ public class JdkProxy implements InvocationHandler {
    * @return
    */
   public UserDao CreateProxy() {
-    UserDao userDaoProxy = (UserDao) Proxy.newProxyInstance(
+    return (UserDao) Proxy.newProxyInstance(
         userDao.getClass().getClassLoader(),
         userDao.getClass().getInterfaces(),
         this);
-    return userDaoProxy;
   }
 
   @Override
