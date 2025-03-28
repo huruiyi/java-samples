@@ -9,4 +9,5 @@ public class Bean2Factory {
     System.out.println("Bean2Factory中方法执行了...");
     return new Bean2();
   }
+
 }

@@ -2,11 +2,12 @@ package vip.fairy.demo9;
 
 public interface UserDao {
 
-  public void save();
+  void save();
 
-  public void delete();
+  void delete();
 
-  public void update();
+  void update();
 
-  public void find();
+  void find();
+
 }

@@ -6,4 +6,5 @@ package vip.fairy.demo1;
 public interface UserDAO {
 
   void save();
+
 }

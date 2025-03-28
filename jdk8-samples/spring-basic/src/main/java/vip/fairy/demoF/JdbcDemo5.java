@@ -36,7 +36,7 @@ public class JdbcDemo5 {
   }
 
   @Test
-  public void demo1_insert() throws PropertyVetoException {
+  public void demo1_insert() {
 
     int result = 0;
     try {

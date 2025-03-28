@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   /* @Autowired 指向自己的save方法(按照属性注入) */
-
   private UserDao userDao;
 
   @Override

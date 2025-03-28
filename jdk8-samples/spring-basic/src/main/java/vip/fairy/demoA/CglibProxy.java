@@ -7,7 +7,7 @@ import org.springframework.cglib.proxy.MethodProxy;
 
 public class CglibProxy implements MethodInterceptor {
 
-  private CustomerDao customerDao;
+  private final CustomerDao customerDao;
 
   public CglibProxy(CustomerDao customerDao) {
     this.customerDao = customerDao;
@@ -15,8 +15,6 @@ public class CglibProxy implements MethodInterceptor {
 
   /**
    * Cglib产生代理的方法
-   *
-   * @return
    */
   public CustomerDao createProxy() {
     Enhancer enhancer = new Enhancer();
@@ -33,7 +31,6 @@ public class CglibProxy implements MethodInterceptor {
 
   @Override
   public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
-
     if ("save".equals(method.getName())) {
       // 方法的增强
       System.out.println("权限校验......");
