@@ -1,5 +1,8 @@
 package vip.fairy;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
 import org.activiti.engine.impl.RepositoryServiceImpl;
@@ -14,10 +17,6 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.junit.jupiter.api.Test;
-
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
 
 @Slf4j
 public class TestActiviti0328 {
@@ -158,7 +157,7 @@ public class TestActiviti0328 {
         List<PvmTransition> outTransitions = activityImpl.getOutgoingTransitions();
         for (PvmTransition pvmTransition : outTransitions) {
           PvmActivity destination = pvmTransition.getDestination();
-          log.info("下个节点Id：{}", destination.getId());
+          log.info("下个节点Id：{}", pvmTransition.getId());
           log.info("下个节点名称：{}", destination.getProperty("name"));
           log.info("下个节点备注：{}", destination.getProperty("name"));
         }
