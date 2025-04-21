@@ -22,28 +22,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = AppConfig.class)
 public class BeansTest {
 
-    @Autowired
-    private WebApplicationContext context;
+  @Autowired
+  private WebApplicationContext context;
 
-    MockMvc mockMvc;
+  MockMvc mockMvc;
 
-    @BeforeEach
-    void setup(WebApplicationContext wac) {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-    }
+  @BeforeEach
+  void setup(WebApplicationContext wac) {
+    this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+  }
 
 
-    @Test
-    void test() {
-        Person person = context.getBean(Person.class);
-        System.out.println(person);
-    }
+  @Test
+  void test() {
+    Person person = context.getBean(Person.class);
+    System.out.println(person);
+  }
 
-    @Test
-    void test2() throws Exception {
-        mockMvc.perform(get("/person_json"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=utf-8"));
-    }
+  @Test
+  void test2() throws Exception {
+    mockMvc.perform(get("/person_json"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=utf-8"));
+  }
 
 }

@@ -20,51 +20,51 @@ import vip.fairy.model.Contact;
 @RequestMapping("/contact")
 public class ContactController {
 
-	private final ContactRepository contactRepository;
+  private final ContactRepository contactRepository;
 
-	@Autowired
-	public ContactController(@Qualifier("mapBasedContactRepository") ContactRepository contactRepository) {
-		this.contactRepository = contactRepository;
-	}
+  @Autowired
+  public ContactController(@Qualifier("mapBasedContactRepository") ContactRepository contactRepository) {
+    this.contactRepository = contactRepository;
+  }
 
-	@Autowired
-	ContactRepository contactRepository0;
+  @Autowired
+  ContactRepository contactRepository0;
 
-	@Autowired
-	@Resource(name = "jdbcContactRepository")
-	ContactRepository contactRepository1;
+  @Autowired
+  @Resource(name = "jdbcContactRepository")
+  ContactRepository contactRepository1;
 
-	@Autowired
-	@Qualifier("mapBasedContactRepository")
-	ContactRepository contactRepository2;
+  @Autowired
+  @Qualifier("mapBasedContactRepository")
+  ContactRepository contactRepository2;
 
-	// 必须结合@Autowired一起使用
-	@Qualifier("mapBasedContactRepository")
-	ContactRepository contactRepository3;
+  // 必须结合@Autowired一起使用
+  @Qualifier("mapBasedContactRepository")
+  ContactRepository contactRepository3;
 
-	@GetMapping
-	public String list(Model model) {
-		List<Contact> list0 = contactRepository0.findAll();
-		List<Contact> list1 = contactRepository1.findAll();
-		List<Contact> list2 = contactRepository2.findAll();
+  @GetMapping
+  public String list(Model model) {
+    List<Contact> list0 = contactRepository0.findAll();
+    List<Contact> list1 = contactRepository1.findAll();
+    List<Contact> list2 = contactRepository2.findAll();
 
-		System.out.printf("list0 size:%d\n", list0.size());
-		System.out.printf("list1 size:%d\n", list1.size());
-		System.out.printf("list2 size:%d\n", list2.size());
-		model.addAttribute("contacts", contactRepository.findAll());
-		return "list";
-	}
+    System.out.printf("list0 size:%d\n", list0.size());
+    System.out.printf("list1 size:%d\n", list1.size());
+    System.out.printf("list2 size:%d\n", list2.size());
+    model.addAttribute("contacts", contactRepository.findAll());
+    return "list";
+  }
 
-	@GetMapping("/new")
-	public String newContact(Model model) {
-		model.addAttribute(new Contact());
-		return "contact";
-	}
+  @GetMapping("/new")
+  public String newContact(Model model) {
+    model.addAttribute(new Contact());
+    return "contact";
+  }
 
-	@PostMapping("/new")
-	public String newContact(@ModelAttribute Contact contact) {
-		contactRepository.save(contact);
-		return "redirect:/contact";
-	}
+  @PostMapping("/new")
+  public String newContact(@ModelAttribute Contact contact) {
+    contactRepository.save(contact);
+    return "redirect:/contact";
+  }
 
 }

@@ -8,22 +8,23 @@ import org.springframework.web.servlet.DispatcherServlet;
 import vip.fairy.config.AppConfig;
 
 public class WebApplicationInitializerSample implements WebApplicationInitializer {
-    @Override
-    public void onStartup(ServletContext servletContext) {
 
-        //org.apache.logging.slf4j.SLF4JServiceProvider
-        //org.slf4j.reload4j.Reload4jServiceProvider
+  @Override
+  public void onStartup(ServletContext servletContext) {
 
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(AppConfig.class);
+    //org.apache.logging.slf4j.SLF4JServiceProvider
+    //org.slf4j.reload4j.Reload4jServiceProvider
 
-        DispatcherServlet servlet = new DispatcherServlet(context);
-        ServletRegistration.Dynamic registration = servletContext.addServlet("app", servlet);
-        registration.setInitParameter("enableLoggingRequestDetails", "true");
-        registration.setInitParameter("dispatchTraceReuest", "true");
+    AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+    context.register(AppConfig.class);
 
-        registration.setLoadOnStartup(1);
-        registration.addMapping("/app/*");
-    }
+    DispatcherServlet servlet = new DispatcherServlet(context);
+    ServletRegistration.Dynamic registration = servletContext.addServlet("app", servlet);
+    registration.setInitParameter("enableLoggingRequestDetails", "true");
+    registration.setInitParameter("dispatchTraceReuest", "true");
+
+    registration.setLoadOnStartup(1);
+    registration.addMapping("/app/*");
+  }
 
 }
