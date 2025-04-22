@@ -12,10 +12,7 @@ public class HelloWorld {
   private static final Logger logger = LoggerFactory.getLogger(HelloWorld.class);
 
   /**
-   * https://www.jianshu.com/p/ccafda45bcea
-   *
-   * @param args
-   * @throws InterruptedException
+   * <a href="https://www.jianshu.com/p/ccafda45bcea">参考文章</a>
    */
   public static void main(String[] args) throws InterruptedException {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS");

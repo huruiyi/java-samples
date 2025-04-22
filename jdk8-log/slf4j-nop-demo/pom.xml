@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>vip.fairy</groupId>
-  <artifactId>slf4j-config</artifactId>
+  <artifactId>slf4j-nop-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>slf4j-config</name>
+  <name>slf4j-nop-demo</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -17,7 +17,7 @@
   <dependencies>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-jdk14</artifactId>
+      <artifactId>slf4j-nop</artifactId>
       <version>2.0.16</version>
     </dependency>
   </dependencies>
