@@ -2,20 +2,12 @@ package vip.fairy;
 
 import jakarta.ws.rs.NotFoundException;
 import java.util.List;
-import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 public class App2 {
 
-  public final static String serverUrl = "http://localhost:8080";
-  public final static String realm = "master";
-  public final static String clientId = "admin-cli";
-  public final static String clientSecret = "vcGsznZbblHCJU2UuxFJabAV0haS8jOV";
-  public final static String username = "admin";
-  public final static String password = "fairy-vip";
 
   public static void main(String[] args) {
     UserRepresentation user0 = getUserByName("huruiyi");
@@ -31,32 +23,10 @@ public class App2 {
     }
   }
 
-  // 创建 Keycloak 管理客户端，需要关闭客户端认证
-  private static Keycloak getKeycloakInstanceV1() {
-    return KeycloakBuilder.builder()
-        .serverUrl(serverUrl)
-        .realm(realm)
-        .clientId(clientId)
-        .username(username)
-        .password(password)
-        .build();
-  }
 
-  /**
-   * 需要分配服务账户角色相关权限，default-roles-master,admin
-   */
-  public static Keycloak getKeycloakInstanceV2() {
-    return KeycloakBuilder.builder()
-        .serverUrl(serverUrl)
-        .realm(realm)
-        .clientId(clientId)
-        .clientSecret(clientSecret)
-        .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-        .build();
-  }
 
   public static UserRepresentation getUserByName(String userName) {
-    List<UserRepresentation> list = getKeycloakInstanceV2().realm(realm).users().searchByUsername(userName, true);
+    List<UserRepresentation> list = KeycloakUtils.getKeycloakInstanceByServiceAccount().realm(KeycloakConstants.realm).users().searchByUsername(userName, true);
     UserRepresentation user = list.get(0);
 
     System.out.println("ID: " + user.getId());
@@ -72,8 +42,8 @@ public class App2 {
   }
 
   public static UserRepresentation getUserById(String userId) {
-    try (Keycloak keycloak = getKeycloakInstanceV2()) {
-      return keycloak.realm(realm)
+    try (Keycloak keycloak = KeycloakUtils.getKeycloakInstanceByServiceAccount()) {
+      return keycloak.realm(KeycloakConstants.realm)
           .users()
           .get(userId)
           .toRepresentation();
@@ -88,8 +58,8 @@ public class App2 {
 
   // 获取用户的所有角色
   public static List<String> getUserRoles(String userId) {
-    try (Keycloak keycloak = getKeycloakInstanceV2()) {
-      return keycloak.realm(realm)
+    try (Keycloak keycloak = KeycloakUtils.getKeycloakInstanceByServiceAccount()) {
+      return keycloak.realm(KeycloakConstants.realm)
           .users()
           .get(userId)
           .roles()

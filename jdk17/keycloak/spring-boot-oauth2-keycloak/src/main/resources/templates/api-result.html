@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>API 调用结果</title>
+</head>
+<body>
+    <h1>API 调用结果</h1>
+    
+    <h2>访问令牌:</h2>
+    <pre th:text="${accessToken}"></pre>
+    
+    <h2>API 响应:</h2>
+    <pre th:text="${apiResponse}"></pre>
+    
+    <a th:href="@{/}">返回首页</a>
+</body>
+</html>
