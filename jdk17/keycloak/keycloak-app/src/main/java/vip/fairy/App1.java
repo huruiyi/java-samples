@@ -15,23 +15,23 @@ import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 
-public class App {
+public class App1 {
 
   private static final String clientId = "admin-cli";
   private static final String realmName = "master";
   private static final String userName = "admin";
-  private static final String password = "admin-pass!";
+  private static final String password = "fairy-vip";
   private static final String authServerUrl = "http://localhost:8080";
 
 
   // 登录认证
   @Test
   public void authUser() {
-    AccessTokenResponse response;
     // 根据keycloak.json中定义的配置创建一个新实例
     AuthzClient authzClient = AuthzClient.create();
     try {
-      response = authzClient.obtainAccessToken(userName, password);
+      //admin-cli 需要关闭客户端认证
+      AccessTokenResponse response = authzClient.obtainAccessToken(userName, password);
       String token = response.getToken();
       System.out.println("ok：" + token);
     } catch (Exception e) {
@@ -75,6 +75,11 @@ public class App {
     System.out.println(response.getStatus());
   }
 
+  /**
+   * 管理员用户名密码认证
+   *
+   * @return Keycloak实例
+   */
   private static Keycloak Keycloak() {
     return KeycloakBuilder.builder()
         .serverUrl(authServerUrl)
@@ -83,6 +88,5 @@ public class App {
         .password(password)
         .clientId(clientId).build();
   }
-
 
 }
