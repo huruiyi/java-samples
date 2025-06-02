@@ -4,19 +4,16 @@ package com.savindu.user_management.service.impl;
 import com.savindu.user_management.response.Role;
 import com.savindu.user_management.service.RoleService;
 import com.savindu.user_management.service.UserService;
-import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RolesResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.common.util.CollectionUtil;
 import org.keycloak.representations.idm.RoleRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +64,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public Response updateRole(Role role) {
     RoleRepresentation roleRep = mapRoleRep(role);
+    roleRep.setDescription("desc test");
     keycloak.realm(realm).roles().get(role.getName()).update(roleRep);
     return Response.ok(role).build();
   }

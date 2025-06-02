@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * admin_cli服务账户所需角色:view-users,query-users,manage-users,manage-realm,view-realm,
+ */
 @RestController
 @RequestMapping("/roles")
 @RequiredArgsConstructor

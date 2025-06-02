@@ -8,8 +8,6 @@ public class SpringBootOauth2KeycloakApplication {
 
   /**
    * admin-cli，需要开启Standard flow
-   *
-   * @param args
    */
   public static void main(String[] args) {
     SpringApplication.run(SpringBootOauth2KeycloakApplication.class, args);
