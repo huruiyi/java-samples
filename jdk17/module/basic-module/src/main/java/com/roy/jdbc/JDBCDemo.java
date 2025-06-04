@@ -11,7 +11,6 @@ public class JDBCDemo {
 
   @Test
   public void test() {
-//    public static void main(String[] args) {
     String url = "jdbc:mysql://localhost:3306/coursedb?serverTimezone=UTC";
     String username = "root";
     String password = "root";

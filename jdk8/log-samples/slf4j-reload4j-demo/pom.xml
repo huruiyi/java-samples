@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>vip.fairy</groupId>
-  <artifactId>slf4j-reload4j -demo</artifactId>
+  <artifactId>slf4j-reload4j-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>slf4j-reload4j -demo</name>
+  <name>slf4j-reload4j-demo</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +17,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-reload4j</artifactId>
-      <version>2.0.16</version>
+      <version>2.0.17</version>
     </dependency>
   </dependencies>
 

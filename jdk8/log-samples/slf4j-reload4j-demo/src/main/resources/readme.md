@@ -47,13 +47,13 @@
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>2.0.99</version> <!-- 根据实际情况修改版本号 -->
+        <version>2.0.xx</version> <!-- 根据实际情况修改版本号 -->
     </dependency>
     <!-- slf4j-reload4j 模块 -->
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-reload4j</artifactId>
-        <version>2.0.99</version> <!-- 根据实际情况修改版本号 -->
+        <version>2.0.xx</version> <!-- 根据实际情况修改版本号 -->
     </dependency>
     <!-- Reload4j 依赖 -->
     <dependency>

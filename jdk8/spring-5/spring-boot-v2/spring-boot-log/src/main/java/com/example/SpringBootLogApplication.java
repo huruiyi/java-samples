@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 public class SpringBootLogApplication {
 
   @Bean
-  public ServletRegistrationBean myServlet() {
+  public ServletRegistrationBean<MyServlet> myServlet() {
     ServletRegistrationBean<MyServlet> servletServletRegistrationBean = new ServletRegistrationBean<>();
     servletServletRegistrationBean.setServlet(new MyServlet());
     servletServletRegistrationBean.addUrlMappings("/hello");
