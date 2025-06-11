@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="JPADemo" transaction-type="RESOURCE_LOCAL">
+    <class>com.jcg.jpa.demo.Farmer</class>
+    <properties>
+      <!-- Configuring The Database Connection Details -->
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="fairy-vip"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+      <!-- 添加以下调试配置 -->
+      <property name="hibernate.use_sql_comments" value="true"/>
+      <property name="hibernate.connection.provider_disables_autocommit" value="true"/>
+      <property name="hibernate.id.new_generator_mappings" value="true"/>
+
+    </properties>
+  </persistence-unit>
+</persistence>

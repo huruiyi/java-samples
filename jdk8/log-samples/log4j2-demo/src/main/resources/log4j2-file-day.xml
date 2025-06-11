@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} (%t) %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <!-- 定义 RollingFile Appender -->
+    <RollingFile name="RollingFile" fileName="logs/app.log" filePattern="logs/app-%d{yyyy-MM-dd}.%i.log">
+      <PatternLayout>
+        <!-- 定义日志输出格式 -->
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+      </PatternLayout>
+      <Policies>
+        <!-- 按时间策略，每天滚动一次 -->
+        <TimeBasedTriggeringPolicy/>
+        <!-- 按大小策略，每个文件最大 2MB -->
+        <SizeBasedTriggeringPolicy size="2 MB"/>
+      </Policies>
+      <!-- 最多保留 7 个归档文件 -->
+      <DefaultRolloverStrategy max="7"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+      <!-- 引用 RollingFile Appender -->
+      <AppenderRef ref="RollingFile"/>
+    </Root>
+  </Loggers>
+</Configuration>

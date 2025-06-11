@@ -5,6 +5,7 @@
   <name>pro-spring-5-ch14</name>
   <groupId>com.example</groupId>
   <artifactId>pro-spring-5-ch14</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
