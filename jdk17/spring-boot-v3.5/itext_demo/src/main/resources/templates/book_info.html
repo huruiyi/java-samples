@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<h1 style="text-align: center" th:text="${title}"></h1>
+<style type="text/css">
+	table{
+		border: 1px solid dodgerblue;
+		margin: 0 auto;
+		border-collapse: collapse;
+	}
+	tr ,td{
+		border: 1px solid dodgerblue;
+	}
+	td{
+		padding: 5px;
+	}
+</style>
+<table >
+    <tr>
+        <td>图书名称</td>
+        <td th:text="${name}"></td>
+    </tr>
+    <tr>
+        <td>图书价格</td>
+        <td th:text="${price}"></td>
+    </tr>
+    <tr>
+        <td>图书作者</td>
+        <td th:text="${author}"></td>
+    </tr>
+</table>
