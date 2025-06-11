@@ -1,23 +1,19 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Greeting;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
 
-//    @GetMapping(value = {"/", "/hello"}, produces = "text/json;charset=utf-8")
-//    public String hello() {
-//        return "你好，hello ";
-//    }
-
-  @GetMapping(value = {"/", "/hello"})
+  @GetMapping(value = {"/", "/hello"}, produces = "text/json;charset=utf-8")
   public String hello() {
     return "你好，hello ";
   }
-
 
   @GetMapping("/greetings/{name}")
   public ResponseEntity<Greeting> greetings(@PathVariable("name") String name) throws IllegalAccessException {
@@ -26,6 +22,5 @@ public class HelloController {
     }
     return ResponseEntity.ok(new Greeting("Hello " + name + "!"));
   }
-
 
 }
