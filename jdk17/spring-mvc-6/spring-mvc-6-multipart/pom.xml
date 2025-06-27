@@ -32,6 +32,21 @@
       <artifactId>glassfish-jstl</artifactId>
       <version>11.0.18</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-core</artifactId>
+      <version>11.0.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-servlet-api</artifactId>
+      <version>11.0.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>2.0.13</version>
+    </dependency>
   </dependencies>
 
   <build>

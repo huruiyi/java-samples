@@ -14,6 +14,6 @@
 Click to view or save the file. <a href='<c:url value="/resources/files/${ filename }" />'>${filename}</a>
 <br>
 <br>
-Return to <a href="<c:url value='/uploadForm' />">Upload File</a>
+Return to <a href="<c:url value='/upload' />">Upload File</a>
 </body>
 </html>
