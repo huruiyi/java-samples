@@ -17,7 +17,6 @@ public class ProducerTest {
   /**
    * 测试Queue 生产者：发送消息
    *
-   * @throws JMSException
    */
   @Test
   public void testQueueProducer() throws JMSException {
