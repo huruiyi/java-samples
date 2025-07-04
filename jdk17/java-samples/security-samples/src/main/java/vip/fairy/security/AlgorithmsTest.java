@@ -3,6 +3,7 @@ package vip.fairy.security;
 import java.security.Provider;
 import java.security.Provider.Service;
 import java.security.Security;
+import java.util.Comparator;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +15,10 @@ public class AlgorithmsTest {
     for (Provider provider : providers) {
       System.out.println(provider.getName() + " - " + provider.getInfo());
       Set<Service> services = provider.getServices();
-      for (Service service : services) {
-        //   Set<String> algorithms = Security.getAlgorithms(service.getAlgorithm());
+      services.stream().sorted(Comparator.comparing(Service::getAlgorithm)).forEach(service -> {
+        //Set<String> algorithms = Security.getAlgorithms(service.getAlgorithm());
         System.out.println("\t" + service.getAlgorithm());
-      }
+      });
     }
   }
 
