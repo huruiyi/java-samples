@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/processdef" exporter="Flowable Open Source Modeler" exporterVersion="6.8.1">
+  <process id="leaveApplicationProcess2" name="请假申请流程" isExecutable="true">
+    <startEvent id="start" name="开始申请" flowable:formFieldValidation="true">
+      <extensionElements>
+        <flowable:formProperty id="leaveType" name="请假类型" type="enum" required="true">
+          <flowable:value id="annual" name="年假"/>
+          <flowable:value id="sick" name="病假"/>
+          <flowable:value id="personal" name="事假"/>
+          <flowable:value id="marriage" name="婚假"/>
+          <flowable:value id="maternity" name="产假"/>
+          <flowable:value id="funeral" name="丧假"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="startDate" name="开始日期" type="date" datePattern="yyyy-MM-dd" required="true"/>
+        <flowable:formProperty id="endDate" name="结束日期" type="date" datePattern="yyyy-MM-dd" required="true"/>
+        <flowable:formProperty id="reason" name="请假原因" type="string" required="true"/>
+        <flowable:formProperty id="attachment" name="附件" type="string"/>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="calculateLeaveDays" name="计算请假天数" flowable:class="vip.fairy.service.CalculateLeaveDaysService">
+      <extensionElements>
+        <flowable:field name="startDate">
+          <flowable:expression><![CDATA[ ${startDate} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="endDate">
+          <flowable:expression><![CDATA[ ${endDate} ]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="checkLeaveTypeAndDays" name="检查请假类型和天数"/>
+    <userTask id="applyTask" name="提交请假申请" flowable:candidateGroups="employees" flowable:formFieldValidation="true">
+      <extensionElements>
+        <flowable:formProperty id="leaveType" name="请假类型" type="enum" readable="false" writable="false"/>
+        <flowable:formProperty id="startDate" name="开始日期" type="date" datePattern="yyyy-MM-dd" readable="false" writable="false"/>
+        <flowable:formProperty id="endDate" name="结束日期" type="date" datePattern="yyyy-MM-dd" readable="false" writable="false"/>
+        <flowable:formProperty id="leaveDays" name="请假天数" type="integer" readable="false" writable="false"/>
+        <flowable:formProperty id="reason" name="请假原因" type="string" readable="false" writable="false"/>
+        <flowable:formProperty id="attachment" name="附件" type="string" readable="false" writable="false"/>
+        <flowable:formProperty id="confirm" name="确认信息无误" type="boolean" required="true"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="supervisorApproval" name="直接上级审批" flowable:assignee="${supervisor}" flowable:formFieldValidation="true">
+      <extensionElements>
+        <flowable:formProperty id="supervisorComment" name="审批意见" type="string"/>
+        <flowable:formProperty id="supervisorApprovalResult" name="审批结果" type="enum" required="true">
+          <flowable:value id="approved" name="同意"/>
+          <flowable:value id="rejected" name="拒绝"/>
+          <flowable:value id="revised" name="需修改"/>
+        </flowable:formProperty>
+        <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[ false ]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="reminderTask" name="发送超时提醒" flowable:class="vip.fairy.service.ReminderService">
+      <extensionElements>
+        <flowable:field name="taskId">
+          <flowable:expression><![CDATA[ ${execution.getProcessInstanceId()} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="taskName">
+          <flowable:expression><![CDATA[ ${supervisorApproval.name} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="assignee">
+          <flowable:expression><![CDATA[ ${supervisor} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="employeeName">
+          <flowable:expression><![CDATA[ ${employeeName} ]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <userTask id="managerApproval" name="部门经理审批" flowable:assignee="${departmentManager}" flowable:formFieldValidation="true">
+      <extensionElements>
+        <flowable:formProperty id="managerComment" name="审批意见" type="string"/>
+        <flowable:formProperty id="managerApprovalResult" name="审批结果" type="enum" required="true">
+          <flowable:value id="approved" name="同意"/>
+          <flowable:value id="rejected" name="拒绝"/>
+          <flowable:value id="revised" name="需修改"/>
+        </flowable:formProperty>
+        <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[ false ]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="hrApproval" name="HR审批" flowable:candidateGroups="hr" flowable:formFieldValidation="true">
+      <extensionElements>
+        <flowable:formProperty id="hrComment" name="审批意见" type="string"/>
+        <flowable:formProperty id="hrApprovalResult" name="审批结果" type="enum" required="true">
+          <flowable:value id="approved" name="同意"/>
+          <flowable:value id="rejected" name="拒绝"/>
+          <flowable:value id="revised" name="需修改"/>
+        </flowable:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="checkSupervisorResult" name="检查上级审批结果"/>
+    <exclusiveGateway id="checkManagerResult" name="检查经理审批结果"/>
+    <exclusiveGateway id="checkHrResult" name="检查HR审批结果"/>
+    <endEvent id="leaveRejected" name="请假申请被拒绝"/>
+    <userTask id="reviseApplication" name="修改请假申请" flowable:assignee="${employeeId}" flowable:formFieldValidation="true">
+      <extensionElements>
+        <flowable:formProperty id="leaveType" name="请假类型" type="enum" required="true">
+          <flowable:value id="annual" name="年假"/>
+          <flowable:value id="sick" name="病假"/>
+          <flowable:value id="personal" name="事假"/>
+          <flowable:value id="marriage" name="婚假"/>
+          <flowable:value id="maternity" name="产假"/>
+          <flowable:value id="funeral" name="丧假"/>
+        </flowable:formProperty>
+        <flowable:formProperty id="startDate" name="开始日期" type="date" datePattern="yyyy-MM-dd" required="true"/>
+        <flowable:formProperty id="endDate" name="结束日期" type="date" datePattern="yyyy-MM-dd" required="true"/>
+        <flowable:formProperty id="reason" name="请假原因" type="string" required="true"/>
+        <flowable:formProperty id="attachment" name="附件" type="string"/>
+        <flowable:formProperty id="rejectionReason" name="驳回原因" type="string" readable="false" writable="false"/>
+        <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[ false ]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="leaveApproved" name="请假申请已批准" flowable:class="com.leave.service.LeaveApprovedService">
+      <extensionElements>
+        <flowable:field name="employeeId">
+          <flowable:expression><![CDATA[ ${employeeId} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="employeeName">
+          <flowable:expression><![CDATA[ ${employeeName} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="leaveType">
+          <flowable:expression><![CDATA[ ${leaveType} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="startDate">
+          <flowable:expression><![CDATA[ ${startDate} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="endDate">
+          <flowable:expression><![CDATA[ ${endDate} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="leaveDays">
+          <flowable:expression><![CDATA[ ${leaveDays} ]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="end" name="流程结束"/>
+    <serviceTask id="sendNotification" name="发送通知" flowable:class="com.leave.service.NotificationService">
+      <extensionElements>
+        <flowable:field name="employeeId">
+          <flowable:expression><![CDATA[ ${employeeId} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="employeeName">
+          <flowable:expression><![CDATA[ ${employeeName} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="leaveType">
+          <flowable:expression><![CDATA[ ${leaveType} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="startDate">
+          <flowable:expression><![CDATA[ ${startDate} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="endDate">
+          <flowable:expression><![CDATA[ ${endDate} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="leaveDays">
+          <flowable:expression><![CDATA[ ${leaveDays} ]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="status">
+          <flowable:expression><![CDATA[ ${status} ]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="startToCalculate" sourceRef="start" targetRef="calculateLeaveDays"/>
+    <sequenceFlow id="calculateToCheck" sourceRef="calculateLeaveDays" targetRef="checkLeaveTypeAndDays"/>
+    <sequenceFlow id="applyToSupervisor" sourceRef="applyTask" targetRef="supervisorApproval"/>
+    <sequenceFlow id="checkToManagerApproval" sourceRef="checkSupervisorResult" targetRef="managerApproval">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${supervisorApprovalResult == 'approved' && leaveType == 'sick' && leaveDays > 1 || supervisorApprovalResult == 'approved' && leaveType != 'sick' && leaveDays > 3} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="approvedToNotification" sourceRef="leaveApproved" targetRef="sendNotification"/>
+    <sequenceFlow id="reviseToCalculate" sourceRef="reviseApplication" targetRef="calculateLeaveDays"/>
+    <sequenceFlow id="hrToCheck" sourceRef="hrApproval" targetRef="checkHrResult"/>
+    <sequenceFlow id="checkToApply" sourceRef="checkLeaveTypeAndDays" targetRef="applyTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${leaveType != 'sick' && leaveDays <= 3} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="checkToManager" sourceRef="checkLeaveTypeAndDays" targetRef="managerApproval">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${leaveType == 'sick' && leaveDays > 1 || leaveType != 'sick' && leaveDays > 3} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="notificationToEnd" sourceRef="sendNotification" targetRef="end"/>
+    <sequenceFlow id="checkToRejected" sourceRef="checkSupervisorResult" targetRef="leaveRejected">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${supervisorApprovalResult == 'rejected'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="rejectedToNotification" sourceRef="leaveRejected" targetRef="sendNotification"/>
+    <sequenceFlow id="managerToCheck" sourceRef="managerApproval" targetRef="checkManagerResult"/>
+    <sequenceFlow id="managerCheckToRejected" sourceRef="checkManagerResult" targetRef="leaveRejected">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${managerApprovalResult == 'rejected'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="managerCheckToHr" sourceRef="checkManagerResult" targetRef="hrApproval">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${managerApprovalResult == 'approved'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="managerCheckToRevise" sourceRef="checkManagerResult" targetRef="reviseApplication">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${managerApprovalResult == 'revised'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="hrCheckToRejected" sourceRef="checkHrResult" targetRef="leaveRejected">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${hrApprovalResult == 'rejected'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="hrCheckToApproved" sourceRef="checkHrResult" targetRef="leaveApproved">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${hrApprovalResult == 'approved'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="hrCheckToRevise" sourceRef="checkHrResult" targetRef="reviseApplication">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${hrApprovalResult == 'revised'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="checkToHrApproval" sourceRef="checkSupervisorResult" targetRef="hrApproval">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${supervisorApprovalResult == 'approved' && leaveType != 'sick' && leaveDays <= 3} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="checkToRevise" sourceRef="checkSupervisorResult" targetRef="reviseApplication">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[ ${supervisorApprovalResult == 'revised'} ]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="supervisorToCheck" sourceRef="supervisorApproval" targetRef="checkSupervisorResult"/>
+    <sequenceFlow id="sid-1f4662ac-aa70-4bed-ace1-4a5a1c80b152" sourceRef="supervisorTimer" targetRef="reminderTask"/>
+    <boundaryEvent id="supervisorTimer" name="审批超时" attachedToRef="supervisorApproval" cancelActivity="false">
+      <timerEventDefinition>
+        <timeDuration>PT2M</timeDuration>
+      </timerEventDefinition>
+    </boundaryEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_leaveApplicationProcess2">
+    <bpmndi:BPMNPlane bpmnElement="leaveApplicationProcess2" id="BPMNPlane_leaveApplicationProcess2">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="29.999999999999996" x="30.000000322407065" y="178.00000366469365"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="calculateLeaveDays" id="BPMNShape_calculateLeaveDays">
+        <omgdc:Bounds height="60.0" width="99.99999999999999" x="120.00000128962826" y="163.00000175174506"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkLeaveTypeAndDays" id="BPMNShape_checkLeaveTypeAndDays">
+        <omgdc:Bounds height="40.0" width="40.0" x="150.00000290166358" y="285.0000242450121"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applyTask" id="BPMNShape_applyTask">
+        <omgdc:Bounds height="60.0" width="99.99999999999997" x="120.00000257925652" y="390.00000419129185"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="supervisorApproval" id="BPMNShape_supervisorApproval">
+        <omgdc:Bounds height="60.0" width="100.0" x="120.0" y="540.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="reminderTask" id="BPMNShape_reminderTask">
+        <omgdc:Bounds height="60.0" width="99.99999999999987" x="119.99999932538496" y="674.9999597668666"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="managerApproval" id="BPMNShape_managerApproval">
+        <omgdc:Bounds height="60.00000000000006" width="100.00000000000011" x="435.00001466952153" y="275.00001192906154"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hrApproval" id="BPMNShape_hrApproval">
+        <omgdc:Bounds height="60.0" width="100.0" x="735.0000161203534" y="540.000034927433"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkSupervisorResult" id="BPMNShape_checkSupervisorResult">
+        <omgdc:Bounds height="40.0" width="40.0" x="465.000009994619" y="550.0000117141235"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkManagerResult" id="BPMNShape_checkManagerResult">
+        <omgdc:Bounds height="40.0" width="40.0" x="765.0000082213802" y="285.0000090811324"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkHrResult" id="BPMNShape_checkHrResult">
+        <omgdc:Bounds height="40.0" width="40.0" x="930.000009994619" y="550.0000176249198"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="leaveRejected" id="BPMNShape_leaveRejected">
+        <omgdc:Bounds height="28.0" width="28.0" x="930.000009994619" y="291.00002737236093"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="reviseApplication" id="BPMNShape_reviseApplication">
+        <omgdc:Bounds height="60.0" width="100.0" x="735.0000319183" y="163.00000541643874"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="leaveApproved" id="BPMNShape_leaveApproved">
+        <omgdc:Bounds height="60.0" width="100.0" x="1215.000013057486" y="540.0000407307606"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="1251.0000265018607" y="135.00000725415913"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendNotification" id="BPMNShape_sendNotification">
+        <omgdc:Bounds height="60.0" width="100.0" x="1215.0000261149723" y="275.0000120365306"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="supervisorTimer" id="BPMNShape_supervisorTimer">
+        <omgdc:Bounds height="31.0" width="31.0" x="154.23447" y="585.1306"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="reviseToCalculate" id="BPMNEdge_reviseToCalculate" flowable:sourceDockerX="50.0" flowable:sourceDockerY="30.0" flowable:targetDockerX="49.99999999999999" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="735.0000315221623" y="193.00000511849618"/>
+        <omgdi:waypoint x="219.95000128962823" y="193.00000204938968"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="supervisorToCheck" id="BPMNEdge_supervisorToCheck" flowable:sourceDockerX="49.99999999999999" flowable:sourceDockerY="30.0" flowable:targetDockerX="20.0" flowable:targetDockerY="20.0">
+        <omgdi:waypoint x="219.94999756694602" y="570.0000018575251"/>
+        <omgdi:waypoint x="465.000009994619" y="570.0000109703697"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkToManagerApproval" id="BPMNEdge_checkToManagerApproval" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.00000000000006" flowable:targetDockerY="30.00000000000003">
+        <omgdi:waypoint x="485.0000103465597" y="550.0000120669465"/>
+        <omgdi:waypoint x="485.00001414028736" y="334.9500119290616"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="hrCheckToRejected" id="BPMNEdge_hrCheckToRejected" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="14.0" flowable:targetDockerY="14.0">
+        <omgdi:waypoint x="949.5572055506477" y="550.4392941265138"/>
+        <omgdi:waypoint x="944.3157796464374" y="318.9454205416888"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="notificationToEnd" id="BPMNEdge_notificationToEnd" flowable:sourceDockerX="50.0" flowable:sourceDockerY="30.0" flowable:targetDockerX="14.0" flowable:targetDockerY="14.0">
+        <omgdi:waypoint x="1265.0000261892499" y="275.0000120365306"/>
+        <omgdi:waypoint x="1265.00002646714" y="162.9499344869698"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1f4662ac-aa70-4bed-ace1-4a5a1c80b152" id="BPMNEdge_sid-1f4662ac-aa70-4bed-ace1-4a5a1c80b152" flowable:sourceDockerX="15.5" flowable:sourceDockerY="15.5" flowable:targetDockerX="49.99999999999995" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="169.8757" y="616.07996"/>
+        <omgdi:waypoint x="169.7257573769725" y="674.9999597668666"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="rejectedToNotification" id="BPMNEdge_rejectedToNotification" flowable:sourceDockerX="14.0" flowable:sourceDockerY="14.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="957.9500098291567" y="305.0000267035085"/>
+        <omgdi:waypoint x="1215.0000259613962" y="305.00001442290034"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkToRevise" id="BPMNEdge_checkToRevise" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="493.84048294570795" y="558.8626412390247"/>
+        <omgdi:waypoint x="761.1273515274039" y="222.95000541643876"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkToRejected" id="BPMNEdge_checkToRejected" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="14.0" flowable:targetDockerY="14.0">
+        <omgdi:waypoint x="497.6478693841814" y="562.6795699993991"/>
+        <omgdi:waypoint x="931.873591677852" y="311.97611424827807"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="hrToCheck" id="BPMNEdge_hrToCheck" flowable:sourceDockerX="50.0" flowable:sourceDockerY="30.0" flowable:targetDockerX="20.0" flowable:targetDockerY="20.0">
+        <omgdi:waypoint x="834.9500156181434" y="570.000029684247"/>
+        <omgdi:waypoint x="930.0000119526819" y="570.0000197169508"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="managerCheckToRevise" id="BPMNEdge_managerCheckToRevise" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="785.000012442393" y="285.0000133127242"/>
+        <omgdi:waypoint x="785.000025570911" y="222.95000541643876"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startToCalculate" id="BPMNEdge_startToCalculate" flowable:sourceDockerX="14.999999999999998" flowable:sourceDockerY="15.0" flowable:targetDockerX="49.99999999999999" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="59.94999915298962" y="193.00000343513983"/>
+        <omgdi:waypoint x="120.00000090273977" y="193.0000025161593"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkToApply" id="BPMNEdge_checkToApply" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="49.999999999999986" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="170.00000284559277" y="324.9413579222965"/>
+        <omgdi:waypoint x="170.00000266322252" y="390.00000419129185"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="managerCheckToHr" id="BPMNEdge_managerCheckToHr" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="785.0000088160386" y="324.9462457561323"/>
+        <omgdi:waypoint x="785.0000152261301" y="540.000034927433"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="hrCheckToApproved" id="BPMNEdge_hrCheckToApproved" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="969.9468428702817" y="570.0000190882896"/>
+        <omgdi:waypoint x="1215.0000126205193" y="570.0000370631668"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="calculateToCheck" id="BPMNEdge_calculateToCheck" flowable:sourceDockerX="49.99999999999999" flowable:sourceDockerY="30.0" flowable:targetDockerX="20.0" flowable:targetDockerY="20.0">
+        <omgdi:waypoint x="170.00000172070366" y="222.95000175174508"/>
+        <omgdi:waypoint x="170.00000261380018" y="285.0000242450121"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkToHrApproval" id="BPMNEdge_checkToHrApproval" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="504.9466845597374" y="570.0000132578085"/>
+        <omgdi:waypoint x="735.0000160788946" y="570.0000310585482"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="approvedToNotification" id="BPMNEdge_approvedToNotification" flowable:sourceDockerX="50.0" flowable:sourceDockerY="30.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="1265.0000145332283" y="540.0000407307606"/>
+        <omgdi:waypoint x="1265.0000246367665" y="334.9500120365306"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="managerCheckToRejected" id="BPMNEdge_managerCheckToRejected" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="14.0" flowable:targetDockerY="14.0">
+        <omgdi:waypoint x="804.9437362868473" y="305.00001137616357"/>
+        <omgdi:waypoint x="930.000009994619" y="305.00002576181254"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="hrCheckToRevise" id="BPMNEdge_hrCheckToRevise" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.0" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="943.9114498088662" y="556.0878560096236"/>
+        <omgdi:waypoint x="798.1081199378117" y="222.95000541643876"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="applyToSupervisor" id="BPMNEdge_applyToSupervisor" flowable:sourceDockerX="49.999999999999986" flowable:sourceDockerY="30.0" flowable:targetDockerX="49.99999999999999" flowable:targetDockerY="30.0">
+        <omgdi:waypoint x="170.00000206340516" y="449.95000419129184"/>
+        <omgdi:waypoint x="170.00000051499157" y="540.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="managerToCheck" id="BPMNEdge_managerToCheck" flowable:sourceDockerX="50.00000000000006" flowable:sourceDockerY="30.00000000000003" flowable:targetDockerX="20.0" flowable:targetDockerY="20.0">
+        <omgdi:waypoint x="534.9500118983453" y="305.0000114544067"/>
+        <omgdi:waypoint x="765.0000084112421" y="305.0000092705197"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkToManager" id="BPMNEdge_checkToManager" flowable:sourceDockerX="20.0" flowable:sourceDockerY="20.0" flowable:targetDockerX="50.00000000000006" flowable:targetDockerY="30.00000000000003">
+        <omgdi:waypoint x="189.94683801972604" y="305.0000234630471"/>
+        <omgdi:waypoint x="435.000014669361" y="305.00001388201935"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
