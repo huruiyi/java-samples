@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+  targetNamespace="http://www.activiti.org/test">
+
+
+  <process id="permissionApply" name="权限申请流程" isExecutable="true">
+
+    <!-- 开始事件：自动记录发起人 -->
+    <startEvent id="startEvent" activiti:initiator="requestUserId"/>
+
+    <!-- 用户申请任务（由发起人自己填写） -->
+    <userTask id="applyTask" name="填写权限申请" activiti:assignee="${requestUserId}"/>
+
+    <!-- 审批任务（固定 admin 处理） -->
+    <userTask id="approveTask" name="管理员审批" activiti:candidateUsers="admin1,admin2"/>
+
+    <!-- 结束事件 -->
+    <endEvent id="endEvent"/>
+
+    <!-- 连线 -->
+    <sequenceFlow sourceRef="startEvent" targetRef="applyTask"/>
+    <sequenceFlow sourceRef="applyTask" targetRef="approveTask"/>
+    <sequenceFlow sourceRef="approveTask" targetRef="endEvent"/>
+
+  </process>
+</definitions>
