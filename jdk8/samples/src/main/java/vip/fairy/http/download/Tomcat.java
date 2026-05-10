@@ -14,7 +14,8 @@ import vip.fairy.xml.ch.xpath.Test;
 
 public class Tomcat {
 
-  public final static String BIG_VERSION = "9";
+  public final static String BIG_VERSION = "11";
+  public final static String BASE_URL = "https://archive.apache.org/dist/tomcat";
 
   public static void main(String[] args) throws IOException {
     List<String> versions = getUrl();
@@ -41,41 +42,35 @@ public class Tomcat {
 
   private static List<String> getStrings(String version) {
     List<String> urls = new ArrayList<>();
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/src/apache-tomcat-{0}-src.tar.gz", version, BIG_VERSION));
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/src/apache-tomcat-{0}-src.zip", version, BIG_VERSION));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/src/apache-tomcat-{0}-src.tar.gz", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/src/apache-tomcat-{0}-src.zip", version, BIG_VERSION, BASE_URL));
 
-    urls.add(
-        MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-deployer.tar.gz", version, BIG_VERSION));
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-deployer.zip", version, BIG_VERSION));
-    urls.add(
-        MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-fulldocs.tar.gz", version, BIG_VERSION));
-    urls.add(
-        MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-windows-x64.zip", version, BIG_VERSION));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-deployer.tar.gz", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-deployer.zip", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-fulldocs.tar.gz", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-windows-x64.zip", version, BIG_VERSION, BASE_URL));
     if (!BIG_VERSION.equals("11")) {
-      urls.add(
-          MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-windows-x86.zip", version, BIG_VERSION));
+      urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}-windows-x86.zip", version, BIG_VERSION, BASE_URL));
     }
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}.exe", version, BIG_VERSION));
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}.tar.gz", version, BIG_VERSION));
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/apache-tomcat-{0}.zip", version, BIG_VERSION));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}.exe", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}.tar.gz", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/apache-tomcat-{0}.zip", version, BIG_VERSION, BASE_URL));
 
-    urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/embed/apache-tomcat-{0}-embed.tar.gz", version,
-        BIG_VERSION));
-    urls.add(
-        MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/embed/apache-tomcat-{0}-embed.zip", version, BIG_VERSION));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/embed/apache-tomcat-{0}-embed.tar.gz", version, BIG_VERSION, BASE_URL));
+    urls.add(MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/embed/apache-tomcat-{0}-embed.zip", version, BIG_VERSION, BASE_URL));
 
-    //urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-7/v{0}/bin/extras/catalina-jmx-remote.jar", version));
-    //urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-7/v{0}/bin/extras/catalina-ws.jar", version));
-    //urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-7/v{0}/bin/extras/tomcat-juli-adapters.jar", version));
-    //urls.add(MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-7/v{0}/bin/extras/tomcat-juli.jar", version));
+    //urls.add(MessageFormat.format("{2}/tomcat-7/v{0}/bin/extras/catalina-jmx-remote.jar", version));
+    //urls.add(MessageFormat.format("{2}/tomcat-7/v{0}/bin/extras/catalina-ws.jar", version));
+    //urls.add(MessageFormat.format("{2}/tomcat-7/v{0}/bin/extras/tomcat-juli-adapters.jar", version));
+    //urls.add(MessageFormat.format("{2}/tomcat-7/v{0}/bin/extras/tomcat-juli.jar", version));
     return urls;
   }
 
   static String getFileName(String url, String version) {
-    String extrasStr = MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/extras/", version, BIG_VERSION);
-    String embedStr = MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/embed/", version, BIG_VERSION);
-    String binStr = MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/bin/", version, BIG_VERSION);
-    String srcStr = MessageFormat.format("https://archive.apache.org/dist/tomcat/tomcat-{1}/v{0}/src/", version, BIG_VERSION);
+    String extrasStr = MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/extras/", version, BIG_VERSION, BASE_URL);
+    String embedStr = MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/embed/", version, BIG_VERSION, BASE_URL);
+    String binStr = MessageFormat.format("{2}/tomcat-{1}/v{0}/bin/", version, BIG_VERSION, BASE_URL);
+    String srcStr = MessageFormat.format("{2}/tomcat-{1}/v{0}/src/", version, BIG_VERSION, BASE_URL);
     if (url.contains(extrasStr)) {
       return url.replace(extrasStr, "");
     } else if (url.contains(embedStr)) {
