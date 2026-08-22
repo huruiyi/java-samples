@@ -1,4 +1,4 @@
-package vip.fairy.http;
+package vip.fairy.download.util;
 
 import java.io.BufferedInputStream;
 import java.io.File;

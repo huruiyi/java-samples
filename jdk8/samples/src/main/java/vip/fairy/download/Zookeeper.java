@@ -1,4 +1,4 @@
-package vip.fairy.http.download;
+package vip.fairy.download;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import vip.fairy.http.HttpUtils;
+import vip.fairy.download.util.HttpUtils;
 import vip.fairy.xml.ch.xpath.Test;
 
 public class Zookeeper {
